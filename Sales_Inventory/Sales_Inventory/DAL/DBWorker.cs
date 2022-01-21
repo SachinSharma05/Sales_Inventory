@@ -28,7 +28,7 @@ namespace Sales_Inventory.DAL
             if (context.Database.Connection.State != System.Data.ConnectionState.Open)
                 context.Database.Connection.Open();
 
-            using (var tran = context.Database.Connection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+            using (var tran = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
                 try
                 {

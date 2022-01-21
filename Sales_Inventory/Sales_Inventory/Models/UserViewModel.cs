@@ -22,5 +22,6 @@ namespace Sales_Inventory.Models
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string PasswordResetToken { get; set; }
     }
 }

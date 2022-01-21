@@ -2,6 +2,7 @@
 <Schema Namespace="Sales_InventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="Sales_InventoryEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
+    <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
   </EntityContainer>
   <EntityType Name="Employee">
@@ -27,6 +28,13 @@
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
   </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserId" />
@@ -44,6 +52,8 @@
     <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Precision="7" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
   </EntityType>

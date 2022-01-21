@@ -27,6 +27,8 @@ namespace Sales_Inventory.DAL
         public string City { get; set; }
         public string PostalCode { get; set; }
         public bool IsActive { get; set; }
+        public string PasswordResetToken { get; set; }
+        public Nullable<System.DateTime> PasswordResetTokenExpiry { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     }

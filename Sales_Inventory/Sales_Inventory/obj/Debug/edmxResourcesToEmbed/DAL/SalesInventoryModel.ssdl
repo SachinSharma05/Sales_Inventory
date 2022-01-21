@@ -23,6 +23,13 @@
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -40,11 +47,14 @@
     <Property Name="City" Type="nvarchar" MaxLength="50" />
     <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="200" />
+    <Property Name="PasswordResetTokenExpiry" Type="datetime2" Precision="7" />
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

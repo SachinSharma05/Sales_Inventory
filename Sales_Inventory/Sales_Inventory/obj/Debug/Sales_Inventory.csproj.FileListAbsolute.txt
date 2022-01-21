@@ -132,6 +132,7 @@ C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\ros
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Antlr3.Runtime.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\EntityFramework.dll
+C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\EntityFramework.SqlServer.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Newtonsoft.Json.dll
@@ -144,6 +145,7 @@ C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Sys
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\System.Web.WebPages.Razor.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\WebGrease.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\EntityFramework.xml
+C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\EntityFramework.SqlServer.xml
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\System.Web.Helpers.xml
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\System.Web.Mvc.xml
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\System.Web.Optimization.xml

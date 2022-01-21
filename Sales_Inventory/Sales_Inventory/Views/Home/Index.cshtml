@@ -1,6 +1,122 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Home Page
+<!--Status Board start---->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@TempData["TeachersCount"]</h3>
+                    <p>Employees</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Users", new { id = 1 })" class="small-box-footer">List All Teachers <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@TempData["StudentsCount"]</h3>
+                    <p>Students</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Users", new { id = 2 })" class="small-box-footer">List All Students <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@TempData["CoursesCount"]</h3>
+                    <p>Courses</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Users", new { id = 3 })" class="small-box-footer">List All Courses <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@TempData["BoardMemberCount"]</h3>
+                    <p>Board Members</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Users", new { id = 6 })" class="small-box-footer">List All Board Members <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Status Board end---->
+
+<style>
+    /**SWITCHBOARD**/
+    .test {
+        margin: 0px 15px !important;
+        min-height: auto !important;
+    }
+
+    .switch-board {
+        padding: 20px 20px 5px 12px;
+        margin-left: -5px;
+        background: #222d32;
+        color: #fff;
+    }
+
+    .switch-item {
+        text-align: center;
+        margin: 0px;
+    }
+
+        .switch-item li {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0px 8px;
+            display: inline-block;
+            margin: 0px 0px 10px 0px;
+            position: relative;
+            list-style: none;
+        }
+
+            .switch-item li a {
+                box-shadow: none !important;
+                width: 70px;
+                height: 70px;
+                padding: 0px !important;
+                display: block;
+                text-decoration: none;
+                border-radius: 50%;
+                border: 1px solid #fff;
+                margin-bottom: 8px;
+            }
+
+                .switch-item li a img {
+                    margin-top: 25%;
+                }
+
+                .switch-item li a span {
+                    display: block;
+                    text-align: center;
+                    padding: 0px 5px !important;
+                    font-size: 12px !important;
+                    color: #eee !important;
+                }
+
+            .switch-item li > span:hover {
+                color: #a1cc3a;
+            }
+
+            .switch-item li a:hover {
+                background: #a1cc3a;
+                border: 1px solid #a1cc3a;
+            }
+</style>

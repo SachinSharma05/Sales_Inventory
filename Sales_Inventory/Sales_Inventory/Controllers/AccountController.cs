@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Sales_Inventory.DAL;
+using Sales_Inventory.Encryption;
 using Sales_Inventory.Models;
 
 namespace Sales_Inventory.Controllers
@@ -13,8 +16,10 @@ namespace Sales_Inventory.Controllers
     {
         #region Variable
         DBWorker worker = new DBWorker();
+        SecurityEncryption SE = new SecurityEncryption();
         #endregion
 
+        #region Login
         // GET: Account
         public ActionResult Login()
         {
@@ -75,5 +80,125 @@ namespace Sales_Inventory.Controllers
             }
             return model;
         }
+        #endregion
+
+        #region Forgot Password
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return PartialView("_ForgotPassword");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword(ForgotViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/');
+                var user = worker.UserEntity.Get(s => s.Email == model.Email).FirstOrDefault();
+                if (user != null)
+                {
+                    string token = SE.Encrypt(user.UserId.ToString());
+                    MvcHtmlString Link1;
+
+                    SendVerificationLinkEmail(user.Email, token, "ResetPassword");
+
+                    DateTime expDate = DateTime.Now.AddHours(4);
+                    user.PasswordResetToken = token;
+                    user.PasswordResetTokenExpiry = expDate;
+                    worker.UserEntity.Update(user);
+                    worker.Save();
+                    ViewBag.Message = "Your Password Reset Link has been sent";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "E-mail is not valid");
+                }
+            }
+            return PartialView("_ForgotPassword");
+        }
+
+        [NonAction]
+        public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor)
+        {
+            var verifyUrl = "/Account/" + emailFor + "/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("sachin.sharma0583@gmail.com", "Sales Inventory Project");
+            var toEmail = new MailAddress(emailID);
+            var fromEmailPassword = "Saibaba@10583"; // Replace with actual password
+
+            string subject = "";
+            string body = "";
+            if (emailFor == "ResetPassword")
+            {
+                subject = "Reset Password";
+                body = "Hi,<br/><br/>We got request for reset your account password. Please click on the below link to reset your password" +
+                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+            }
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
+        }
+        #endregion
+
+        #region Reset Password
+        [HttpGet]
+        public ActionResult ResetPassword(string id)
+        {
+            ResetPasswordModel model = new ResetPasswordModel();
+            model.PasswordResetToken = id;
+            return PartialView("_ResetPassword", model);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            if (model.PasswordResetToken != null && model.PasswordResetToken != "")
+            {
+                int Id = Convert.ToInt32(SE.Decrypt(model.PasswordResetToken));
+                if (ModelState.IsValid)
+                {
+                    var user = worker.UserEntity.GetByID(Id);
+                    if (user != null)
+                    {
+                        if (user.PasswordResetToken == model.PasswordResetToken && user.PasswordResetTokenExpiry >= DateTime.Now)
+                        {
+                            user.Password = model.NewPassword;
+                            user.IsActive = true;
+                            worker.UserEntity.Update(user);
+                            worker.Save();
+                            return RedirectToAction("Login", "Account");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Reset Token Expired!");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid Token!");
+                    }
+                }
+            }
+            return View(model);
+        }
+        #endregion
     }
 }

@@ -46,11 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
-                            <div class="checkbox icheck">
-                                <label>
-                                    <input type="checkbox"> Remember Me
-                                </label>
-                            </div>
+                            @Html.ActionLink("I forgot my password?", "ForgotPassword")
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4">
@@ -60,8 +56,6 @@
                     </div>
                 </form>
             }
-
-            @Html.ActionLink("I forgot my password?", "ForgotPassword")
         </div>
         <!-- /.login-box-body -->
     </div>
