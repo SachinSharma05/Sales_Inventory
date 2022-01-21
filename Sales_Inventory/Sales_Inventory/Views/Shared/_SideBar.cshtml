@@ -1,0 +1,63 @@
+﻿    <!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active"><a href="/Home/Index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        @if (Session["UserId"] != null && Session["RoleId"] == null)
+        {
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Setup</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Role/List"><i class="fa fa-circle-o"></i> Role List</a></li>
+                    <li><a href="/Permission/List"><i class="fa fa-circle-o"></i> Permission List</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Manage Admin</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Admin/List"><i class="fa fa-circle-o"></i> Admin List</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Manage Employee</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Employee/List"><i class="fa fa-circle-o"></i> Employee List</a></li>
+                </ul>
+            </li>
+        }
+        else if (Session["UserId"] != null && Session["RoleId"] != null)
+        {
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Manage Employee</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Employee/List"><i class="fa fa-circle-o"></i> Employee List</a></li>
+                </ul>
+            </li>
+
+        }
+
+    </ul>
+</section>
+
