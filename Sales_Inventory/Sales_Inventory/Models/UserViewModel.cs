@@ -23,5 +23,6 @@ namespace Sales_Inventory.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string PasswordResetToken { get; set; }
+        public Nullable<System.DateTime> PasswordResetTokenExpiry { get; set; }
     }
 }

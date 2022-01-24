@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6e226731d5004dbe85490e2555903de1" Name="Diagram1" >
-        <EntityTypeShape EntityType="Sales_InventoryModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Sales_InventoryModel.Role" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.User" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.User" Width="1.5" PointX="5.625" PointY="0.875" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

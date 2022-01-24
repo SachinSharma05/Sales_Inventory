@@ -21,14 +21,11 @@ namespace Sales_Inventory.DAL
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
-        public string PhoneNo { get; set; }
-        public string Address { get; set; }
-        public string State { get; set; }
-        public string City { get; set; }
-        public string PostalCode { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsAvtive { get; set; }
         public string PasswordResetToken { get; set; }
-        public Nullable<System.DateTime> PasswordResetTokenExpiry { get; set; }
+        public System.DateTime PasswordResetTokenExpiry { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     }

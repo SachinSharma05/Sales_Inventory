@@ -4,60 +4,11 @@
     <ul class="sidebar-menu" data-widget="tree">
         @*<li class="header">MAIN NAVIGATION</li>*@
         <li class="active"><a href="/Home/Index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        @if (Session["UserId"] != null && Session["RoleId"] == null)
-        {
-
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Setup</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/Role/List"><i class="fa fa-circle-o"></i> Role List</a></li>
-                    <li><a href="/Permission/List"><i class="fa fa-circle-o"></i> Permission List</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Manage Admin</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/Admin/List"><i class="fa fa-circle-o"></i> Admin List</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Manage Employee</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/Employee/List"><i class="fa fa-circle-o"></i> Employee List</a></li>
-                </ul>
-            </li>
-        }
-        else if (Session["UserId"] != null && Session["RoleId"] != null)
-        {
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Manage Employee</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/Employee/List"><i class="fa fa-circle-o"></i> Employee List</a></li>
-                </ul>
-            </li>
-
-        }
-
+        <li><a href="/Employee/List"><i class="fa fa-users"></i> <span>Employees</span></a></li>
+        <li><a href="/Home/Index"><i class="fa fa-shopping-cart"></i> <span>Purchase</span></a></li>
+        <li><a href="/Home/Index"><i class="fa fa-briefcase"></i> <span>Sales</span></a></li>
+        <li><a href="/Home/Index"><i class="fa fa-dollar"></i> <span>Payment</span></a></li>
+        <li><a href="/Home/Index"><i class="fa fa-sign-out"></i> <span>Logout</span></a></li>
     </ul>
 </section>
 

@@ -5,18 +5,19 @@
       <PropertyRef Name="EmployeeId" />
     </Key>
     <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="DOB" Type="date" Nullable="false" />
-    <Property Name="BloodGroupId" Type="int" Nullable="false" />
+    <Property Name="BloodGroup" Type="nvarchar" MaxLength="10" />
     <Property Name="PermanentAddress" Type="nvarchar" MaxLength="150" />
+    <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
     <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="GuardianNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="AlternateNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="AadharNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="DateofJoining" Type="date" />
-    <Property Name="LastCompanyWorkedin" Type="nvarchar" MaxLength="50" />
-    <Property Name="DateLeft" Type="date" />
     <Property Name="Remarks" Type="nvarchar" MaxLength="1000" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="UpdatedBy" Type="int" />
@@ -41,14 +42,11 @@
     <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FullName" Type="varchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
-    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="Address" Type="nvarchar" MaxLength="150" />
-    <Property Name="State" Type="nvarchar" MaxLength="50" />
-    <Property Name="City" Type="nvarchar" MaxLength="50" />
-    <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="200" />
-    <Property Name="PasswordResetTokenExpiry" Type="datetime2" Precision="7" />
+    <Property Name="IsAvtive" Type="bit" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PasswordResetTokenExpiry" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>

@@ -56,16 +56,6 @@ namespace Sales_Inventory.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            Session.Clear();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Account");
-        }
-
         public UserViewModel VerifyLogin(string Email, string Password)
         {
             UserViewModel model = new UserViewModel();
@@ -76,7 +66,7 @@ namespace Sales_Inventory.Controllers
                 model.Fullname = user.FullName;
                 model.UserId = user.UserId;
                 model.RoleId = user.RoleId;
-                model.IsActive = user.IsActive;
+                model.IsActive = user.IsAvtive;
             }
             return model;
         }
@@ -181,7 +171,7 @@ namespace Sales_Inventory.Controllers
                         if (user.PasswordResetToken == model.PasswordResetToken && user.PasswordResetTokenExpiry >= DateTime.Now)
                         {
                             user.Password = model.NewPassword;
-                            user.IsActive = true;
+                            user.IsAvtive = true;
                             worker.UserEntity.Update(user);
                             worker.Save();
                             return RedirectToAction("Login", "Account");
@@ -198,6 +188,18 @@ namespace Sales_Inventory.Controllers
                 }
             }
             return View(model);
+        }
+        #endregion
+
+        #region Logout
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
         }
         #endregion
     }

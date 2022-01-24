@@ -1,33 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Sales_InventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="Sales_InventoryEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
     <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
+    <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
   </EntityContainer>
-  <EntityType Name="Employee">
-    <Key>
-      <PropertyRef Name="EmployeeId" />
-    </Key>
-    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="BloodGroupId" Type="Int32" Nullable="false" />
-    <Property Name="PermanentAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="AlternatePhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="GuardianNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DateofJoining" Type="DateTime" Precision="0" />
-    <Property Name="LastCompanyWorkedin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DateLeft" Type="DateTime" Precision="0" />
-    <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="UpdatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="RoleId" />
@@ -46,14 +23,35 @@
     <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="BloodGroup" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PermanentAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <Property Name="PasswordResetToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Precision="7" />
+    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AlternateNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateofJoining" Type="DateTime" Precision="0" />
+    <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
   </EntityType>
