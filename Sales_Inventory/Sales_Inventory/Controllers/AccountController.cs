@@ -62,11 +62,14 @@ namespace Sales_Inventory.Controllers
             if(Email != "" && Password != "")
             {
                 var user = worker.UserEntity.Get(x => x.Email == Email && x.Password == Password).FirstOrDefault();
-                model.Email = user.Email;
-                model.Fullname = user.FullName;
-                model.UserId = user.UserId;
-                model.RoleId = user.RoleId;
-                model.IsActive = user.IsAvtive;
+                if(user != null)
+                {
+                    model.Email = user.Email;
+                    model.Fullname = user.FullName;
+                    model.UserId = user.UserId;
+                    model.RoleId = user.RoleId;
+                    model.IsActive = user.IsAvtive;
+                }
             }
             return model;
         }

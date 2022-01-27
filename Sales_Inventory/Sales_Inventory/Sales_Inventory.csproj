@@ -7121,6 +7121,8 @@
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
     <Content Include="Views\Account\_ResetPassword.cshtml" />
     <Content Include="Views\Employee\List.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
