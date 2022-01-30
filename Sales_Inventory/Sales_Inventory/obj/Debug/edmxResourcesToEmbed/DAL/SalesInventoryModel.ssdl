@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Sales_InventoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Advance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Advance_To" Type="nvarchar" MaxLength="150" />
+    <Property Name="Advance_Date" Type="datetime" />
+    <Property Name="Advance_Amount" Type="nvarchar" MaxLength="150" />
+    <Property Name="Advance_Against" Type="nvarchar" MaxLength="150" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
   <EntityType Name="Employee">
     <Key>
       <PropertyRef Name="EmployeeId" />
@@ -24,12 +36,86 @@
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Payment_To" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_By" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Date" Type="datetime" Nullable="false" />
+    <Property Name="Payment_Against" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Account_No" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Account_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Amount" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Bank" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="IFSC_Code" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Receiver_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Sender_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
+    <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
+    <Property Name="Purchase_By" Type="nvarchar" MaxLength="150" />
+    <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
+    <Property Name="Purchase_By_Phone" Type="nvarchar" MaxLength="150" />
+    <Property Name="Purchase_Date" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Purchase_Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
+    <Property Name="Item" Type="nvarchar" MaxLength="150" />
+    <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+    <Property Name="Price" Type="nvarchar" MaxLength="150" />
+    <Property Name="Total" Type="nvarchar" MaxLength="150" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="RoleId" />
     </Key>
     <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Sale_Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
+    <Property Name="Item" Type="nvarchar" MaxLength="150" />
+    <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+    <Property Name="Price" Type="nvarchar" MaxLength="150" />
+    <Property Name="Total" Type="nvarchar" MaxLength="150" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
+    <Property Name="Sale_To" Type="nvarchar" MaxLength="150" />
+    <Property Name="Sale_By" Type="nvarchar" MaxLength="150" />
+    <Property Name="Sale_To_Phone" Type="nvarchar" MaxLength="150" />
+    <Property Name="Sale_By_Phone" Type="nvarchar" MaxLength="150" />
+    <Property Name="Sale_Date" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -51,8 +137,14 @@
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
+    <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sale_Product" EntityType="Self.Sale_Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

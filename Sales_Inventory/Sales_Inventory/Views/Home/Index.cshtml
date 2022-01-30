@@ -21,37 +21,37 @@
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>@TempData["StudentsCount"]</h3>
+                    <h3>@TempData["PurchaseCount"]</h3>
                     <p>Purchase</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-user"></i>
                 </div>
-                <a href="@Url.Action("List","Users", new { id = 2 })" class="small-box-footer">List All Purchase<i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("List","Purchase", new { id = 2 })" class="small-box-footer">List All Purchases <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>@TempData["CoursesCount"]</h3>
+                    <h3>@TempData["SalesCount"]</h3>
                     <p>Sale</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-user"></i>
                 </div>
-                <a href="@Url.Action("List","Users", new { id = 3 })" class="small-box-footer">List All Sale <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("List","Sales", new { id = 3 })" class="small-box-footer">List All Sales <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>@TempData["BoardMemberCount"]</h3>
+                    <h3>@TempData["PaymentCount"]</h3>
                     <p>Payment</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-user"></i>
                 </div>
-                <a href="@Url.Action("List","Users", new { id = 6 })" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("List","Payment", new { id = 6 })" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
@@ -77,46 +77,46 @@
         margin: 0px;
     }
 
-        .switch-item li {
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0px 8px;
-            display: inline-block;
-            margin: 0px 0px 10px 0px;
-            position: relative;
-            list-style: none;
-        }
+    .switch-item li {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0px 8px;
+        display: inline-block;
+        margin: 0px 0px 10px 0px;
+        position: relative;
+        list-style: none;
+    }
 
-            .switch-item li a {
-                box-shadow: none !important;
-                width: 70px;
-                height: 70px;
-                padding: 0px !important;
-                display: block;
-                text-decoration: none;
-                border-radius: 50%;
-                border: 1px solid #fff;
-                margin-bottom: 8px;
-            }
+    .switch-item li a {
+        box-shadow: none !important;
+        width: 70px;
+        height: 70px;
+        padding: 0px !important;
+        display: block;
+        text-decoration: none;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        margin-bottom: 8px;
+    }
 
-                .switch-item li a img {
-                    margin-top: 25%;
-                }
+    .switch-item li a img {
+        margin-top: 25%;
+    }
 
-                .switch-item li a span {
-                    display: block;
-                    text-align: center;
-                    padding: 0px 5px !important;
-                    font-size: 12px !important;
-                    color: #eee !important;
-                }
+    .switch-item li a span {
+        display: block;
+        text-align: center;
+        padding: 0px 5px !important;
+        font-size: 12px !important;
+        color: #eee !important;
+    }
 
-            .switch-item li > span:hover {
-                color: #a1cc3a;
-            }
+    .switch-item li > span:hover {
+        color: #a1cc3a;
+    }
 
-            .switch-item li a:hover {
-                background: #a1cc3a;
-                border: 1px solid #a1cc3a;
-            }
+    .switch-item li a:hover {
+        background: #a1cc3a;
+        border: 1px solid #a1cc3a;
+    }
 </style>

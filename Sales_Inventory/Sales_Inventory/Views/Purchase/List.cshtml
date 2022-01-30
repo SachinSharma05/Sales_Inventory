@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Sales_Inventory.Models.PurchaseViewModel>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="col-xs-12">
+    <div class="box">
+        <div class="box-header with-border">
+            <div class="form-group col-md-3">
+                <a class="btn btn-primary pull-left" href="/Purchase/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Purchase</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="Productlist" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Purchase_No</th>
+                        <th>Purchase From</th>
+                        <th>Purchase By</th>
+                        <th>Seller Phone</th>
+                        <th>Purchase Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody">
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.Purchase_No</td>
+                        <td>@item.Purchase_From</td>
+                        <td>@item.Purchase_By</td>
+                        <td>@item.Purchase_From_Phone</td>
+                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Purchase_Date)</td>
+                        <td>
+                            <a href="/Purchase/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
+                            <a href="/Purchase/Delete/@item.Id"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //$('#Emplist').DataTable()
+        $('#Productlist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    });
+
+</script>
+<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

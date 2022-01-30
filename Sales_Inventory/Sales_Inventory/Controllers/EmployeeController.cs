@@ -52,58 +52,66 @@ namespace Sales_Inventory.Controllers
         [HttpPost]
         public ActionResult Create(EmployeeViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Employee emp = new Employee();
-                emp.FirstName = model.FirstName;
-                emp.LastName = model.LastName;
-                emp.Email = model.Email;
-                emp.Gender = model.Gender;
-                emp.DOB = model.DOB;
-                emp.BloodGroup = model.BloodGroup;
-                emp.PermanentAddress = model.PermanentAddress;
-                emp.PostalCode = model.PostalCode;
-                emp.PhoneNo = model.PhoneNo;
-                emp.AlternateNumber = model.AlternateNumber;
-                emp.AadharNumber = model.AadharNumber;
-                emp.DateofJoining = model.DateofJoining;
-                emp.Remarks = model.Remarks;
-                emp.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                emp.UpdatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                emp.CreatedDate = DateTime.Now.Date;
-                worker.EmployeeEntity.Insert(emp);
-                worker.Save();
+                if (ModelState.IsValid)
+                {
+                    Employee emp = new Employee();
+                    emp.FirstName = model.FirstName;
+                    emp.LastName = model.LastName;
+                    emp.Email = model.Email;
+                    emp.Gender = model.Gender;
+                    emp.DOB = model.DOB;
+                    emp.BloodGroup = model.BloodGroup;
+                    emp.PermanentAddress = model.PermanentAddress;
+                    emp.PostalCode = model.PostalCode;
+                    emp.PhoneNo = model.PhoneNo;
+                    emp.AlternateNumber = model.AlternateNumber;
+                    emp.AadharNumber = model.AadharNumber;
+                    emp.DateofJoining = model.DateofJoining;
+                    emp.Remarks = model.Remarks;
+                    emp.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                    emp.UpdatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                    emp.CreatedDate = DateTime.Now.Date;
+                    worker.EmployeeEntity.Insert(emp);
+                    worker.Save();
+                }
+                return RedirectToAction("List");
             }
-            return RedirectToAction("List");
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 
         #region Edit Employee
         public ActionResult Edit(int Id)
         {
-            EmployeeViewModel model = GetById(Id);
-            return View(model);
-        }
-
-        public EmployeeViewModel GetById(int EmpId)
-        {
-            EmployeeViewModel model = new EmployeeViewModel();
-            var user = worker.EmployeeEntity.GetByID(EmpId);
-            model.EmployeeId = user.EmployeeId;
-            model.FirstName = user.FirstName;
-            model.LastName = user.LastName;
-            model.Email = user.Email;
-            model.Gender = user.Gender;
-            model.DOB = user.DOB;
-            model.BloodGroup = user.BloodGroup;
-            model.PermanentAddress = user.PermanentAddress;
-            model.PostalCode = user.PostalCode;
-            model.PhoneNo = user.PhoneNo;
-            model.AlternateNumber = user.AlternateNumber;
-            model.AadharNumber = user.AadharNumber;
-            model.DateofJoining = user.DateofJoining;
-            model.Remarks = user.Remarks;
-            return model;
+            try
+            {
+                EmployeeViewModel model = new EmployeeViewModel();
+                var user = worker.EmployeeEntity.GetByID(Id);
+                model.EmployeeId = user.EmployeeId;
+                model.FirstName = user.FirstName;
+                model.LastName = user.LastName;
+                model.Email = user.Email;
+                model.Gender = user.Gender;
+                model.DOB = user.DOB;
+                model.BloodGroup = user.BloodGroup;
+                model.PermanentAddress = user.PermanentAddress;
+                model.PostalCode = user.PostalCode;
+                model.PhoneNo = user.PhoneNo;
+                model.AlternateNumber = user.AlternateNumber;
+                model.AadharNumber = user.AadharNumber;
+                model.DateofJoining = user.DateofJoining;
+                model.Remarks = user.Remarks;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost]
@@ -112,9 +120,8 @@ namespace Sales_Inventory.Controllers
             if(ModelState.IsValid)
             {
                 UpdateEmployee(model);
-                return RedirectToAction("List");
             }
-            return View(model);
+            return RedirectToAction("List");
         }
 
         public bool UpdateEmployee(EmployeeViewModel model)

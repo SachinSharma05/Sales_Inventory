@@ -1,0 +1,60 @@
+﻿@model  IEnumerable<Sales_Inventory.Models.AdvanceViewModel>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="col-xs-12">
+    <div class="box">
+        <div class="box-header with-border">
+            <div class="form-group col-md-3">
+                <a class="btn btn-primary pull-left" href="/AdvancePayment/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Advance</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="Advancelist" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Advance To</th>
+                        <th>Advance Date</th>
+                        <th>Advance Amount</th>
+                        <th>Advance Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Advance_To</td>
+                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Advance_Date)</td>
+                            <td>@item.Advance_Amount</td>
+                            <td>@item.Advance_Against</td>
+                            <td>
+                                <a href="/AdvancePayment/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
+                                <a href="/AdvancePayment/Delete/@item.Id"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //$('#Emplist').DataTable()
+        $('#Advancelist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    });
+
+</script>
+<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

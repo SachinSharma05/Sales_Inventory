@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Sales_InventoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Advance_To" Type="nvarchar" MaxLength="150" />
+          <Property Name="Advance_Date" Type="datetime" />
+          <Property Name="Advance_Amount" Type="nvarchar" MaxLength="150" />
+          <Property Name="Advance_Against" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
@@ -29,12 +41,86 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="UpdatedDate" Type="date" />
         </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Payment_To" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_By" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Date" Type="datetime" Nullable="false" />
+          <Property Name="Payment_Against" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Account_No" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Account_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Amount" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Bank" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IFSC_Code" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Receiver_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Payment_Sender_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
+          <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
+          <Property Name="Purchase_By" Type="nvarchar" MaxLength="150" />
+          <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Purchase_By_Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Purchase_Date" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Purchase_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
+          <Property Name="Item" Type="nvarchar" MaxLength="150" />
+          <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+          <Property Name="Price" Type="nvarchar" MaxLength="150" />
+          <Property Name="Total" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sale_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
+          <Property Name="Item" Type="nvarchar" MaxLength="150" />
+          <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+          <Property Name="Price" Type="nvarchar" MaxLength="150" />
+          <Property Name="Total" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sale_To" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sale_By" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sale_To_Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sale_By_Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sale_Date" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -56,8 +142,14 @@
           <Property Name="UpdatedDate" Type="date" />
         </EntityType>
         <EntityContainer Name="Sales_InventoryModelStoreContainer">
+          <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale_Product" EntityType="Self.Sale_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -65,35 +157,27 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Sales_InventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Sales_InventoryEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
-          <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
+          <EntitySet Name="Advances" EntityType="Sales_InventoryModel.Advance" />
           <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
+          <EntitySet Name="Payments" EntityType="Sales_InventoryModel.Payment" />
+          <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
+          <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
+          <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
+          <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
+          <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
+          <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
         </EntityContainer>
-        <EntityType Name="Role">
+        <EntityType Name="Advance">
           <Key>
-            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Advance_To" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Advance_Date" Type="DateTime" Precision="3" />
+          <Property Name="Advance_Amount" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Advance_Against" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -119,37 +203,122 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Payment_To" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_By" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Payment_Against" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Account_No" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Account_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Amount" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Bank" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IFSC_Code" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Receiver_Phone" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Sender_Phone" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_From" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_By" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_From_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_By_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_Date" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Purchase_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sale_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sale_To" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sale_By" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sale_To_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sale_By_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sale_Date" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Sales_InventoryModelStoreContainer" CdmEntityContainer="Sales_InventoryEntities" >
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="RoleType" ColumnName="RoleType" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <EntitySetMapping Name="Advances">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Advance">
+              <MappingFragment StoreEntitySet="Advance">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="PasswordResetTokenExpiry" ColumnName="PasswordResetTokenExpiry" />
-                <ScalarProperty Name="PasswordResetToken" ColumnName="PasswordResetToken" />
-                <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Advance_Against" ColumnName="Advance_Against" />
+                <ScalarProperty Name="Advance_Amount" ColumnName="Advance_Amount" />
+                <ScalarProperty Name="Advance_Date" ColumnName="Advance_Date" />
+                <ScalarProperty Name="Advance_To" ColumnName="Advance_To" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -175,6 +344,113 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Payment_Sender_Phone" ColumnName="Payment_Sender_Phone" />
+                <ScalarProperty Name="Payment_Receiver_Phone" ColumnName="Payment_Receiver_Phone" />
+                <ScalarProperty Name="IFSC_Code" ColumnName="IFSC_Code" />
+                <ScalarProperty Name="Payment_Bank" ColumnName="Payment_Bank" />
+                <ScalarProperty Name="Payment_Amount" ColumnName="Payment_Amount" />
+                <ScalarProperty Name="Payment_Account_Name" ColumnName="Payment_Account_Name" />
+                <ScalarProperty Name="Payment_Account_No" ColumnName="Payment_Account_No" />
+                <ScalarProperty Name="Payment_Type" ColumnName="Payment_Type" />
+                <ScalarProperty Name="Payment_Against" ColumnName="Payment_Against" />
+                <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+                <ScalarProperty Name="Payment_By" ColumnName="Payment_By" />
+                <ScalarProperty Name="Payment_To" ColumnName="Payment_To" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Purchase_Date" ColumnName="Purchase_Date" />
+                <ScalarProperty Name="Purchase_By_Phone" ColumnName="Purchase_By_Phone" />
+                <ScalarProperty Name="Purchase_From_Phone" ColumnName="Purchase_From_Phone" />
+                <ScalarProperty Name="Purchase_By" ColumnName="Purchase_By" />
+                <ScalarProperty Name="Purchase_From" ColumnName="Purchase_From" />
+                <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Product">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase_Product">
+              <MappingFragment StoreEntitySet="Purchase_Product">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Product">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Sale_Product">
+              <MappingFragment StoreEntitySet="Sale_Product">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Sale">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Sale_Date" ColumnName="Sale_Date" />
+                <ScalarProperty Name="Sale_By_Phone" ColumnName="Sale_By_Phone" />
+                <ScalarProperty Name="Sale_To_Phone" ColumnName="Sale_To_Phone" />
+                <ScalarProperty Name="Sale_By" ColumnName="Sale_By" />
+                <ScalarProperty Name="Sale_To" ColumnName="Sale_To" />
+                <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PasswordResetTokenExpiry" ColumnName="PasswordResetTokenExpiry" />
+                <ScalarProperty Name="PasswordResetToken" ColumnName="PasswordResetToken" />
+                <ScalarProperty Name="IsAvtive" ColumnName="IsAvtive" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

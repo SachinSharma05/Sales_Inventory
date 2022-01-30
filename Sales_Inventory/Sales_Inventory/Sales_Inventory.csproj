@@ -131,14 +131,31 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdvancePaymentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="DAL\Advance.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DBWorker.cs" />
     <Compile Include="DAL\Employee.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\Payment.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Purchase.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Purchase_Product.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Role.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Sale.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\SalesInventoryModel.Context.cs">
@@ -156,6 +173,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SalesInventoryModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Sale_Product.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\User.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -163,10 +183,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdvanceViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\PaymentViewModel.cs" />
+    <Compile Include="Models\PurchaseViewModel.cs" />
+    <Compile Include="Models\Purchase_Products.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
+    <Compile Include="Models\SalesViewModel.cs" />
+    <Compile Include="Models\Sale_Products.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -7123,6 +7149,11 @@
     <Content Include="Views\Employee\List.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Purchase\Create.cshtml" />
+    <Content Include="Views\Purchase\List.cshtml" />
+    <Content Include="Views\AdvancePayment\List.cshtml" />
+    <Content Include="Views\AdvancePayment\Create.cshtml" />
+    <Content Include="Views\AdvancePayment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

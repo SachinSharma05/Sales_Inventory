@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sales_Inventory.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -109,6 +110,111 @@ namespace Sales_Inventory.DAL
                     this.employeeEntity = new GenericRepository<Employee>(context);
                 }
                 return employeeEntity;
+            }
+        }
+        #endregion
+
+        #region [Purchase]
+        private GenericRepository<Purchase> purchaseEntity;
+        public GenericRepository<Purchase> PurchaseEntity
+        {
+            get
+            {
+                if (this.purchaseEntity == null)
+                {
+                    this.purchaseEntity = new GenericRepository<Purchase>(context);
+                }
+                return purchaseEntity;
+            }
+        }
+        #endregion
+
+        #region [Sales]
+        private GenericRepository<Sale> saleEntity;
+        public GenericRepository<Sale> SaleEntity
+        {
+            get
+            {
+                if (this.saleEntity == null)
+                {
+                    this.saleEntity = new GenericRepository<Sale>(context);
+                }
+                return saleEntity;
+            }
+        }
+        #endregion
+
+        #region [Payment]
+        private GenericRepository<Payment> paymentEntity;
+        public GenericRepository<Payment> PaymentEntity
+        {
+            get
+            {
+                if (this.paymentEntity == null)
+                {
+                    this.paymentEntity = new GenericRepository<Payment>(context);
+                }
+                return paymentEntity;
+            }
+        }
+        #endregion
+
+        #region [Advance]
+        private GenericRepository<Advance> advanceEntity;
+        public GenericRepository<Advance> AdvanceEntity
+        {
+            get
+            {
+                if (this.advanceEntity == null)
+                {
+                    this.advanceEntity = new GenericRepository<Advance>(context);
+                }
+                return advanceEntity;
+            }
+        }
+        #endregion
+
+        #region [Role]
+        private GenericRepository<Role> roleEntity;
+        public GenericRepository<Role> RoleEntity
+        {
+            get
+            {
+                if (this.roleEntity == null)
+                {
+                    this.roleEntity = new GenericRepository<Role>(context);
+                }
+                return roleEntity;
+            }
+        }
+        #endregion
+
+        #region [Purchase_Product]
+        private GenericRepository<Purchase_Products> purchaseProductEntity;
+        public GenericRepository<Purchase_Products> PurchaseProductEntity
+        {
+            get
+            {
+                if (this.purchaseProductEntity == null)
+                {
+                    this.purchaseProductEntity = new GenericRepository<Purchase_Products>(context);
+                }
+                return purchaseProductEntity;
+            }
+        }
+        #endregion
+
+        #region [Sale_Product]
+        private GenericRepository<Sale_Products> saleProductEntity;
+        public GenericRepository<Sale_Products> SaleProductEntity
+        {
+            get
+            {
+                if (this.saleProductEntity == null)
+                {
+                    this.saleProductEntity = new GenericRepository<Sale_Products>(context);
+                }
+                return saleProductEntity;
             }
         }
         #endregion
