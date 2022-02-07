@@ -12,14 +12,10 @@ namespace Sales_Inventory.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Purchase_Product
+    public partial class ProductType
     {
         public int Id { get; set; }
-        public string Purchase_No { get; set; }
-        public string ItemName { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public string Price { get; set; }
-        public string Total { get; set; }
+        public string Product { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     }

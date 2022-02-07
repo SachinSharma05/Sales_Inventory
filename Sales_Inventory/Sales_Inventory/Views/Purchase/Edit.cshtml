@@ -1,7 +1,7 @@
 ﻿@model Sales_Inventory.Models.PurchaseViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,6 +10,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Profile Detail</h3>
         </div>
+        @Html.HiddenFor(m => m.Id, new { id = "purchaseId" })
         <div class="box-body">
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
@@ -65,20 +66,19 @@
                     @foreach (var item in Model.purchase_Products)
                     {
                         <tr>
-                            <td>@item.ItemName</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Price</td>
-                            <td>@item.Total</td>
+                            <td>@Html.TextBoxFor(m => item.ItemName, new { @class = "form-control", @id = "txtItemName" })</td>
+                            <td>@Html.TextBoxFor(m => item.Quantity, new { @class = "form-control", @id = "txtQuantity" })</td>
+                            <td>@Html.TextBoxFor(m => item.Price, new { @class = "form-control", @id = "txtPrice" })</td>
+                            <td>@Html.TextBoxFor(m => item.Total, new { @class = "form-control", @id = "txtTotal", @readonly = "true" })</td>
                             <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr>
-                        @*<td><input type="text" id="txtItemName" class="form-control" /></td>*@
-                        <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
-                        <td><input type="number" id="txtQuantity" class="form-control" /></td>
-                        <td><input type="text" id="txtPrice" class="form-control" /></td>
+                        <td><input type="text" id="txtItemName" class="form-control" /></td>
+                        <td><input type="number" id="txtQuantityNew" class="form-control" /></td>
+                        <td><input type="text" id="txtPriceNew" class="form-control" /></td>
                         <td><input type="text" id="txtTotal" class="form-control" readonly /></td>
                         <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>
                     </tr>
@@ -86,13 +86,15 @@
             </table>
         </div>
         <div class="box-footer">
-            <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
+            <input type="submit" class="btn btn-primary" value="Update" id="btnSave" />
             <a href="@Url.Action("List", "Purchase")" class="btn btn-default">Cancel</a>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    var rowCount = document.getElementById('tblProducts').rows.length;
+    debugger;
     $("body").on("click", "#btnAdd", function () {
         //Reference the Name and Country TextBoxes.
         var txtItemName = $("#txtItemName");
@@ -110,15 +112,15 @@
         var cell = $(row.insertCell(-1));
         cell.html(txtItemName.val());
 
-        //Add Age cell.
+        //Add Quantity cell.
         cell = $(row.insertCell(-1));
         cell.html(txtQuantity.val());
 
-        //Add Sex cell.
+        //Add Price cell.
         cell = $(row.insertCell(-1));
         cell.html(txtPrice.val());
 
-        //Add Berth cell.
+        //Add Total cell.
         cell = $(row.insertCell(-1));
         cell.html(txtTotal.val());
 
@@ -142,7 +144,7 @@
         //Determine the reference of the Row using the Button.
         var row = $(button).closest("TR");
         var name = $("TD", row).eq(0).html();
-        if (confirm("Do you want to delete: " + name)) {
+        if (confirm("Do you want to delete this product")) {
             //Get the reference of the Table.
             var table = $("#tblProducts")[0];
 
@@ -165,6 +167,7 @@
         });
 
         var data = new FormData();
+        data.append('purchaseId', $("#purchaseId").val());
         data.append('purchaseFrom', $("#purchaseFrom").val());
         data.append('purchaseBy', $("#purchaseBy").val());
         data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
@@ -176,15 +179,13 @@
         //Send the JSON array to Controller using AJAX.
         $.ajax({
             type: "POST",
-            url: "/Purchase/Create",
+            url: "/Purchase/Edit",
             data: data,
             processData: false,
             contentType: false,
-            success: function (result) {
-                toastr.success('Record(s) Inserted Successfully')
-                if (result) {
-                    window.location.href = '@Url.Action("List","Purchase")';
-                }
+            success: function (r) {
+                alert("Record(s) Updated.");
+                window.location.href("/Purchase/List");
             }
         });
     });
@@ -198,5 +199,14 @@
         texttwo = parseFloat($('#txtPrice').val());
         var result = textone * texttwo;
         $('#txtTotal').val(result.toFixed(2));
+    });
+
+    $('#txtPrice1').keyup(function () {
+        var textone;
+        var texttwo;
+        textone = parseFloat($('#txtQuantity1').val());
+        texttwo = parseFloat($('#txtPrice1').val());
+        var result = textone * texttwo;
+        $('#txtTotal1').val(result.toFixed(2));
     });
 </script>

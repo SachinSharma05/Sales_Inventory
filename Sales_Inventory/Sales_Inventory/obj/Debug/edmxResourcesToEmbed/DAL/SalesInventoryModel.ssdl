@@ -48,11 +48,21 @@
     <Property Name="Payment_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Account_No" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Account_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Payment_Amount" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Payment_Amount" Type="int" Nullable="false" />
     <Property Name="Payment_Bank" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="IFSC_Code" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Receiver_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Sender_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product" Type="nvarchar" MaxLength="150" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -76,8 +86,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
-    <Property Name="Item" Type="nvarchar" MaxLength="150" />
-    <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
+    <Property Name="Quantity" Type="int" />
     <Property Name="Price" Type="nvarchar" MaxLength="150" />
     <Property Name="Total" Type="nvarchar" MaxLength="150" />
     <Property Name="CreatedBy" Type="int" />
@@ -117,6 +127,16 @@
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product" Type="nvarchar" MaxLength="150" />
+    <Property Name="TotalQuantity" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -140,11 +160,13 @@
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sale_Product" EntityType="Self.Sale_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

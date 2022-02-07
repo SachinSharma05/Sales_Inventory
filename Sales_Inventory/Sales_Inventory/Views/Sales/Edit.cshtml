@@ -1,4 +1,4 @@
-﻿@model Sales_Inventory.Models.PurchaseViewModel
+﻿@model Sales_Inventory.Models.SalesViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -13,30 +13,30 @@
         <div class="box-body">
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
-                    <label>Purchase From</label>
-                    @Html.TextBoxFor(m => m.Purchase_From, new { @class = "form-control required", placeholder = "Enter Purchase From Name", @id = "purchaseFrom" })
-                    @Html.ValidationMessageFor(m => m.Purchase_From)
+                    <label>Sale From</label>
+                    @Html.TextBoxFor(m => m.Sale_To, new { @class = "form-control required", placeholder = "Enter Sale To Name", @id = "saleFrom" })
+                    @Html.ValidationMessageFor(m => m.Sale_To)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Buyer Name</label>
-                    @Html.TextBoxFor(m => m.Purchase_By, new { @class = "form-control required", placeholder = "Enter Buyer Name", @id = "purchaseBy" })
-                    @Html.ValidationMessageFor(m => m.Purchase_By)
+                    @Html.TextBoxFor(m => m.Sale_By, new { @class = "form-control required", placeholder = "Enter Sale By Name", @id = "saleBy" })
+                    @Html.ValidationMessageFor(m => m.Sale_By)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Seller Phone </label>
-                    @Html.TextBoxFor(m => m.Purchase_From_Phone, new { @class = "form-control required", placeholder = "Enter Seller Phone No", @id = "sellerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Purchase_From_Phone)
+                    @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "sellerPhoneNo" })
+                    @Html.ValidationMessageFor(m => m.Sale_To_Phone)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Buyer Phone </label>
-                    @Html.TextBoxFor(m => m.Purchase_By_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Purchase_By_Phone)
+                    @Html.TextBoxFor(m => m.Sale_By_Phone, new { @class = "form-control required", placeholder = "Enter Seller Phone No", @id = "buyerPhoneNo" })
+                    @Html.ValidationMessageFor(m => m.Sale_By_Phone)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -46,8 +46,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        @Html.TextBoxFor(m => m.Purchase_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Purchase Date dd/mm/yyyy", @id = "purchaseDate" })
-                        @Html.ValidationMessageFor(m => m.Purchase_Date)
+                        @Html.TextBoxFor(m => m.Sale_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Sale Date dd/mm/yyyy", @id = "saleDate" })
+                        @Html.ValidationMessageFor(m => m.Sale_Date)
                     </div>
                 </div>
             </div>
@@ -62,10 +62,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.purchase_Products)
+                    @foreach (var item in Model.sale_Products)
                     {
                         <tr>
-                            <td>@item.ItemName</td>
+                            <td>@item.Item</td>
                             <td>@item.Quantity</td>
                             <td>@item.Price</td>
                             <td>@item.Total</td>
@@ -75,19 +75,18 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        @*<td><input type="text" id="txtItemName" class="form-control" /></td>*@
-                        <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
+                        <td><input type="text" id="txtItemName" class="form-control" /></td>
                         <td><input type="number" id="txtQuantity" class="form-control" /></td>
                         <td><input type="text" id="txtPrice" class="form-control" /></td>
-                        <td><input type="text" id="txtTotal" class="form-control" readonly /></td>
+                        <td><input type="text" id="txtTotal" class="form-control" /></td>
                         <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
         <div class="box-footer">
-            <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
-            <a href="@Url.Action("List", "Purchase")" class="btn btn-default">Cancel</a>
+            <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+            <a href="@Url.Action("List", "Sales")" class="btn btn-default">Cancel</a>
         </div>
     </div>
 </div>
@@ -126,7 +125,6 @@
         cell = $(row.insertCell(-1));
         var btnRemove = $("<input />");
         btnRemove.attr("type", "button");
-        btnRemove.attr("class", "form-control");
         btnRemove.attr("onclick", "Remove(this);");
         btnRemove.val("Remove");
         cell.append(btnRemove);
@@ -153,7 +151,7 @@
 
     $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
-        var purchase_Products = new Array();
+        var sale_Products = new Array();
         $("#tblProducts TBODY TR").each(function () {
             var row = $(this);
             var product = {};
@@ -161,30 +159,28 @@
             product.Quantity = row.find("TD").eq(1).html();
             product.Price = row.find("TD").eq(2).html();
             product.Total = row.find("TD").eq(3).html();
-            purchase_Products.push(product);
+            sale_Products.push(product);
         });
 
         var data = new FormData();
-        data.append('purchaseFrom', $("#purchaseFrom").val());
-        data.append('purchaseBy', $("#purchaseBy").val());
+        data.append('saleFrom', $("#saleFrom").val());
+        data.append('saleBy', $("#saleBy").val());
         data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
         data.append('buyerPhoneNo', $("#buyerPhoneNo").val());
-        data.append('purchaseDate', $("#purchaseDate").val());
-        data.append('purchase_Prod', JSON.stringify(purchase_Products));
+        data.append('saleDate', $("#saleDate").val());
+        data.append('sale_Prod', JSON.stringify(sale_Products));
         debugger;
 
         //Send the JSON array to Controller using AJAX.
         $.ajax({
             type: "POST",
-            url: "/Purchase/Create",
+            url: "/Sales/Create",
             data: data,
             processData: false,
             contentType: false,
-            success: function (result) {
-                toastr.success('Record(s) Inserted Successfully')
-                if (result) {
-                    window.location.href = '@Url.Action("List","Purchase")';
-                }
+            success: function (r) {
+                alert("Record(s) Inserted.");
+                window.location("")
             }
         });
     });

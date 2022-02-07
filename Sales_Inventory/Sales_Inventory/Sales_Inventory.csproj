@@ -134,7 +134,9 @@
     <Compile Include="Controllers\AdvancePaymentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="DAL\Advance.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +146,9 @@
     </Compile>
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\Payment.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ProductType.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Purchase.cs">
@@ -176,6 +181,9 @@
     <Compile Include="DAL\Sale_Product.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Stock.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\User.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -188,11 +196,13 @@
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
+    <Compile Include="Models\ProductTypeSelectListModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
     <Compile Include="Models\Purchase_Products.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SalesViewModel.cs" />
     <Compile Include="Models\Sale_Products.cs" />
+    <Compile Include="Models\StockViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -6620,6 +6630,9 @@
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Content\plugins\toastr\toastr.css" />
+    <Content Include="Content\plugins\toastr\toastr.min.css" />
+    <Content Include="Content\plugins\toastr\toastr.min.js" />
     <Content Include="DAL\SalesInventoryModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SalesInventoryModel.Context.cs</LastGenOutput>
@@ -7115,6 +7128,7 @@
     <Content Include="DAL\SalesInventoryModel.edmx.diagram">
       <DependentUpon>SalesInventoryModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\toastr\toastr.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -7154,6 +7168,13 @@
     <Content Include="Views\AdvancePayment\List.cshtml" />
     <Content Include="Views\AdvancePayment\Create.cshtml" />
     <Content Include="Views\AdvancePayment\Edit.cshtml" />
+    <Content Include="Views\Purchase\Edit.cshtml" />
+    <Content Include="Views\Sales\List.cshtml" />
+    <Content Include="Views\Sales\Create.cshtml" />
+    <Content Include="Views\Sales\Edit.cshtml" />
+    <Content Include="Views\Payment\List.cshtml" />
+    <Content Include="Views\Payment\Create.cshtml" />
+    <Content Include="Views\Payment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

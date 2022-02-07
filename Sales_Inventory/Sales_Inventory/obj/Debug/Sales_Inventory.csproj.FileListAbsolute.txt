@@ -78,6 +78,7 @@ C:\Users\Admin\Desktop\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory
 C:\Users\Admin\Desktop\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.csproj.CopyComplete
 C:\Users\Admin\Desktop\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.dll
 C:\Users\Admin\Desktop\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.pdb
+C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.dll.config
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.pdb
@@ -156,7 +157,6 @@ C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Sys
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Newtonsoft.Json.xml
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Antlr3.Runtime.pdb
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.csproj.CopyComplete
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Debug\Sales_Inventory.pdb

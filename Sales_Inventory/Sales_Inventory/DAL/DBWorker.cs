@@ -190,14 +190,14 @@ namespace Sales_Inventory.DAL
         #endregion
 
         #region [Purchase_Product]
-        private GenericRepository<Purchase_Products> purchaseProductEntity;
-        public GenericRepository<Purchase_Products> PurchaseProductEntity
+        private GenericRepository<Purchase_Product> purchaseProductEntity;
+        public GenericRepository<Purchase_Product> PurchaseProductEntity
         {
             get
             {
                 if (this.purchaseProductEntity == null)
                 {
-                    this.purchaseProductEntity = new GenericRepository<Purchase_Products>(context);
+                    this.purchaseProductEntity = new GenericRepository<Purchase_Product>(context);
                 }
                 return purchaseProductEntity;
             }
@@ -205,16 +205,46 @@ namespace Sales_Inventory.DAL
         #endregion
 
         #region [Sale_Product]
-        private GenericRepository<Sale_Products> saleProductEntity;
-        public GenericRepository<Sale_Products> SaleProductEntity
+        private GenericRepository<Sale_Product> saleProductEntity;
+        public GenericRepository<Sale_Product> SaleProductEntity
         {
             get
             {
                 if (this.saleProductEntity == null)
                 {
-                    this.saleProductEntity = new GenericRepository<Sale_Products>(context);
+                    this.saleProductEntity = new GenericRepository<Sale_Product>(context);
                 }
                 return saleProductEntity;
+            }
+        }
+        #endregion
+
+        #region [Stock]
+        private GenericRepository<Stock> stockEntity;
+        public GenericRepository<Stock> StockEntity
+        {
+            get
+            {
+                if (this.stockEntity == null)
+                {
+                    this.stockEntity = new GenericRepository<Stock>(context);
+                }
+                return stockEntity;
+            }
+        }
+        #endregion
+
+        #region [Product Type]
+        private GenericRepository<ProductType> productTypeEntity;
+        public GenericRepository<ProductType> ProductTypeEntity
+        {
+            get
+            {
+                if (this.productTypeEntity == null)
+                {
+                    this.productTypeEntity = new GenericRepository<ProductType>(context);
+                }
+                return productTypeEntity;
             }
         }
         #endregion

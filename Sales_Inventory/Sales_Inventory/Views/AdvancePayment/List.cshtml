@@ -34,7 +34,7 @@
                             <td>@item.Advance_Against</td>
                             <td>
                                 <a href="/AdvancePayment/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                                <a href="/AdvancePayment/Delete/@item.Id"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                                <a href="/AdvancePayment/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                             </td>
                         </tr>
                     }

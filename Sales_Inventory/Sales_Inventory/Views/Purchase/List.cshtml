@@ -25,7 +25,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="tblbody">
+                <tbody>
                     @foreach (var item in Model)
                     {
                     <tr>
@@ -36,7 +36,7 @@
                         <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Purchase_Date)</td>
                         <td>
                             <a href="/Purchase/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                            <a href="/Purchase/Delete/@item.Id"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            <a href="/Purchase/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
                         </td>
                     </tr>
                     }
@@ -51,12 +51,12 @@
         $('#Productlist').DataTable({
             'paging': true,
             'lengthChange': false,
-            'searching': false,
-            'ordering': true,
+            'searching': true,
+            'ordering': false,
             'info': true,
             'autoWidth': false
         })
     });
-
 </script>
+
 <script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
