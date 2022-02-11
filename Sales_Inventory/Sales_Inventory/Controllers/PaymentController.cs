@@ -30,7 +30,6 @@ namespace Sales_Inventory.Controllers
                     {
                         Id = item.Id,
                         Payment_To = item.Payment_To,
-                        Payment_By = item.Payment_By,
                         Payment_Date = item.Payment_Date,
                         Payment_Against = item.Payment_Against,
                         Payment_Type = item.Payment_Type,
@@ -44,9 +43,11 @@ namespace Sales_Inventory.Controllers
         #endregion
 
         #region Create Payment
-        public ActionResult Create()
+        public ActionResult Create(int Id)
         {
-            return View();
+            PaymentViewModel model = new PaymentViewModel();
+            model.Id = Id;
+            return View(model);
         }
 
         [HttpPost]
@@ -54,11 +55,12 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
+                var Purchase_No = worker.PurchaseEntity.GetByID(model.Id);
                 if (ModelState.IsValid)
                 {
                     Payment payment = new Payment();
+                    //payment.Purchase_No
                     payment.Payment_To = model.Payment_To;
-                    payment.Payment_By = model.Payment_By;
                     payment.Payment_Date = model.Payment_Date;
                     payment.Payment_Against = model.Payment_Against;
                     payment.Payment_Type = model.Payment_Type;
@@ -68,7 +70,6 @@ namespace Sales_Inventory.Controllers
                     payment.Payment_Bank = model.Payment_Bank;
                     payment.IFSC_Code = model.IFSC_Code;
                     payment.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
-                    payment.Payment_Sender_Phone = model.Payment_Sender_Phone;
                     //payment.Balance = 
                     payment.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     payment.CreatedDate = DateTime.Now.Date;
@@ -92,7 +93,6 @@ namespace Sales_Inventory.Controllers
                 PaymentViewModel model = new PaymentViewModel();
                 var payment = worker.PaymentEntity.GetByID(Id);
                 model.Payment_To = payment.Payment_To;
-                model.Payment_By = payment.Payment_By;
                 model.Payment_Date = payment.Payment_Date;
                 model.Payment_Against = payment.Payment_Against;
                 model.Payment_Type = payment.Payment_Type;
@@ -102,7 +102,6 @@ namespace Sales_Inventory.Controllers
                 model.Payment_Bank = model.Payment_Bank;
                 model.IFSC_Code = model.IFSC_Code;
                 model.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
-                model.Payment_Sender_Phone = payment.Payment_Sender_Phone;
                 model.Balance = payment.Balance;
                 return View(model);
             }
@@ -121,7 +120,6 @@ namespace Sales_Inventory.Controllers
                 {
                     Payment payment = worker.PaymentEntity.GetByID(model.Id);
                     payment.Payment_To = model.Payment_To;
-                    payment.Payment_By = model.Payment_By;
                     payment.Payment_Date = model.Payment_Date;
                     payment.Payment_Against = model.Payment_Against;
                     payment.Payment_Type = model.Payment_Type;
@@ -131,7 +129,6 @@ namespace Sales_Inventory.Controllers
                     payment.Payment_Bank = model.Payment_Bank;
                     payment.IFSC_Code = model.IFSC_Code;
                     payment.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
-                    payment.Payment_Sender_Phone = model.Payment_Sender_Phone;
                     payment.Balance = model.Balance;
                     worker.PaymentEntity.Update(payment);
                     worker.Save();

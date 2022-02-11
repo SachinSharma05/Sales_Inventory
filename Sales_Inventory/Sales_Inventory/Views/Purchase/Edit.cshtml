@@ -76,7 +76,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td><input type="text" id="txtItemName" class="form-control" /></td>
+                        <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
+                        @*<td><input type="text" id="txtItemName" class="form-control" /></td>*@
                         <td><input type="number" id="txtQuantityNew" class="form-control" /></td>
                         <td><input type="text" id="txtPriceNew" class="form-control" /></td>
                         <td><input type="text" id="txtTotal" class="form-control" readonly /></td>
@@ -93,8 +94,6 @@
 </div>
 
 <script type="text/javascript">
-    var rowCount = document.getElementById('tblProducts').rows.length;
-    debugger;
     $("body").on("click", "#btnAdd", function () {
         //Reference the Name and Country TextBoxes.
         var txtItemName = $("#txtItemName");

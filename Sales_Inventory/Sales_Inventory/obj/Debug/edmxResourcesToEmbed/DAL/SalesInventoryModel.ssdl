@@ -41,8 +41,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Purchase_No" Type="nvarchar" MaxLength="50" />
     <Property Name="Payment_To" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Payment_By" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Date" Type="datetime" Nullable="false" />
     <Property Name="Payment_Against" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -52,7 +52,6 @@
     <Property Name="Payment_Bank" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="IFSC_Code" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Payment_Receiver_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Payment_Sender_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Balance" Type="int" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
@@ -73,10 +72,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
-    <Property Name="Purchase_By" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
-    <Property Name="Purchase_By_Phone" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_Date" Type="datetime" />
+    <Property Name="GrossTotal" Type="int" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -88,8 +86,8 @@
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
     <Property Name="Quantity" Type="int" />
-    <Property Name="Price" Type="nvarchar" MaxLength="150" />
-    <Property Name="Total" Type="nvarchar" MaxLength="150" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Total" Type="int" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -107,7 +105,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
     <Property Name="Item" Type="nvarchar" MaxLength="150" />
-    <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+    <Property Name="Quantity" Type="int" />
     <Property Name="Price" Type="nvarchar" MaxLength="150" />
     <Property Name="Total" Type="nvarchar" MaxLength="150" />
     <Property Name="CreatedBy" Type="int" />

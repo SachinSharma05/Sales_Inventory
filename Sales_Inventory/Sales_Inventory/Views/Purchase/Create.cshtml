@@ -20,23 +20,9 @@
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
-                    <label>Buyer Name</label>
-                    @Html.TextBoxFor(m => m.Purchase_By, new { @class = "form-control required", placeholder = "Enter Buyer Name", @id = "purchaseBy" })
-                    @Html.ValidationMessageFor(m => m.Purchase_By)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
                     <label>Seller Phone </label>
                     @Html.TextBoxFor(m => m.Purchase_From_Phone, new { @class = "form-control required", placeholder = "Enter Seller Phone No", @id = "sellerPhoneNo" })
                     @Html.ValidationMessageFor(m => m.Purchase_From_Phone)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Buyer Phone </label>
-                    @Html.TextBoxFor(m => m.Purchase_By_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Purchase_By_Phone)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -166,9 +152,7 @@
 
         var data = new FormData();
         data.append('purchaseFrom', $("#purchaseFrom").val());
-        data.append('purchaseBy', $("#purchaseBy").val());
         data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
-        data.append('buyerPhoneNo', $("#buyerPhoneNo").val());
         data.append('purchaseDate', $("#purchaseDate").val());
         data.append('purchase_Prod', JSON.stringify(purchase_Products));
         debugger;
@@ -197,6 +181,6 @@
         textone = parseFloat($('#txtQuantity').val());
         texttwo = parseFloat($('#txtPrice').val());
         var result = textone * texttwo;
-        $('#txtTotal').val(result.toFixed(2));
+        $('#txtTotal').val(result);
     });
 </script>

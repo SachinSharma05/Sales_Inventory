@@ -94,6 +94,30 @@ namespace Sales_Inventory.Controllers
                         worker.SaleProductEntity.Insert(sale_Product);
                         worker.Save();
                     }
+
+                    foreach (var item in sale_Products)
+                    {
+                        var stockList = worker.StockEntity.Get(x => x.Product == item.Item).ToList();
+                        if(stockList.Count > 0)
+                        {
+                            Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
+                            stockItem.TotalQuantity = stockItem.TotalQuantity - item.Quantity;
+                            stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                            stockItem.CreatedDate = DateTime.Now.Date;
+                            worker.StockEntity.Update(stockItem);
+                            worker.Save();
+                        }
+                        else
+                        {
+                            Stock stock = new Stock();
+                            stock.Product = item.Item;
+                            stock.TotalQuantity = item.Quantity;
+                            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                            stock.CreatedDate = DateTime.Now.Date;
+                            worker.StockEntity.Insert(stock);
+                            worker.Save();
+                        }
+                    }
                 }
                 return RedirectToAction("List");
             }

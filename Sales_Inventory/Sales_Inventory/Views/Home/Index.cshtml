@@ -62,9 +62,11 @@
     <div class="row">
         <div class="col-xs-6">
             <div class="box">
-                <h3 style="text-align:center">Stock List</h3>
+                <div class="box-header">
+                    <h3 class="box-title">Stock List</h3>
+                </div>
                 <div class="box-body">
-                    <table id="Stocklist" class="table table-bordered table-striped">
+                    <table id="Stocklist" class="table table-bordered table-striped table-hover for-alignment">
                         <thead>
                             <tr>
                                 <th>Product</th>
@@ -86,9 +88,11 @@
         </div>
         <div class="col-xs-6">
             <div class="box">
-                <h3 style="text-align:center">Balance Amount</h3>
+                <div class="box-header">
+                    <h3 class="box-title">Balance Amount List</h3>
+                </div>
                 <div class="box-body">
-                    <table id="BalanceAmountlist" class="table table-bordered table-striped">
+                    <table id="BalanceAmountlist" class="table table-bordered table-striped table-hover for-alignment">
                         <thead>
                             <tr>
                                 <th></th>
@@ -164,29 +168,41 @@
 
 <script>
     $(function () {
-        //$('#Emplist').DataTable()
         $('#Stocklist').DataTable({
             'paging': true,
-            'lengthChange': false,
             'searching': false,
-            'ordering': false,
             'info': false,
-            'autoWidth': false,
+            'lengthChange': false,
             'pageLength': 5
         })
+        //$('#Stocklist').DataTable({
+        //    'paging': true,
+        //    'lengthChange': false,
+        //    'searching': false,
+        //    'ordering': false,
+        //    'info': false,
+        //    'autoWidth': false,
+        //    'pageLength': 5
+        //})
     });
 
     $(function () {
-        //$('#Emplist').DataTable()
         $('#BalanceAmountlist').DataTable({
             'paging': true,
-            'lengthChange': false,
             'searching': false,
-            'ordering': false,
             'info': false,
-            'autoWidth': false,
+            'lengthChange': false,
             'pageLength': 5
         })
+        //$('#BalanceAmountlist').DataTable({
+        //    'paging': true,
+        //    'lengthChange': false,
+        //    'searching': false,
+        //    'ordering': false,
+        //    'info': false,
+        //    'autoWidth': false,
+        //    'pageLength': 5
+        //})
     });
 </script>
 

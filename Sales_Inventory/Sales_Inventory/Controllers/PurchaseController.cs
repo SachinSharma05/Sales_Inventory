@@ -32,10 +32,9 @@ namespace Sales_Inventory.Controllers
                         Id = item.Id,
                         Purchase_No = item.Purchase_No,
                         Purchase_From = item.Purchase_From,
-                        Purchase_By = item.Purchase_By,
                         Purchase_From_Phone = item.Purchase_From_Phone,
-                        Purchase_By_Phone = item.Purchase_By_Phone,
-                        Purchase_Date = item.Purchase_Date
+                        Purchase_Date = item.Purchase_Date,
+                        GrossTotal = item.GrossTotal
                     });
                 }
             }
@@ -67,21 +66,26 @@ namespace Sales_Inventory.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public ActionResult Create(string purchaseFrom, string purchaseBy, string sellerPhoneNo, string buyerPhoneNo, string purchaseDate, List<string> purchase_Prod)
+        public ActionResult Create(string purchaseFrom, string sellerPhoneNo, string purchaseDate, List<string> purchase_Prod)
         {
             string json = purchase_Prod[0].ToString();
             string Purchase_No = "";
+            int GrossTotal = 0;
             List<Purchase_Products> purchase_Products = JsonConvert.DeserializeObject<List<Purchase_Products>>(json);
             try
             {
+                foreach (var item in purchase_Products)
+                {
+                    GrossTotal += Convert.ToInt32(item.Total);
+                }
+
                 if (ModelState.IsValid)
                 {
                     Purchase pur = new Purchase();
                     pur.Purchase_From = purchaseFrom;
-                    pur.Purchase_By = purchaseBy;
                     pur.Purchase_From_Phone = sellerPhoneNo;
-                    pur.Purchase_By_Phone = buyerPhoneNo;
                     pur.Purchase_Date = Convert.ToDateTime(purchaseDate);
+                    pur.GrossTotal = GrossTotal;
                     pur.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     pur.CreatedDate = DateTime.Now.Date;
                     worker.PurchaseEntity.Insert(pur);
@@ -104,11 +108,35 @@ namespace Sales_Inventory.Controllers
                         purchase_Product.ItemName = item.ItemName;
                         purchase_Product.Quantity = item.Quantity;
                         purchase_Product.Price = item.Price;
-                        purchase_Product.Total = item.Total;
+                        purchase_Product.Total = Convert.ToInt32(item.Total);
                         purchase_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                         purchase_Product.CreatedDate = DateTime.Now.Date;
                         worker.PurchaseProductEntity.Insert(purchase_Product);
                         worker.Save();
+                    }
+
+                    foreach (var item in purchase_Products)
+                    {
+                        var stockList = worker.StockEntity.Get(x => x.Product == item.ItemName).ToList();                      
+                        if(stockList.Count > 0)
+                        {
+                            Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
+                            stockItem.TotalQuantity = stockItem.TotalQuantity + item.Quantity;
+                            stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                            stockItem.CreatedDate = DateTime.Now.Date;
+                            worker.StockEntity.Update(stockItem);
+                            worker.Save();
+                        }
+                        else
+                        {
+                            Stock stock = new Stock();
+                            stock.Product = item.ItemName;
+                            stock.TotalQuantity = item.Quantity;
+                            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                            stock.CreatedDate = DateTime.Now.Date;
+                            worker.StockEntity.Insert(stock);
+                            worker.Save();
+                        }
                     }
                 }
                 return RedirectToAction("List");
@@ -118,6 +146,49 @@ namespace Sales_Inventory.Controllers
                 throw ex;
             }
         }
+
+        //public bool UpdateStock(string ItemName)
+        //{
+        //    try
+        //    {
+        //        var chkProduct = worker.StockEntity.Get(x => x.Product == ItemName).ToList();
+        //        var oldQuantity = worker.PurchaseProductEntity.Get(x => x.ItemName == ItemName).ToList();
+        //        if (chkProduct.Count > 0)
+        //        {
+        //            Stock stock = new Stock();
+        //            stock.TotalQuantity = oldQuantity[0].Quantity + chkProduct[0].TotalQuantity;
+        //            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+        //            stock.CreatedDate = DateTime.Now.Date;
+        //            worker.StockEntity.Update(stock);
+        //            worker.Save();
+        //        }
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //public bool InsertStock()
+        //{
+        //    try
+        //    {
+        //        Stock stock = new Stock();
+        //        stock.Product = item.ItemName;
+        //        stock.TotalQuantity = item.Quantity;
+        //        stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+        //        stock.CreatedDate = DateTime.Now.Date;
+        //        worker.StockEntity.Insert(stock);
+        //        worker.Save();
+
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         #endregion
 
         #region Edit Purchase
@@ -131,9 +202,7 @@ namespace Sales_Inventory.Controllers
                 model.Id = pur.Id;
                 model.Purchase_No = pur.Purchase_No;
                 model.Purchase_From = pur.Purchase_From;
-                model.Purchase_By = pur.Purchase_By;
                 model.Purchase_From_Phone = pur.Purchase_From_Phone;
-                model.Purchase_By_Phone = pur.Purchase_By_Phone;
                 model.Purchase_Date = pur.Purchase_Date;
 
                 var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
@@ -144,10 +213,11 @@ namespace Sales_Inventory.Controllers
                     purchase_Product.ItemName = item.ItemName;
                     purchase_Product.Quantity = item.Quantity;
                     purchase_Product.Price = item.Price;
-                    purchase_Product.Total = item.Total;
+                    purchase_Product.Total = Convert.ToString(item.Total);
                     purchase_Products.Add(purchase_Product);
                 }
                 model.purchase_Products = purchase_Products;
+                model.ProductList = GetProductTypeList();
                 return View(model);
             }
             catch(Exception ex)
@@ -167,9 +237,7 @@ namespace Sales_Inventory.Controllers
                 {
                     Purchase pur = worker.PurchaseEntity.GetByID(Convert.ToInt32(purchaseId));
                     pur.Purchase_From = purchaseFrom;
-                    pur.Purchase_By = purchaseBy;
                     pur.Purchase_From_Phone = sellerPhoneNo;
-                    pur.Purchase_By_Phone = buyerPhoneNo;
                     pur.Purchase_Date = Convert.ToDateTime(purchaseDate);
                     worker.PurchaseEntity.Update(pur);
                     worker.Save();

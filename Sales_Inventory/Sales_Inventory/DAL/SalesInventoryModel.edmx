@@ -46,8 +46,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purchase_No" Type="nvarchar" MaxLength="50" />
           <Property Name="Payment_To" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="Payment_By" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Payment_Date" Type="datetime" Nullable="false" />
           <Property Name="Payment_Against" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Payment_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -57,7 +57,6 @@
           <Property Name="Payment_Bank" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="IFSC_Code" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Payment_Receiver_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="Payment_Sender_Phone" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Balance" Type="int" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="date" />
@@ -78,10 +77,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
           <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
-          <Property Name="Purchase_By" Type="nvarchar" MaxLength="150" />
           <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
-          <Property Name="Purchase_By_Phone" Type="nvarchar" MaxLength="150" />
           <Property Name="Purchase_Date" Type="datetime" />
+          <Property Name="GrossTotal" Type="int" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="date" />
         </EntityType>
@@ -93,8 +91,8 @@
           <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="Price" Type="nvarchar" MaxLength="150" />
-          <Property Name="Total" Type="nvarchar" MaxLength="150" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Total" Type="int" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="date" />
         </EntityType>
@@ -112,7 +110,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
           <Property Name="Item" Type="nvarchar" MaxLength="150" />
-          <Property Name="Quantity" Type="nvarchar" MaxLength="150" />
+          <Property Name="Quantity" Type="int" />
           <Property Name="Price" Type="nvarchar" MaxLength="150" />
           <Property Name="Total" Type="nvarchar" MaxLength="150" />
           <Property Name="CreatedBy" Type="int" />
@@ -181,15 +179,15 @@
         <EntityContainer Name="Sales_InventoryEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Advances" EntityType="Sales_InventoryModel.Advance" />
           <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
-          <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
+          <EntitySet Name="Payments" EntityType="Sales_InventoryModel.Payment" />
+          <EntitySet Name="ProductTypes" EntityType="Sales_InventoryModel.ProductType" />
+          <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
           <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
           <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
           <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
-          <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
-          <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
-          <EntitySet Name="Payments" EntityType="Sales_InventoryModel.Payment" />
           <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
-          <EntitySet Name="ProductTypes" EntityType="Sales_InventoryModel.ProductType" />
+          <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
+          <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
         </EntityContainer>
         <EntityType Name="Advance">
           <Key>
@@ -227,17 +225,45 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="Purchase">
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purchase_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_To" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Payment_Against" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Account_No" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Account_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Amount" Type="Int32" Nullable="false" />
+          <Property Name="Payment_Bank" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IFSC_Code" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Receiver_Phone" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Purchase_Product">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Purchase_From" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Purchase_By" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Purchase_From_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Purchase_By_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Purchase_Date" Type="DateTime" Precision="3" />
+          <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
@@ -255,7 +281,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
           <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int32" />
@@ -272,6 +298,16 @@
           <Property Name="Sale_To_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Sale_By_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Sale_Date" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TotalQuantity" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
@@ -294,56 +330,16 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="Purchase_Product">
+        <EntityType Name="Purchase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="Payment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Payment_To" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_By" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Payment_Against" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Account_No" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Account_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Amount" Type="Int32" Nullable="false" />
-          <Property Name="Payment_Bank" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="IFSC_Code" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Receiver_Phone" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Payment_Sender_Phone" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="Stock">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="TotalQuantity" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="ProductType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_From" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_From_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_Date" Type="DateTime" Precision="3" />
+          <Property Name="GrossTotal" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
@@ -391,16 +387,46 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Purchases">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase">
-              <MappingFragment StoreEntitySet="Purchase">
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Purchase_Date" ColumnName="Purchase_Date" />
-                <ScalarProperty Name="Purchase_By_Phone" ColumnName="Purchase_By_Phone" />
-                <ScalarProperty Name="Purchase_From_Phone" ColumnName="Purchase_From_Phone" />
-                <ScalarProperty Name="Purchase_By" ColumnName="Purchase_By" />
-                <ScalarProperty Name="Purchase_From" ColumnName="Purchase_From" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Payment_Receiver_Phone" ColumnName="Payment_Receiver_Phone" />
+                <ScalarProperty Name="IFSC_Code" ColumnName="IFSC_Code" />
+                <ScalarProperty Name="Payment_Bank" ColumnName="Payment_Bank" />
+                <ScalarProperty Name="Payment_Amount" ColumnName="Payment_Amount" />
+                <ScalarProperty Name="Payment_Account_Name" ColumnName="Payment_Account_Name" />
+                <ScalarProperty Name="Payment_Account_No" ColumnName="Payment_Account_No" />
+                <ScalarProperty Name="Payment_Type" ColumnName="Payment_Type" />
+                <ScalarProperty Name="Payment_Against" ColumnName="Payment_Against" />
+                <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+                <ScalarProperty Name="Payment_To" ColumnName="Payment_To" />
+                <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Product">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase_Product">
+              <MappingFragment StoreEntitySet="Purchase_Product">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -443,6 +469,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Sales_InventoryModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -463,59 +500,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Purchase_Product">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase_Product">
-              <MappingFragment StoreEntitySet="Purchase_Product">
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
+                <ScalarProperty Name="Purchase_Date" ColumnName="Purchase_Date" />
+                <ScalarProperty Name="Purchase_From_Phone" ColumnName="Purchase_From_Phone" />
+                <ScalarProperty Name="Purchase_From" ColumnName="Purchase_From" />
                 <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
-              <MappingFragment StoreEntitySet="Payment">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Payment_Sender_Phone" ColumnName="Payment_Sender_Phone" />
-                <ScalarProperty Name="Payment_Receiver_Phone" ColumnName="Payment_Receiver_Phone" />
-                <ScalarProperty Name="IFSC_Code" ColumnName="IFSC_Code" />
-                <ScalarProperty Name="Payment_Bank" ColumnName="Payment_Bank" />
-                <ScalarProperty Name="Payment_Amount" ColumnName="Payment_Amount" />
-                <ScalarProperty Name="Payment_Account_Name" ColumnName="Payment_Account_Name" />
-                <ScalarProperty Name="Payment_Account_No" ColumnName="Payment_Account_No" />
-                <ScalarProperty Name="Payment_Type" ColumnName="Payment_Type" />
-                <ScalarProperty Name="Payment_Against" ColumnName="Payment_Against" />
-                <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
-                <ScalarProperty Name="Payment_By" ColumnName="Payment_By" />
-                <ScalarProperty Name="Payment_To" ColumnName="Payment_To" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stocks">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Stock">
-              <MappingFragment StoreEntitySet="Stock">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-                <ScalarProperty Name="Product" ColumnName="Product" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductTypes">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.ProductType">
-              <MappingFragment StoreEntitySet="ProductType">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Product" ColumnName="Product" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
