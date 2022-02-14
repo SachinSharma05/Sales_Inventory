@@ -1,0 +1,209 @@
+﻿@model IEnumerable<Sales_Inventory.Models.StockViewModel>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!--Status Board start---->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@TempData["EmployeeCount"]</h3>
+                    <p>Employees</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Employee")" class="small-box-footer">List All Employees <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@TempData["PurchaseCount"]</h3>
+                    <p>Purchase</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Purchase")" class="small-box-footer">List All Purchases <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@TempData["SalesCount"]</h3>
+                    <p>Sale</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Sales")" class="small-box-footer">List All Sales <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@TempData["PaymentCount"]</h3>
+                    <p>Payment</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Stock List</h3>
+                </div>
+                <div class="box-body">
+                    <table id="Stocklist" class="table table-bordered table-striped table-hover for-alignment">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total Stock(KG's)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Product</td>
+                                    <td>@item.TotalQuantity</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Balance Amount List</h3>
+                </div>
+                <div class="box-body">
+                    <table id="BalanceAmountlist" class="table table-bordered table-striped table-hover for-alignment">
+                        <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Status Board end---->
+
+<style>
+    /**SWITCHBOARD**/
+    .test {
+        margin: 0px 15px !important;
+        min-height: auto !important;
+    }
+    .switch-board {
+        padding: 20px 20px 5px 12px;
+        margin-left: -5px;
+        background: #222d32;
+        color: #fff;
+    }
+    .switch-item {
+        text-align: center;
+        margin: 0px;
+    }
+    .switch-item li {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0px 8px;
+        display: inline-block;
+        margin: 0px 0px 10px 0px;
+        position: relative;
+        list-style: none;
+    }
+    .switch-item li a {
+        box-shadow: none !important;
+        width: 70px;
+        height: 70px;
+        padding: 0px !important;
+        display: block;
+        text-decoration: none;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        margin-bottom: 8px;
+    }
+    .switch-item li a img {
+        margin-top: 25%;
+    }
+    .switch-item li a span {
+        display: block;
+        text-align: center;
+        padding: 0px 5px !important;
+        font-size: 12px !important;
+        color: #eee !important;
+    }
+    .switch-item li > span:hover {
+        color: #a1cc3a;
+    }
+    .switch-item li a:hover {
+        background: #a1cc3a;
+        border: 1px solid #a1cc3a;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('#Stocklist').DataTable({
+            'paging': true,
+            'searching': false,
+            'info': false,
+            'lengthChange': false,
+            'pageLength': 5
+        })
+        //$('#Stocklist').DataTable({
+        //    'paging': true,
+        //    'lengthChange': false,
+        //    'searching': false,
+        //    'ordering': false,
+        //    'info': false,
+        //    'autoWidth': false,
+        //    'pageLength': 5
+        //})
+    });
+
+    $(function () {
+        $('#BalanceAmountlist').DataTable({
+            'paging': true,
+            'searching': false,
+            'info': false,
+            'lengthChange': false,
+            'pageLength': 5
+        })
+        //$('#BalanceAmountlist').DataTable({
+        //    'paging': true,
+        //    'lengthChange': false,
+        //    'searching': false,
+        //    'ordering': false,
+        //    'info': false,
+        //    'autoWidth': false,
+        //    'pageLength': 5
+        //})
+    });
+</script>
+
+<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
