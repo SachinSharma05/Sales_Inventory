@@ -1,9 +1,18 @@
 ﻿@model Sales_Inventory.Models.SalesViewModel
 
 @{
-    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Sales Edit</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="@Url.Action("List", "Sales")"><i class="fa fa-calendar"></i> Sales List</a></li>
+        <li class="active">Edit</li>
+    </ol>
+</section>
 
 <div class="col-md-12">
     <div class="box box-primary">
@@ -14,29 +23,15 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Sale From</label>
-                    @Html.TextBoxFor(m => m.Sale_To, new { @class = "form-control required", placeholder = "Enter Sale To Name", @id = "saleFrom" })
+                    @Html.TextBoxFor(m => m.Sale_To, new { @class = "form-control required", placeholder = "Enter Sale To Name", @id = "saleTo" })
                     @Html.ValidationMessageFor(m => m.Sale_To)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
-                    <label>Buyer Name</label>
-                    @Html.TextBoxFor(m => m.Sale_By, new { @class = "form-control required", placeholder = "Enter Sale By Name", @id = "saleBy" })
-                    @Html.ValidationMessageFor(m => m.Sale_By)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
                     <label>Seller Phone </label>
-                    @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "sellerPhoneNo" })
+                    @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo" })
                     @Html.ValidationMessageFor(m => m.Sale_To_Phone)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Buyer Phone </label>
-                    @Html.TextBoxFor(m => m.Sale_By_Phone, new { @class = "form-control required", placeholder = "Enter Seller Phone No", @id = "buyerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Sale_By_Phone)
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
@@ -49,6 +44,20 @@
                         @Html.TextBoxFor(m => m.Sale_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Sale Date dd/mm/yyyy", @id = "saleDate" })
                         @Html.ValidationMessageFor(m => m.Sale_Date)
                     </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Gross Total </label>
+                    @Html.TextBoxFor(m => m.GrossTotal, new { @class = "form-control required", @readonly = "readonly", @id = "GrossTotal" })
+                    @Html.ValidationMessageFor(m => m.GrossTotal)
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Balance </label>
+                    @Html.TextBoxFor(m => m.Balance, new { @class = "form-control required", @readonly = "readonly", @id = "Balance" })
+                    @Html.ValidationMessageFor(m => m.Balance)
                 </div>
             </div>
             <table id="tblProducts" class="table" cellpadding="0" cellspacing="0">
@@ -75,7 +84,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td><input type="text" id="txtItemName" class="form-control" /></td>
+                        <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
                         <td><input type="number" id="txtQuantity" class="form-control" /></td>
                         <td><input type="text" id="txtPrice" class="form-control" /></td>
                         <td><input type="text" id="txtTotal" class="form-control" /></td>

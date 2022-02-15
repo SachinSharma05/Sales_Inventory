@@ -1,11 +1,19 @@
 ﻿@model  IEnumerable<Sales_Inventory.Models.PaymentViewModel>
 
 @{
-    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
 
 <div class="col-xs-12">
     <div class="box">
@@ -18,30 +26,29 @@
             <table id="Paymentlist" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <td>Purchase No</td>
                         <th>Payment To</th>
                         <th>Date</th>
-                        <th>Reason</th>
                         <th>Mode</th>
-                        <th>Amount</th>
+                        <th>Paid Amount</th>
                         <th>Balance</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tblbody">
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>@item.Payment_To</td>
-                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Payment_Date)</td>
-                        <td>@item.Payment_Against</td>
-                        <td>@item.Payment_Type</td>
-                        <td>@item.Payment_Amount</td>
-                        <td>@item.Balance</td>
-                        <td>
-                            <a href="/Employee/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                            <a href="/Employee/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.Purchase_No</td>
+                            <td>@item.Payment_To</td>
+                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Payment_Date)</td>
+                            <td>@item.Payment_Type</td>
+                            <td>@item.Paid_Amount</td>
+                            <td>@item.Balance</td>
+                            @*<td>
+                                <a href="/Employee/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
+                                <a href="/Employee/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            </td>*@
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -54,7 +61,7 @@
         $('#Paymentlist').DataTable({
             'paging': true,
             'lengthChange': false,
-            'searching': false,
+            'searching': true,
             'ordering': true,
             'info': true,
             'autoWidth': false

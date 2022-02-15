@@ -1,9 +1,18 @@
 ﻿@model Sales_Inventory.Models.EmployeeViewModel
 
 @{
-    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Advance List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="@Url.Action("List", "Employee")"><i class="fa fa-calendar"></i> Employee List</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
 
 @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

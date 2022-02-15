@@ -1,9 +1,18 @@
 ﻿@model Sales_Inventory.Models.PurchaseViewModel
 
 @{
-    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Purchase Create</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="@Url.Action("List", "Purchase")"><i class="fa fa-calendar"></i> Purchase List</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
 
 <div class="col-md-12">
     <div class="box box-primary">
@@ -61,7 +70,6 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        @*<td><input type="text" id="txtItemName" class="form-control" /></td>*@
                         <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
                         <td><input type="number" id="txtQuantity" class="form-control" /></td>
                         <td><input type="text" id="txtPrice" class="form-control" /></td>

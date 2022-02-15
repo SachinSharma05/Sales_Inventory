@@ -34,7 +34,8 @@ namespace Sales_Inventory.Controllers
                         Purchase_From = item.Purchase_From,
                         Purchase_From_Phone = item.Purchase_From_Phone,
                         Purchase_Date = item.Purchase_Date,
-                        GrossTotal = item.GrossTotal
+                        GrossTotal = item.GrossTotal,
+                        Balance = item.Balance
                     });
                 }
             }
@@ -86,6 +87,7 @@ namespace Sales_Inventory.Controllers
                     pur.Purchase_From_Phone = sellerPhoneNo;
                     pur.Purchase_Date = Convert.ToDateTime(purchaseDate);
                     pur.GrossTotal = GrossTotal;
+                    pur.Balance = GrossTotal;
                     pur.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     pur.CreatedDate = DateTime.Now.Date;
                     worker.PurchaseEntity.Insert(pur);

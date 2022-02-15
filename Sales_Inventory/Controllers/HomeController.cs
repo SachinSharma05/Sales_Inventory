@@ -14,15 +14,18 @@ namespace Sales_Inventory.Controllers
 
         public ActionResult Index()
         {
-            Stock();
             var EmployeeCount = worker.EmployeeEntity.Get().ToList().Count;
             var PurchaseCount = worker.PurchaseEntity.Get().ToList().Count;
             var SalesCount = worker.SaleEntity.Get().ToList().Count;
-            var StockCount = StockList();
+            var PaymentCount = worker.PaymentEntity.Get().ToList().Count;
+            CommonViewModel commonViewModel = new CommonViewModel();
+            commonViewModel.stockViewModels = StockList();
+            commonViewModel.purchaseViewModels = BalanceList();
             TempData["EmployeeCount"] = EmployeeCount;
             TempData["PurchaseCount"] = PurchaseCount;
             TempData["SalesCount"] = SalesCount;
-            return View(StockCount);
+            TempData["PaymentCount"] = PaymentCount;
+            return View(commonViewModel);
         }
 
         public List<StockViewModel> StockList()
@@ -44,21 +47,41 @@ namespace Sales_Inventory.Controllers
             return stockList;
         }
 
-        public ActionResult Stock()
+        public List<PurchaseViewModel> BalanceList()
         {
-            var result = worker.StockEntity.context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Stock]");
-
-            var StockCount = worker.PurchaseProductEntity.Get().GroupBy(x => x.ItemName).Select(x => new StockViewModel { Product = x.Key, TotalQuantity = x.Sum(y => y.Quantity) }).ToList();
-            foreach (var item in StockCount)
+            List<PurchaseViewModel> balanceList = new List<PurchaseViewModel>();
+            var balanceCount = worker.PurchaseEntity.Get(x => x.Balance > 0).ToList();
+            if (balanceCount.Count > 0)
             {
-                Stock stock = new Stock();
-                stock.Product = item.Product;
-                stock.TotalQuantity = item.TotalQuantity;
-                worker.StockEntity.Insert(stock);
-                worker.Save();
+                foreach (var item in balanceCount)
+                {
+                    balanceList.Add(new PurchaseViewModel
+                    {
+                        Id = item.Id,
+                        Purchase_No = item.Purchase_No,
+                        Purchase_From = item.Purchase_From,
+                        Balance = item.Balance
+                    });
+                }
             }
-
-            return RedirectToAction("List");
+            return balanceList;
         }
+
+        //public ActionResult Stock()
+        //{
+        //    var result = worker.StockEntity.context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Stock]");
+
+        //    var StockCount = worker.PurchaseProductEntity.Get().GroupBy(x => x.ItemName).Select(x => new StockViewModel { Product = x.Key, TotalQuantity = x.Sum(y => y.Quantity) }).ToList();
+        //    foreach (var item in StockCount)
+        //    {
+        //        Stock stock = new Stock();
+        //        stock.Product = item.Product;
+        //        stock.TotalQuantity = item.TotalQuantity;
+        //        worker.StockEntity.Insert(stock);
+        //        worker.Save();
+        //    }
+
+        //    return RedirectToAction("List");
+        //}
     }
 }

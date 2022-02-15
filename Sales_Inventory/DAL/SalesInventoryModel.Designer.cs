@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\DAL\SalesInventoryModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\user\Documents\SalesInventory\Sales_Inventory\DAL\SalesInventoryModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

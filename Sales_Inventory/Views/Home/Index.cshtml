@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Sales_Inventory.Models.StockViewModel>
+﻿@model Sales_Inventory.Models.CommonViewModel
 
 @{
     ViewBag.Title = "Dashboard";
@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.stockViewModels)
                             {
                                 <tr>
                                     <td>@item.Product</td>
@@ -95,13 +95,20 @@
                     <table id="BalanceAmountlist" class="table table-bordered table-striped table-hover for-alignment">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Purchase No</th>
+                                <th>Purchase From</th>
+                                <th>Balance Payment</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            @foreach (var item in Model.purchaseViewModels)
+                            {
+                                <tr>
+                                    <td>@item.Purchase_No</td>
+                                    <td>@item.Purchase_From</td>
+                                    <td>@item.Balance</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -170,7 +177,7 @@
     $(function () {
         $('#Stocklist').DataTable({
             'paging': true,
-            'searching': false,
+            'searching': true,
             'info': false,
             'lengthChange': false,
             'pageLength': 5
@@ -189,7 +196,7 @@
     $(function () {
         $('#BalanceAmountlist').DataTable({
             'paging': true,
-            'searching': false,
+            'searching': true,
             'info': false,
             'lengthChange': false,
             'pageLength': 5

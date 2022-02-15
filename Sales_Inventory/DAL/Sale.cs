@@ -17,10 +17,10 @@ namespace Sales_Inventory.DAL
         public int Id { get; set; }
         public string Sale_No { get; set; }
         public string Sale_To { get; set; }
-        public string Sale_By { get; set; }
         public string Sale_To_Phone { get; set; }
-        public string Sale_By_Phone { get; set; }
         public Nullable<System.DateTime> Sale_Date { get; set; }
+        public Nullable<int> GrossTotal { get; set; }
+        public Nullable<int> Balance { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     }

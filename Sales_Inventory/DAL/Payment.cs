@@ -17,15 +17,18 @@ namespace Sales_Inventory.DAL
         public int Id { get; set; }
         public string Purchase_No { get; set; }
         public string Payment_To { get; set; }
-        public System.DateTime Payment_Date { get; set; }
-        public string Payment_Against { get; set; }
+        public Nullable<System.DateTime> Payment_Date { get; set; }
         public string Payment_Type { get; set; }
-        public string Payment_Account_No { get; set; }
-        public string Payment_Account_Name { get; set; }
-        public int Payment_Amount { get; set; }
-        public string Payment_Bank { get; set; }
-        public string IFSC_Code { get; set; }
-        public string Payment_Receiver_Phone { get; set; }
+        public Nullable<int> Total_Payment_Amount { get; set; }
+        public string Contact_No { get; set; }
+        public Nullable<int> Paid_Amount { get; set; }
+        public string Bank_Name { get; set; }
+        public string Account_No { get; set; }
+        public string Account_Holder_Name { get; set; }
+        public string UPI_Id { get; set; }
+        public string Cheque_No { get; set; }
+        public Nullable<System.DateTime> Cheque_Date { get; set; }
+        public string Name_On_Cheque { get; set; }
         public Nullable<int> Balance { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

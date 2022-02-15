@@ -7,15 +7,15 @@
       <Diagram DiagramId="6e226731d5004dbe85490e2555903de1" Name="Diagram1" >
         <EntityTypeShape EntityType="Sales_InventoryModel.Advance" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Sales_InventoryModel.Employee" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Payment" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.ProductType" Width="1.5" PointX="4.75" PointY="5.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase_Product" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Role" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Sale_Product" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Sale" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Stock" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.User" Width="1.5" PointX="8.75" PointY="4.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.ProductType" Width="1.5" PointX="4.5" PointY="0.75" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase_Product" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Role" Width="1.5" PointX="10.5" PointY="0.75" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Sale_Product" Width="1.5" PointX="4.375" PointY="3.5" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Stock" Width="1.5" PointX="6.125" PointY="3.75" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.User" Width="1.5" PointX="10.5" PointY="2.25" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Payment" Width="1.5" PointX="8.125" PointY="3.625" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Sale" Width="1.5" PointX="8.625" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

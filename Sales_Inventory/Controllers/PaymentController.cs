@@ -29,11 +29,11 @@ namespace Sales_Inventory.Controllers
                     PaymentList.Add(new PaymentViewModel
                     {
                         Id = item.Id,
+                        Purchase_No = item.Purchase_No,
                         Payment_To = item.Payment_To,
                         Payment_Date = item.Payment_Date,
-                        Payment_Against = item.Payment_Against,
                         Payment_Type = item.Payment_Type,
-                        Payment_Amount = item.Payment_Amount,
+                        Paid_Amount = item.Paid_Amount,
                         Balance = item.Balance
                     });
                 }
@@ -47,6 +47,9 @@ namespace Sales_Inventory.Controllers
         {
             PaymentViewModel model = new PaymentViewModel();
             model.Id = Id;
+            var data = worker.PurchaseEntity.GetByID(model.Id);
+            model.Total_Payment_Amount = data.Balance != null ? data.Balance : data.GrossTotal;
+            model.Purchase_No = data.Purchase_No;
             return View(model);
         }
 
@@ -55,25 +58,32 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                var Purchase_No = worker.PurchaseEntity.GetByID(model.Id);
                 if (ModelState.IsValid)
                 {
                     Payment payment = new Payment();
-                    //payment.Purchase_No
+                    payment.Purchase_No = model.Purchase_No;
                     payment.Payment_To = model.Payment_To;
                     payment.Payment_Date = model.Payment_Date;
-                    payment.Payment_Against = model.Payment_Against;
                     payment.Payment_Type = model.Payment_Type;
-                    payment.Payment_Account_No = model.Payment_Account_No;
-                    payment.Payment_Account_Name = model.Payment_Account_Name;
-                    payment.Payment_Amount = model.Payment_Amount;
-                    payment.Payment_Bank = model.Payment_Bank;
-                    payment.IFSC_Code = model.IFSC_Code;
-                    payment.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
-                    //payment.Balance = 
+                    payment.Total_Payment_Amount = model.Total_Payment_Amount;
+                    payment.Contact_No = model.Contact_No;
+                    payment.Paid_Amount = model.Paid_Amount;
+                    payment.Bank_Name = model.Bank_Name;
+                    payment.Account_No = model.Account_No;
+                    payment.Account_Holder_Name = model.Account_Holder_Name;
+                    payment.UPI_Id = model.UPI_Id;
+                    payment.Cheque_No = model.Cheque_No;
+                    payment.Cheque_Date = model.Cheque_Date;
+                    payment.Name_On_Cheque = model.Name_On_Cheque;
+                    payment.Balance = model.Balance;
                     payment.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     payment.CreatedDate = DateTime.Now.Date;
                     worker.PaymentEntity.Insert(payment);
+                    worker.Save();
+
+                    Purchase purchase = worker.PurchaseEntity.Get(x => x.Purchase_No == model.Purchase_No).FirstOrDefault();
+                    purchase.Balance = model.Balance;
+                    worker.PurchaseEntity.Update(purchase);
                     worker.Save();
                 }
                 return RedirectToAction("List");
@@ -94,14 +104,7 @@ namespace Sales_Inventory.Controllers
                 var payment = worker.PaymentEntity.GetByID(Id);
                 model.Payment_To = payment.Payment_To;
                 model.Payment_Date = payment.Payment_Date;
-                model.Payment_Against = payment.Payment_Against;
                 model.Payment_Type = payment.Payment_Type;
-                model.Payment_Account_No = payment.Payment_Account_No;
-                model.Payment_Account_Name = payment.Payment_Account_Name;
-                model.Payment_Amount = model.Payment_Amount;
-                model.Payment_Bank = model.Payment_Bank;
-                model.IFSC_Code = model.IFSC_Code;
-                model.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
                 model.Balance = payment.Balance;
                 return View(model);
             }
@@ -121,14 +124,7 @@ namespace Sales_Inventory.Controllers
                     Payment payment = worker.PaymentEntity.GetByID(model.Id);
                     payment.Payment_To = model.Payment_To;
                     payment.Payment_Date = model.Payment_Date;
-                    payment.Payment_Against = model.Payment_Against;
                     payment.Payment_Type = model.Payment_Type;
-                    payment.Payment_Account_No = model.Payment_Account_No;
-                    payment.Payment_Account_Name = model.Payment_Account_Name;
-                    payment.Payment_Amount = model.Payment_Amount;
-                    payment.Payment_Bank = model.Payment_Bank;
-                    payment.IFSC_Code = model.IFSC_Code;
-                    payment.Payment_Receiver_Phone = model.Payment_Receiver_Phone;
                     payment.Balance = model.Balance;
                     worker.PaymentEntity.Update(payment);
                     worker.Save();

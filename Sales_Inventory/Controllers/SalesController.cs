@@ -32,10 +32,10 @@ namespace Sales_Inventory.Controllers
                         Id = item.Id,
                         Sale_No = item.Sale_No,
                         Sale_To = item.Sale_To,
-                        Sale_By = item.Sale_By,
                         Sale_To_Phone = item.Sale_To_Phone,
-                        Sale_By_Phone = item.Sale_By_Phone,
-                        Sale_Date = item.Sale_Date
+                        Sale_Date = item.Sale_Date,
+                        GrossTotal = item.GrossTotal,
+                        Balance = item.Balance
                     });
                 }
             }
@@ -44,28 +44,50 @@ namespace Sales_Inventory.Controllers
         #endregion
 
         #region Create Sale
+        public List<SelectListItem> GetProductTypeList()
+        {
+            var query = worker.ProductTypeEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Product" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Product
+            }));
+
+            ViewBag.ProductList = list;
+
+            return list;
+        }
         public ActionResult Create()
         {
             SalesViewModel viewModel = new SalesViewModel();
             viewModel.sale_Products = new List<Sale_Products>();
+            viewModel.ProductList = GetProductTypeList();
             return View(viewModel);
         }
         [HttpPost]
-        public ActionResult Create(string saleFrom, string saleBy, string sellerPhoneNo, string buyerPhoneNo, string saleDate, List<string> sale_Prod)
+        public ActionResult Create(string saleTo, string buyerPhoneNo, string saleDate, List<string> sale_Prod)
         {
             string json = sale_Prod[0].ToString();
             string Sale_No = "";
+            int GrossTotal = 0;
             List<Sale_Products> sale_Products = JsonConvert.DeserializeObject<List<Sale_Products>>(json);
             try
             {
+                foreach (var item in sale_Products)
+                {
+                    GrossTotal += Convert.ToInt32(item.Total);
+                }
+
                 if (ModelState.IsValid)
                 {
                     Sale sale = new Sale();
-                    sale.Sale_To = saleFrom;
-                    sale.Sale_By = saleBy;
-                    sale.Sale_To_Phone = sellerPhoneNo;
-                    sale.Sale_By_Phone = buyerPhoneNo;
+                    sale.Sale_To = saleTo;
+                    sale.Sale_To_Phone = buyerPhoneNo;
                     sale.Sale_Date = Convert.ToDateTime(saleDate);
+                    sale.GrossTotal = GrossTotal;
+                    sale.Balance = GrossTotal;
                     sale.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     sale.CreatedDate = DateTime.Now.Date;
                     worker.SaleEntity.Insert(sale);
@@ -139,10 +161,10 @@ namespace Sales_Inventory.Controllers
                 model.Id = sale.Id;
                 model.Sale_No = sale.Sale_No;
                 model.Sale_To = sale.Sale_To;
-                model.Sale_By = sale.Sale_By;
                 model.Sale_To_Phone = sale.Sale_To_Phone;
-                model.Sale_By_Phone = sale.Sale_By_Phone ;
                 model.Sale_Date = sale.Sale_Date;
+                model.GrossTotal = sale.GrossTotal;
+                model.Balance = sale.Balance;
 
                 var sale_prod = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
                 foreach (var item in sale_prod)
@@ -156,6 +178,7 @@ namespace Sales_Inventory.Controllers
                     sale_Products.Add(sale_Product);
                 }
                 model.sale_Products = sale_Products;
+                model.ProductList = GetProductTypeList();
                 return View(model);
             }
             catch (Exception ex)

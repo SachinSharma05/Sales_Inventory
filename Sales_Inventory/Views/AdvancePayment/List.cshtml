@@ -1,11 +1,20 @@
 ﻿@model  IEnumerable<Sales_Inventory.Models.AdvanceViewModel>
 
 @{
-    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Advance List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
+
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header with-border">

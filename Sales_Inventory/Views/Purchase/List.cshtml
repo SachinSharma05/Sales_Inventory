@@ -1,11 +1,20 @@
 ﻿@model IEnumerable<Sales_Inventory.Models.PurchaseViewModel>
 
 @{
-    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Purchase List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
+
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header with-border">
@@ -22,24 +31,26 @@
                         <th>Seller Phone</th>
                         <th>Purchase Date</th>
                         <th>Total Amount</th>
+                        <th>Balance Amount</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>@item.Purchase_No</td>
-                        <td>@item.Purchase_From</td>
-                        <td>@item.Purchase_From_Phone</td>
-                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Purchase_Date)</td>
-                        <td>@item.GrossTotal</td>
-                        <td>
-                            <a href="/Purchase/Edit/@item.Id"><span class="label label-success">Edit</span></a>
-                            <a href="/Purchase/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
-                            <a href="/Payment/Create/@item.Id"><span class="label label-success">Pay Amount</span></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.Purchase_No</td>
+                            <td>@item.Purchase_From</td>
+                            <td>@item.Purchase_From_Phone</td>
+                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Purchase_Date)</td>
+                            <td>@item.GrossTotal</td>
+                            <td>@item.Balance</td>
+                            <td>
+                                <a href="/Purchase/Edit/@item.Id"><span class="label label-success">Edit</span></a>
+                                <a href="/Purchase/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                                <a href="/Payment/Create/@item.Id"><span class="label label-success">Pay Amount</span></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

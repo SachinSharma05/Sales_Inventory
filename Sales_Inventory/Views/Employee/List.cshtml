@@ -1,11 +1,20 @@
 ﻿@model  IEnumerable<Sales_Inventory.Models.EmployeeViewModel>
 
 @{
-    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Advance List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
+
 <div class="col-xs-12">
     <div class="box">
         <div class="box-header with-border">
@@ -29,18 +38,18 @@
                 <tbody id="tblbody">
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>@item.FullName</td>
-                        <td>@item.AadharNumber</td>
-                        <td>@item.Gender</td>
-                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.DateofJoining)</td>
-                        <td>@item.PhoneNo</td>
-                        <td>@item.PermanentAddress</td>
-                        <td>
-                            <a href="/Employee/Edit/@item.EmployeeId"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                            <a href="/Employee/Delete/@item.EmployeeId" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.AadharNumber</td>
+                            <td>@item.Gender</td>
+                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.DateofJoining)</td>
+                            <td>@item.PhoneNo</td>
+                            <td>@item.PermanentAddress</td>
+                            <td>
+                                <a href="/Employee/Edit/@item.EmployeeId"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
+                                <a href="/Employee/Delete/@item.EmployeeId" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
