@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AdvancePaymentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MiscExpensesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
@@ -145,6 +146,9 @@
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\MiscExpens.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Payment.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -196,6 +200,7 @@
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MiscExpensesViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\ProductTypeSelectListModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
@@ -280,6 +285,7 @@
     <Content Include="Views\Payment\List.cshtml" />
     <Content Include="Views\Payment\Create.cshtml" />
     <Content Include="Views\Payment\Edit.cshtml" />
+    <Content Include="Views\MiscExpenses\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

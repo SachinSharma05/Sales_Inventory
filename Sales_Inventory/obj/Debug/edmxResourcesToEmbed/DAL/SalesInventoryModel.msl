@@ -39,6 +39,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Name_On_Cheque" ColumnName="Name_On_Cheque" />
+          <ScalarProperty Name="Cheque_Date" ColumnName="Cheque_Date" />
+          <ScalarProperty Name="Cheque_No" ColumnName="Cheque_No" />
+          <ScalarProperty Name="UPI_Id" ColumnName="UPI_Id" />
+          <ScalarProperty Name="Account_Holder_Name" ColumnName="Account_Holder_Name" />
+          <ScalarProperty Name="Account_No" ColumnName="Account_No" />
+          <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+          <ScalarProperty Name="Paid_Amount" ColumnName="Paid_Amount" />
+          <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+          <ScalarProperty Name="Total_Payment_Amount" ColumnName="Total_Payment_Amount" />
+          <ScalarProperty Name="Payment_Type" ColumnName="Payment_Type" />
+          <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+          <ScalarProperty Name="Payment_To" ColumnName="Payment_To" />
+          <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProductTypes">
       <EntityTypeMapping TypeName="Sales_InventoryModel.ProductType">
         <MappingFragment StoreEntitySet="ProductType">
@@ -100,6 +124,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Sales">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.Sale">
+        <MappingFragment StoreEntitySet="Sales">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
+          <ScalarProperty Name="Sale_Date" ColumnName="Sale_Date" />
+          <ScalarProperty Name="Sale_To_Phone" ColumnName="Sale_To_Phone" />
+          <ScalarProperty Name="Sale_To" ColumnName="Sale_To" />
+          <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Stocks">
       <EntityTypeMapping TypeName="Sales_InventoryModel.Stock">
         <MappingFragment StoreEntitySet="Stock">
@@ -131,41 +170,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Payments">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
-        <MappingFragment StoreEntitySet="Payment">
+    <EntitySetMapping Name="MiscExpenses">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.MiscExpens">
+        <MappingFragment StoreEntitySet="MiscExpenses">
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Balance" ColumnName="Balance" />
-          <ScalarProperty Name="Name_On_Cheque" ColumnName="Name_On_Cheque" />
-          <ScalarProperty Name="Cheque_Date" ColumnName="Cheque_Date" />
-          <ScalarProperty Name="Cheque_No" ColumnName="Cheque_No" />
-          <ScalarProperty Name="UPI_Id" ColumnName="UPI_Id" />
-          <ScalarProperty Name="Account_Holder_Name" ColumnName="Account_Holder_Name" />
-          <ScalarProperty Name="Account_No" ColumnName="Account_No" />
-          <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
-          <ScalarProperty Name="Paid_Amount" ColumnName="Paid_Amount" />
-          <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
-          <ScalarProperty Name="Total_Payment_Amount" ColumnName="Total_Payment_Amount" />
-          <ScalarProperty Name="Payment_Type" ColumnName="Payment_Type" />
-          <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
-          <ScalarProperty Name="Payment_To" ColumnName="Payment_To" />
-          <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Sales">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.Sale">
-        <MappingFragment StoreEntitySet="Sales">
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Balance" ColumnName="Balance" />
-          <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
-          <ScalarProperty Name="Sale_Date" ColumnName="Sale_Date" />
-          <ScalarProperty Name="Sale_To_Phone" ColumnName="Sale_To_Phone" />
-          <ScalarProperty Name="Sale_To" ColumnName="Sale_To" />
-          <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
+          <ScalarProperty Name="ExpenseReason" ColumnName="ExpenseReason" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseAmt" ColumnName="ExpenseAmt" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -36,6 +36,20 @@
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MiscExpenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ExpenseAmt" Type="int" />
+    <Property Name="ExpenseDate" Type="datetime" />
+    <Property Name="ExpenseReason" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Payment">
     <Key>
       <PropertyRef Name="Id" />
@@ -170,5 +184,16 @@
     <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[MiscExpenses].[Id] AS [Id], 
+[MiscExpenses].[Name] AS [Name], 
+[MiscExpenses].[ExpenseAmt] AS [ExpenseAmt], 
+[MiscExpenses].[ExpenseDate] AS [ExpenseDate], 
+[MiscExpenses].[ExpenseReason] AS [ExpenseReason], 
+[MiscExpenses].[CreatedBy] AS [CreatedBy], 
+[MiscExpenses].[CreatedDate] AS [CreatedDate]
+FROM [dbo].[MiscExpenses] AS [MiscExpenses]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

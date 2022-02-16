@@ -248,5 +248,20 @@ namespace Sales_Inventory.DAL
             }
         }
         #endregion
+
+        #region [Miscellaneous Expenses]
+        private GenericRepository<MiscExpens> miscExpensesEntity;
+        public GenericRepository<MiscExpens> MiscExpensesEntity
+        {
+            get
+            {
+                if (this.miscExpensesEntity == null)
+                {
+                    this.miscExpensesEntity = new GenericRepository<MiscExpens>(context);
+                }
+                return miscExpensesEntity;
+            }
+        }
+        #endregion
     }
 }

@@ -1,0 +1,127 @@
+﻿@model  Sales_Inventory.Models.CommonViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
+
+<div class="col-md-12">
+    <div class="box">
+        <div class="box-body">
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Expense</label>
+                    @Html.TextBoxFor(m => m.miscExpenses.Name, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "expenseName" })
+                    @Html.ValidationMessageFor(m => m.miscExpenses.Name)
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Expense Amount</label>
+                    @Html.TextBoxFor(m => m.miscExpenses.ExpenseAmt, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "expenseAmt" })
+                    @Html.ValidationMessageFor(m => m.miscExpenses.ExpenseAmt)
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Expense Date</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        @Html.TextBoxFor(m => m.miscExpenses.ExpenseDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "expenseDate" })
+                        @Html.ValidationMessageFor(m => m.miscExpenses.ExpenseDate)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Expense Reason</label>
+                    @Html.TextBoxFor(m => m.miscExpenses.ExpenseReason, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "expenseReason" })
+                    @Html.ValidationMessageFor(m => m.miscExpenses.ExpenseReason)
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="Expenselist" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Expense Amount</th>
+                        <th>Expense Date</th>
+                        <th>Expense Reason</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody">
+                    @if (Model.miscExpensesViewModels != null)
+                    {
+                        foreach (var item in Model.miscExpensesViewModels)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.ExpenseAmt</td>
+                                <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.ExpenseDate)</td>
+                                <td>@item.ExpenseReason</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#Expenselist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    });
+
+    $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+        var data = new FormData();
+        data.append('expenseName', $("#expenseName").val());
+        data.append('expenseAmt', $("#expenseAmt").val());
+        data.append('expenseDate', $("#expenseDate").val());
+        data.append('expenseReason', $("#expenseReason").val());
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/MiscExpenses/Create",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                toastr.success('Record(s) Inserted Successfully')
+                if (result) {
+                    window.location.href = '@Url.Action("List","MiscExpenses")';
+                }
+            }
+        });
+    });
+</script>
+
+<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
