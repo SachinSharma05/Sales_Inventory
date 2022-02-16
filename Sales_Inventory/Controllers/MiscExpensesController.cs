@@ -16,27 +16,9 @@ namespace Sales_Inventory.Controllers
         #region Expenses List
         public ActionResult List()
         {
-            return View(GetExpenseList());
-        }
-        public CommonViewModel GetExpenseList()
-        {
-            CommonViewModel ExpensesList = new CommonViewModel();
-            var list = worker.MiscExpensesEntity.Get().ToList();
-            if (list.Count > 0)
-            {
-                foreach (var item in list)
-                {
-                    ExpensesList.miscExpensesViewModels.Add(new MiscExpensesViewModel
-                    {
-                        Id = item.Id,
-                        Name = item.Name,
-                        ExpenseAmt = item.ExpenseAmt,
-                        ExpenseDate = item.ExpenseDate,
-                        ExpenseReason = item.ExpenseReason
-                    });
-                }
-            }
-            return ExpensesList;
+            var ExpensesList = worker.MiscExpensesEntity.Get().ToList();
+            ViewBag.ListExpenses = ExpensesList;
+            return View();
         }
         #endregion
 
@@ -64,6 +46,29 @@ namespace Sales_Inventory.Controllers
             {
                 throw ex;
             }
+        }
+        #endregion
+
+        #region Delete Expenses
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var model = DeleteExpenses(id);
+            return RedirectToAction("List"); ;
+        }
+
+        public bool DeleteExpenses(int id)
+        {
+
+            var result = worker.MiscExpensesEntity.GetByID(id);
+            if (result != null)
+            {
+                worker.MiscExpensesEntity.Delete(result);
+                worker.Save();
+                return true;
+            }
+            else
+                return false;
         }
         #endregion
     }

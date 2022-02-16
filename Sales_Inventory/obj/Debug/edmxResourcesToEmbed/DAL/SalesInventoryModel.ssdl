@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Advance_To" Type="nvarchar" MaxLength="150" />
-    <Property Name="Advance_Date" Type="datetime" />
+    <Property Name="Advance_Date" Type="date" />
     <Property Name="Advance_Amount" Type="nvarchar" MaxLength="150" />
     <Property Name="Advance_Against" Type="nvarchar" MaxLength="150" />
     <Property Name="CreatedBy" Type="int" />
@@ -36,8 +36,6 @@
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="MiscExpenses">
     <Key>
       <PropertyRef Name="Id" />
@@ -45,10 +43,10 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="ExpenseAmt" Type="int" />
-    <Property Name="ExpenseDate" Type="datetime" />
+    <Property Name="ExpenseDate" Type="date" />
     <Property Name="ExpenseReason" Type="nvarchar" MaxLength="100" />
     <Property Name="CreatedBy" Type="int" />
-    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedDate" Type="date" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>
@@ -57,7 +55,7 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="50" />
     <Property Name="Payment_To" Type="nvarchar" MaxLength="100" />
-    <Property Name="Payment_Date" Type="datetime" />
+    <Property Name="Payment_Date" Type="date" />
     <Property Name="Payment_Type" Type="nvarchar" MaxLength="100" />
     <Property Name="Total_Payment_Amount" Type="int" />
     <Property Name="Contact_No" Type="nvarchar" MaxLength="50" />
@@ -67,7 +65,7 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <Property Name="Account_Holder_Name" Type="nvarchar" MaxLength="50" />
     <Property Name="UPI_Id" Type="nvarchar" MaxLength="50" />
     <Property Name="Cheque_No" Type="nvarchar" MaxLength="50" />
-    <Property Name="Cheque_Date" Type="datetime" />
+    <Property Name="Cheque_Date" Type="date" />
     <Property Name="Name_On_Cheque" Type="nvarchar" MaxLength="50" />
     <Property Name="Balance" Type="int" />
     <Property Name="CreatedBy" Type="int" />
@@ -90,7 +88,7 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
-    <Property Name="Purchase_Date" Type="datetime" />
+    <Property Name="Purchase_Date" Type="date" />
     <Property Name="GrossTotal" Type="int" />
     <Property Name="Balance" Type="int" />
     <Property Name="CreatedBy" Type="int" />
@@ -137,7 +135,7 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <Property Name="Sale_No" Type="nvarchar" MaxLength="50" />
     <Property Name="Sale_To" Type="nvarchar" MaxLength="50" />
     <Property Name="Sale_To_Phone" Type="nvarchar" MaxLength="50" />
-    <Property Name="Sale_Date" Type="datetime" />
+    <Property Name="Sale_Date" Type="date" />
     <Property Name="GrossTotal" Type="int" />
     <Property Name="Balance" Type="int" />
     <Property Name="CreatedBy" Type="int" />
@@ -175,6 +173,7 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
@@ -184,16 +183,5 @@ warning 6002: The table/view 'Sales_Inventory.dbo.MiscExpenses' does not have a 
     <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[MiscExpenses].[Id] AS [Id], 
-[MiscExpenses].[Name] AS [Name], 
-[MiscExpenses].[ExpenseAmt] AS [ExpenseAmt], 
-[MiscExpenses].[ExpenseDate] AS [ExpenseDate], 
-[MiscExpenses].[ExpenseReason] AS [ExpenseReason], 
-[MiscExpenses].[CreatedBy] AS [CreatedBy], 
-[MiscExpenses].[CreatedDate] AS [CreatedDate]
-FROM [dbo].[MiscExpenses] AS [MiscExpenses]</DefiningQuery>
-    </EntitySet>
   </EntityContainer>
 </Schema>

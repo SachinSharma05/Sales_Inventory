@@ -17,27 +17,9 @@ namespace Sales_Inventory.Controllers
         #region Advance List
         public ActionResult List()
         {
-            return View(GetAdvanceList());
-        }
-        public List<AdvanceViewModel> GetAdvanceList()
-        {
-            List<AdvanceViewModel> AdvanceList = new List<AdvanceViewModel>();
-            var list = worker.AdvanceEntity.Get().ToList();
-            if (list.Count > 0)
-            {
-                foreach (var item in list)
-                {
-                    AdvanceList.Add(new AdvanceViewModel
-                    {
-                        Id = item.Id,
-                        Advance_To = item.Advance_To,
-                        Advance_Date = item.Advance_Date,
-                        Advance_Amount = item.Advance_Amount,
-                        Advance_Against = item.Advance_Against
-                    });
-                }
-            }
-            return AdvanceList;
+            var AdvanceList = worker.AdvanceEntity.Get().ToList();
+            ViewBag.ListAdvance = AdvanceList;
+            return View();
         }
         #endregion
 
@@ -48,17 +30,17 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AdvanceViewModel model)
+        public ActionResult Create(string AdvanceTo, string AdvanceAmt, string AdvanceDate, string AdvanceAgainst)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
                     Advance advance = new Advance();
-                    advance.Advance_To = model.Advance_To;
-                    advance.Advance_Date = model.Advance_Date;
-                    advance.Advance_Amount = model.Advance_Amount;
-                    advance.Advance_Against = model.Advance_Against;
+                    advance.Advance_To = AdvanceTo;
+                    advance.Advance_Date = Convert.ToDateTime(AdvanceDate);
+                    advance.Advance_Amount = AdvanceAmt;
+                    advance.Advance_Against = AdvanceAgainst;
                     advance.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     advance.CreatedDate = DateTime.Now.Date;
                     worker.AdvanceEntity.Insert(advance);

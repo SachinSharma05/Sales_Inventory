@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Models\AdvanceViewModel.cs" />
     <Compile Include="Models\CommonViewModel.cs" />
+    <Compile Include="Models\DayCashModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -286,6 +287,7 @@
     <Content Include="Views\Payment\Create.cshtml" />
     <Content Include="Views\Payment\Edit.cshtml" />
     <Content Include="Views\MiscExpenses\List.cshtml" />
+    <Content Include="Views\Home\DayCashBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

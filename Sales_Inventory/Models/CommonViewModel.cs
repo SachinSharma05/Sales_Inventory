@@ -9,7 +9,5 @@ namespace Sales_Inventory.Models
     {
         public List<StockViewModel> stockViewModels { get; set; }
         public List<PurchaseViewModel> purchaseViewModels { get; set; }
-        public List<MiscExpensesViewModel> miscExpensesViewModels { get; set; }
-        public MiscExpensesViewModel miscExpenses { get; set; }
     }
 }

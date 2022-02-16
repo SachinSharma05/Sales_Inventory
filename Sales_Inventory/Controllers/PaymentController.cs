@@ -38,6 +38,7 @@ namespace Sales_Inventory.Controllers
                     });
                 }
             }
+            ViewBag.PaymentListModel = worker.PurchaseEntity.Get(x => x.Balance > 0).ToList();
             return PaymentList;
         }
         #endregion

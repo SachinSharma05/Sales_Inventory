@@ -39,6 +39,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MiscExpenses">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.MiscExpens">
+        <MappingFragment StoreEntitySet="MiscExpenses">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ExpenseReason" ColumnName="ExpenseReason" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseAmt" ColumnName="ExpenseAmt" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Payments">
       <EntityTypeMapping TypeName="Sales_InventoryModel.Payment">
         <MappingFragment StoreEntitySet="Payment">
@@ -167,19 +180,6 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MiscExpenses">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.MiscExpens">
-        <MappingFragment StoreEntitySet="MiscExpenses">
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ExpenseReason" ColumnName="ExpenseReason" />
-          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-          <ScalarProperty Name="ExpenseAmt" ColumnName="ExpenseAmt" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

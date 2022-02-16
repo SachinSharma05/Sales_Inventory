@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Sales_Inventory.Models.AdvanceViewModel>
+﻿@model  Sales_Inventory.Models.AdvanceViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,9 +17,42 @@
 
 <div class="col-xs-12">
     <div class="box">
-        <div class="box-header with-border">
-            <div class="form-group col-md-3">
-                <a class="btn btn-primary pull-left" href="/AdvancePayment/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Advance</a>
+        <div class="box-body">
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Advance To</label>
+                    @Html.TextBoxFor(m => m.Advance_To, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "AdvanceTo" })
+                    @Html.ValidationMessageFor(m => m.Advance_To)
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Advance Amount</label>
+                    @Html.TextBoxFor(m => m.Advance_Amount, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "AdvanceAmt" })
+                    @Html.ValidationMessageFor(m => m.Advance_Amount)
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Advance Date</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        @Html.TextBoxFor(m => m.Advance_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "AdvanceDate" })
+                        @Html.ValidationMessageFor(m => m.Advance_Date)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label>Advance Reason</label>
+                    @Html.TextBoxFor(m => m.Advance_Against, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "AdvanceAgainst" })
+                    @Html.ValidationMessageFor(m => m.Advance_Against)
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
             </div>
         </div>
         <div class="box-body">
@@ -34,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody id="tblbody">
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.ListAdvance)
                     {
                         <tr>
                             <td>@item.Advance_To</td>
@@ -42,8 +75,8 @@
                             <td>@item.Advance_Amount</td>
                             <td>@item.Advance_Against</td>
                             <td>
-                                <a href="/AdvancePayment/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                                <a href="/AdvancePayment/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger"><i class="fa fa-trash-o"></i></span></a>
+                                @*<a href="/AdvancePayment/Edit/@item.Id"><span class="label label-success">Edit</span></a>*@
+                                <a href="/AdvancePayment/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
                             </td>
                         </tr>
                     }
@@ -58,12 +91,36 @@
         $('#Advancelist').DataTable({
             'paging': true,
             'lengthChange': false,
-            'searching': false,
+            'searching': true,
             'ordering': true,
             'info': true,
             'autoWidth': false
         })
     });
 
+    $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+        var data = new FormData();
+        data.append('AdvanceTo', $("#AdvanceTo").val());
+        data.append('AdvanceAmt', $("#AdvanceAmt").val());
+        data.append('AdvanceDate', $("#AdvanceDate").val());
+        data.append('AdvanceAgainst', $("#AdvanceAgainst").val());
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/AdvancePayment/Create",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                toastr.success('Record(s) Inserted Successfully')
+                if (result) {
+                    window.location.href = '@Url.Action("List","AdvancePayment")';
+                }
+            }
+        });
+    });
 </script>
+
 <script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

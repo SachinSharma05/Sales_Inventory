@@ -1,0 +1,97 @@
+﻿@model  IEnumerable<Sales_Inventory.Models.DayCashModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Day Cash Book</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
+
+<div class="col-xs-12">
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-6 col-xs-6">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@ViewBag.DayCashOut</h3>
+                        <h4>Day Cash Out</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-dashboard"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-6">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>@ViewBag.DayCashOut</h3>
+                        <h4>Day Cash In</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-dashboard"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-body">
+                    <table id="Paymentlist" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Paid To</th>
+                                <th>Payment Date</th>
+                                <th>Paid Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.PaidDate)</td>
+                                    <td>@item.PaidAmount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-body">
+                    <table id="Paymentlist" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Paid To</th>
+                                <th>Payment Date</th>
+                                <th>Payment Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.PaidDate)</td>
+                                    <td>@item.PaidAmount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
