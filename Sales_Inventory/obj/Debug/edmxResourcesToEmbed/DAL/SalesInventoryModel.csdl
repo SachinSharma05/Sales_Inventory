@@ -12,8 +12,8 @@
     <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
     <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
     <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
-    <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
     <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
+    <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
   </EntityContainer>
   <EntityType Name="Advance">
     <Key>
@@ -166,25 +166,6 @@
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoleId" Type="Int32" Nullable="false" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-    <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
-    <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="UpdatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
   <EntityType Name="PaymentReceipt">
     <Key>
       <PropertyRef Name="Id" />
@@ -207,5 +188,24 @@
     <Property Name="NameOnCheque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Precision="7" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

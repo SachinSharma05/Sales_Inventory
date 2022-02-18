@@ -36,7 +36,7 @@ namespace Sales_Inventory.DAL
         public DbSet<Sale_Product> Sale_Product { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<PaymentReceipt> PaymentReceipts { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

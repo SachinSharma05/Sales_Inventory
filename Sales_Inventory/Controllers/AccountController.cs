@@ -34,11 +34,11 @@ namespace Sales_Inventory.Controllers
                 UserViewModel user = VerifyLogin(model.Email, model.Password);
                 if(user != null)
                 {
-                    if(user.IsActive)
+                    if(user.IsAvtive)
                     {
                         Session["UserId"] = user.UserId;
                         Session["Email"] = user.Email;
-                        Session["Fullname"] = user.Fullname;
+                        Session["Fullname"] = user.FullName;
                         Session["RoleId"] = user.RoleId;
                         return RedirectToAction("Index", "Home");
                     }
@@ -65,10 +65,10 @@ namespace Sales_Inventory.Controllers
                 if(user != null)
                 {
                     model.Email = user.Email;
-                    model.Fullname = user.FullName;
+                    model.FullName = user.FullName;
                     model.UserId = user.UserId;
                     model.RoleId = user.RoleId;
-                    model.IsActive = user.IsAvtive;
+                    model.IsAvtive = user.IsAvtive;
                 }
             }
             return model;
