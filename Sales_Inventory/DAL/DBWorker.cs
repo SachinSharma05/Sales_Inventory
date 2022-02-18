@@ -263,5 +263,20 @@ namespace Sales_Inventory.DAL
             }
         }
         #endregion
+
+        #region [Payment Receipt]
+        private GenericRepository<PaymentReceipt> paymentReceiptEntity;
+        public GenericRepository<PaymentReceipt> PaymentReceiptEntity
+        {
+            get
+            {
+                if (this.paymentReceiptEntity == null)
+                {
+                    this.paymentReceiptEntity = new GenericRepository<PaymentReceipt>(context);
+                }
+                return paymentReceiptEntity;
+            }
+        }
+        #endregion
     }
 }

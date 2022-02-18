@@ -13,6 +13,7 @@
     <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
     <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
+    <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
   </EntityContainer>
   <EntityType Name="Advance">
     <Key>
@@ -183,5 +184,28 @@
     <Property Name="UpdatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="PaymentReceipt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReceivedDate" Type="DateTime" Precision="0" />
+    <Property Name="ReceivedFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalAmount" Type="Int32" />
+    <Property Name="PaidAmount" Type="Int32" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentAgainst" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AccountHolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UPI_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChequeDate" Type="DateTime" Precision="0" />
+    <Property Name="NameOnCheque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

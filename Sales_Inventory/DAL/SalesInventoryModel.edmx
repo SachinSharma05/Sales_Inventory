@@ -76,6 +76,29 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="date" />
         </EntityType>
+        <EntityType Name="PaymentReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceivedDate" Type="date" />
+          <Property Name="ReceivedFrom" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalAmount" Type="int" />
+          <Property Name="PaidAmount" Type="int" />
+          <Property Name="Balance" Type="int" />
+          <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentAgainst" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountHolderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPI_Id" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChequeDate" Type="date" />
+          <Property Name="NameOnCheque" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
         <EntityType Name="ProductType">
           <Key>
             <PropertyRef Name="Id" />
@@ -180,6 +203,7 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />
@@ -206,6 +230,7 @@
           <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
           <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
           <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
+          <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
         </EntityContainer>
         <EntityType Name="Advance">
           <Key>
@@ -376,6 +401,29 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="PaymentReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="0" />
+          <Property Name="ReceivedFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalAmount" Type="Int32" />
+          <Property Name="PaidAmount" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAgainst" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountHolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPI_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeDate" Type="DateTime" Precision="0" />
+          <Property Name="NameOnCheque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -562,6 +610,30 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentReceipts">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.PaymentReceipt">
+              <MappingFragment StoreEntitySet="PaymentReceipt">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="NameOnCheque" ColumnName="NameOnCheque" />
+                <ScalarProperty Name="ChequeDate" ColumnName="ChequeDate" />
+                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+                <ScalarProperty Name="UPI_Id" ColumnName="UPI_Id" />
+                <ScalarProperty Name="AccountHolderName" ColumnName="AccountHolderName" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="PaymentAgainst" ColumnName="PaymentAgainst" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="ReceivedFrom" ColumnName="ReceivedFrom" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

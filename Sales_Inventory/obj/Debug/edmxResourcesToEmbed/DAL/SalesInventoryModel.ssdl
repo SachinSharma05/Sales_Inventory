@@ -71,6 +71,29 @@
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
+  <EntityType Name="PaymentReceipt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReceivedDate" Type="date" />
+    <Property Name="ReceivedFrom" Type="nvarchar" MaxLength="50" />
+    <Property Name="TotalAmount" Type="int" />
+    <Property Name="PaidAmount" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentAgainst" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccountNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccountHolderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UPI_Id" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChequeDate" Type="date" />
+    <Property Name="NameOnCheque" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
   <EntityType Name="ProductType">
     <Key>
       <PropertyRef Name="Id" />
@@ -175,6 +198,7 @@
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />

@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Sales_Inventory.Models.PaymentViewModel>
+﻿@model  IEnumerable<Sales_Inventory.Models.PaymentReceiptViewModel>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +8,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Payment List</h1>
+    <h1>Payment Receipt List</h1>
     <ol class="breadcrumb">
         <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">List</li>
@@ -19,34 +19,35 @@
     <div class="box">
         <div class="box-header with-border">
             <div class="form-group col-md-3">
-                <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToMake"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
+                <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToReceived"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
             </div>
         </div>
         <div class="box-body">
-            <table id="Paymentlist" class="table table-bordered table-striped">
+            <table id="PaymentReceiptlist" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <td>Purchase No</td>
-                        <th>Payment To</th>
-                        <th>Date</th>
-                        <th>Mode</th>
+                        <th>Receipt No</th>
+                        <th>Received Date</th>
+                        <th>Received From</th>
+                        <th>Total Amount</th>
                         <th>Paid Amount</th>
                         <th>Balance</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tblbody">
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Purchase_No</td>
-                            <td>@item.Payment_To</td>
-                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Payment_Date)</td>
-                            <td>@item.Payment_Type</td>
-                            <td>@item.Paid_Amount</td>
+                            <td>@item.ReceiptNo</td>
+                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.ReceivedDate)</td>
+                            <td>@item.ReceivedFrom</td>
+                            <td>@item.TotalAmount</td>
+                            <td>@item.PaidAmount</td>
                             <td>@item.Balance</td>
                             <td>
-                                <a href="/Employee/Edit/@item.Id"><span class="label label-success">Edit</span></a>
-                                <a href="/Employee/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                                <a href="/PaymentReceipt/Edit/@item.Id"><span class="label label-success">Edit</span></a>
+                                <a href="/PaymentReceipt/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
                             </td>
                         </tr>
                     }
@@ -57,7 +58,7 @@
 </div>
 <script>
     $(function () {
-        $('#Paymentlist').DataTable({
+        $('#PaymentReceiptlist').DataTable({
             'paging': true,
             'lengthChange': false,
             'searching': true,
@@ -70,8 +71,7 @@
 
 <script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 
-
-<div class="modal fade bd-example-modal-lg" id="ModalSelectPaymentToMake" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="ModalSelectPaymentToReceived" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,30 +79,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>   
+            </div>
             <div class="modal-body" style="padding:40px 50px;">
-                <div class="row">   
+                <div class="row">
                     <table id="Paymentlist" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Purchase No</th>
-                                <th>Payment To</th>
-                                <th>Purchase Date</th>
+                                <th>Sale No</th>
+                                <th>Sale To</th>
+                                <th>Sale Date</th>
+                                <th>Total Sale Amount</th>
                                 <th>Balance</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in ViewBag.PaymentListModel)
+                            @foreach (var item in ViewBag.SalesListModel)
                             {
                                 <tr>
-                                    <td>@item.Id</td>
-                                    <td>@item.Purchase_No</td>
-                                    <td>@item.Purchase_From</td>
-                                    <td>@item.Purchase_Date</td>
+
+                                    <td>@item.Sale_No</td>
+                                    <td>@item.Sale_To</td>
+                                    <td>@item.Sale_Date</td>
+                                    <td>@item.GrossTotal</td>
                                     <td>@item.Balance</td>
-                                    <td><a href="/Payment/Create/@item.Id"><span class="label label-success">Pay</span></a></td>
+                                    <td><a href="/PaymentReceipt/Create/@item.Id"><span class="label label-success">Pay</span></a></td>
                                 </tr>
                             }
                         </tbody>

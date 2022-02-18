@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MiscExpensesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PaymentReceiptController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="DAL\Advance.cs">
@@ -150,6 +151,9 @@
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Payment.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\PaymentReceipt.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ProductType.cs">
@@ -202,6 +206,7 @@
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MiscExpensesViewModel.cs" />
+    <Compile Include="Models\PaymentReceiptViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\ProductTypeSelectListModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
@@ -288,6 +293,8 @@
     <Content Include="Views\Payment\Edit.cshtml" />
     <Content Include="Views\MiscExpenses\List.cshtml" />
     <Content Include="Views\Home\DayCashBook.cshtml" />
+    <Content Include="Views\PaymentReceipt\List.cshtml" />
+    <Content Include="Views\PaymentReceipt\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
