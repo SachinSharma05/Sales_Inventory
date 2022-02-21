@@ -23,7 +23,7 @@ namespace Sales_Inventory.DAL
         public string FullName { get; set; }
         public bool IsAvtive { get; set; }
         public string PasswordResetToken { get; set; }
-        public System.DateTime PasswordResetTokenExpiry { get; set; }
+        public Nullable<System.DateTime> PasswordResetTokenExpiry { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

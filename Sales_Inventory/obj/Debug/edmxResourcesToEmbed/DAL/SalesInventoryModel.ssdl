@@ -188,8 +188,8 @@
     <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FullName" Type="varchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="IsAvtive" Type="bit" Nullable="false" />
-    <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PasswordResetTokenExpiry" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="50" />
+    <Property Name="PasswordResetTokenExpiry" Type="datetime2" Precision="7" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="UpdatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
