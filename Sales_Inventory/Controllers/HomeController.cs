@@ -18,56 +18,17 @@ namespace Sales_Inventory.Controllers
             var PurchaseCount = worker.PurchaseEntity.Get().ToList().Count;
             var SalesCount = worker.SaleEntity.Get().ToList().Count;
             var PaymentCount = worker.PaymentEntity.Get().ToList().Count;
-
-            CommonViewModel commonViewModel = new CommonViewModel();
-            commonViewModel.stockViewModels = StockList();
-            commonViewModel.purchaseViewModels = BalanceList();
+            var PaymentReceiptCount = worker.PaymentReceiptEntity.Get().ToList().Count;
+            var TotalStock = worker.PurchaseProductEntity.Get().ToList().Count;
 
             TempData["EmployeeCount"] = EmployeeCount;
             TempData["PurchaseCount"] = PurchaseCount;
             TempData["SalesCount"] = SalesCount;
             TempData["PaymentCount"] = PaymentCount;
+            TempData["PaymentReceiptCount"] = PaymentReceiptCount;
+            TempData["TotalStockCount"] = TotalStock;
 
-            return View(commonViewModel);
-        }
-
-        public List<StockViewModel> StockList()
-        {
-            List<StockViewModel> stockList = new List<StockViewModel>();
-            var StockCount = worker.StockEntity.Get().ToList();
-            if (StockCount.Count > 0)
-            {
-                foreach (var item in StockCount)
-                {
-                    stockList.Add(new StockViewModel
-                    {
-                        Id = item.Id,
-                        Product = item.Product,
-                        TotalQuantity = item.TotalQuantity
-                    });
-                }
-            }
-            return stockList;
-        }
-
-        public List<PurchaseViewModel> BalanceList()
-        {
-            List<PurchaseViewModel> balanceList = new List<PurchaseViewModel>();
-            var balanceCount = worker.PurchaseEntity.Get(x => x.Balance > 0).ToList();
-            if (balanceCount.Count > 0)
-            {
-                foreach (var item in balanceCount)
-                {
-                    balanceList.Add(new PurchaseViewModel
-                    {
-                        Id = item.Id,
-                        Purchase_No = item.Purchase_No,
-                        Purchase_From = item.Purchase_From,
-                        Balance = item.Balance
-                    });
-                }
-            }
-            return balanceList;
+            return View();
         }
 
         public ActionResult DayCashBook()
@@ -124,21 +85,64 @@ namespace Sales_Inventory.Controllers
             }
         }
 
-        //public ActionResult Stock()
-        //{
-        //    var result = worker.StockEntity.context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Stock]");
+        public ActionResult TotalStock(string StartDate, string EndDate)
+        {
+            try
+            {
+                if (StartDate != null && EndDate != null)
+                {
+                    return View(GetFilterStockList(StartDate, EndDate));
+                }
+                else
+                {
+                    return View(GetStockList());
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //    var StockCount = worker.PurchaseProductEntity.Get().GroupBy(x => x.ItemName).Select(x => new StockViewModel { Product = x.Key, TotalQuantity = x.Sum(y => y.Quantity) }).ToList();
-        //    foreach (var item in StockCount)
-        //    {
-        //        Stock stock = new Stock();
-        //        stock.Product = item.Product;
-        //        stock.TotalQuantity = item.TotalQuantity;
-        //        worker.StockEntity.Insert(stock);
-        //        worker.Save();
-        //    }
-
-        //    return RedirectToAction("List");
-        //}
+        public List<Purchase_Products> GetStockList()
+        {
+            List<Purchase_Products> StockList = new List<Purchase_Products>();
+            var list = worker.PurchaseProductEntity.Get().ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    StockList.Add(new Purchase_Products
+                    {
+                        Id = item.Id,
+                        ItemName = item.ItemName,
+                        Quantity = item.Quantity,
+                        CreatedDate = item.CreatedDate
+                    });
+                }
+            }
+            return StockList;
+        }
+        public List<Purchase_Products> GetFilterStockList(string StartDate, string EndDate)
+        {
+            List<Purchase_Products> FilterStockList = new List<Purchase_Products>();
+            var NewStartDate = Convert.ToDateTime(StartDate);
+            var NewEndDate = Convert.ToDateTime(EndDate);
+            var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate).ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    FilterStockList.Add(new Purchase_Products
+                    {
+                        Id = item.Id,
+                        ItemName = item.ItemName,
+                        Quantity = item.Quantity,
+                        CreatedDate = item.CreatedDate
+                    });
+                }
+            }
+            return FilterStockList;
+        }
     }
 }

@@ -28,6 +28,8 @@ namespace Sales_Inventory.DAL
         public string AlternateNumber { get; set; }
         public string AadharNumber { get; set; }
         public Nullable<System.DateTime> DateofJoining { get; set; }
+        public string AccountNo { get; set; }
+        public Nullable<int> Salary { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }

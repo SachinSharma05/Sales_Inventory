@@ -69,6 +69,8 @@ namespace Sales_Inventory.Controllers
                     emp.AlternateNumber = model.AlternateNumber;
                     emp.AadharNumber = model.AadharNumber;
                     emp.DateofJoining = model.DateofJoining;
+                    emp.AccountNo = model.AccountNo;
+                    emp.Salary = model.Salary;
                     emp.Remarks = model.Remarks;
                     emp.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     emp.UpdatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
@@ -105,6 +107,8 @@ namespace Sales_Inventory.Controllers
                 model.AlternateNumber = user.AlternateNumber;
                 model.AadharNumber = user.AadharNumber;
                 model.DateofJoining = user.DateofJoining;
+                model.AccountNo = user.AccountNo;
+                model.Salary = user.Salary;
                 model.Remarks = user.Remarks;
                 return View(model);
             }
@@ -141,6 +145,8 @@ namespace Sales_Inventory.Controllers
                 user.AlternateNumber = model.AlternateNumber;
                 user.AadharNumber = model.AadharNumber;
                 user.DateofJoining = model.DateofJoining;
+                user.AccountNo = model.AccountNo;
+                user.Salary = model.Salary;
                 user.Remarks = model.Remarks;
                 user.UpdatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                 user.UpdatedDate = DateTime.Now.Date;

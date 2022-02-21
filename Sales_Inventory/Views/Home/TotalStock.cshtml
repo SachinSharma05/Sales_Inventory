@@ -1,0 +1,91 @@
+﻿@model  IEnumerable<Sales_Inventory.Models.Purchase_Products>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>List</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+    </ol>
+</section>
+
+<div class="col-md-12">
+    <div class="box">
+        <div class="box-header">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <h4 class="box-title">Start Date</h4>
+                    <input type="text" id="min" name="min">
+                </div>
+                <div class="col-md-3">
+                    <h4 class="box-title">End Date</h4>
+                    <input type="text" id="max" name="max">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit" id="btnFilter" />
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="Stocklist" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Product</th>
+                        <th>Purchase Quantity</th>
+                        <th>Purchase Date</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.ItemName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.CreatedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#Stocklist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    });
+
+    $("body").on("click", "#btnFilter", function () {
+        //Loop through the Table rows and build a JSON array.
+        var data = new FormData();
+        data.append('StartDate', $("#min").val());
+        data.append('EndDate', $("#max").val());
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/Home/TotalStock",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                
+            }
+        });
+    });
+</script>
+
+<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

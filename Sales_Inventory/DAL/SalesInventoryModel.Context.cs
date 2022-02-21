@@ -26,7 +26,6 @@ namespace Sales_Inventory.DAL
         }
     
         public DbSet<Advance> Advances { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<MiscExpens> MiscExpenses { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
@@ -38,5 +37,6 @@ namespace Sales_Inventory.DAL
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PaymentReceipt> PaymentReceipts { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

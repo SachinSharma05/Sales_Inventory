@@ -30,6 +30,8 @@
     <Property Name="AlternateNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="AadharNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="DateofJoining" Type="date" />
+    <Property Name="AccountNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salary" Type="int" />
     <Property Name="Remarks" Type="nvarchar" MaxLength="1000" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="UpdatedBy" Type="int" />

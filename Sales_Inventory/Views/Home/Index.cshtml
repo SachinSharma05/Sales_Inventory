@@ -50,7 +50,7 @@
             <div class="small-box bg-red">
                 <div class="inner">
                     <h3>@TempData["PaymentCount"]</h3>
-                    <p>Payment</p>
+                    <p>Payment Done</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-user"></i>
@@ -58,61 +58,28 @@
                 <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Stock List</h3>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@TempData["PaymentReceiptCount"]</h3>
+                    <p>Payment Received</p>
                 </div>
-                <div class="box-body">
-                    <table id="Stocklist" class="table table-bordered table-striped table-hover for-alignment">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Total Stock(KG's)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.stockViewModels)
-                            {
-                                <tr>
-                                    <td>@item.Product</td>
-                                    <td>@item.TotalQuantity</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
                 </div>
+                <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments Received <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-xs-6">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Balance Amount List</h3>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@TempData["TotalStockCount"]</h3>
+                    <p>Total Stock</p>
                 </div>
-                <div class="box-body">
-                    <table id="BalanceAmountlist" class="table table-bordered table-striped table-hover for-alignment">
-                        <thead>
-                            <tr>
-                                <th>Purchase No</th>
-                                <th>Purchase From</th>
-                                <th>Balance Payment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.purchaseViewModels)
-                            {
-                                <tr>
-                                    <td>@item.Purchase_No</td>
-                                    <td>@item.Purchase_From</td>
-                                    <td>@item.Balance</td>
-                                    <td><a href="/Payment/Create/@item.Id"><span class="label label-success">Pay</span></a></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
                 </div>
+                <a href="@Url.Action("TotalStock","Home")" class="small-box-footer">List All Current Stock <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

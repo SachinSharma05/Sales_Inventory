@@ -94,14 +94,14 @@
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="form-group">
-                        <label>Phone No</label>
+                        <label>Alternate Phone No</label>
                         @Html.TextBoxFor(m => m.AlternateNumber, new { @class = "form-control required", maxlength = "10", placeholder = "Enter Alternate Phone No." })
                         @Html.ValidationMessageFor(m => m.AlternateNumber)
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="form-group">
-                        <label>Phone No</label>
+                        <label>Aadhar No</label>
                         @Html.TextBoxFor(m => m.AadharNumber, new { @class = "form-control required", maxlength = "14", placeholder = "Enter Aadhar Number" })
                         @Html.ValidationMessageFor(m => m.AadharNumber)
                     </div>
@@ -116,6 +116,20 @@
                             @Html.TextBoxFor(m => m.DateofJoining, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Joining Date dd/mm/yyyy" })
                             @Html.ValidationMessageFor(m => m.DateofJoining)
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label>Account No</label>
+                        @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control", placeholder = "Enter Account No" })
+                        @Html.ValidationMessageFor(m => m.AccountNo)
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label>Salary</label>
+                        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", placeholder = "Enter Salary" })
+                        @Html.ValidationMessageFor(m => m.Salary)
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
