@@ -1,184 +1,95 @@
 ﻿@model Sales_Inventory.Models.CommonViewModel
 
-@{
+@{ 
     ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
 
-<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Dashboard
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
 
-<!--Status Board start---->
-<section class="content">
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3>@TempData["EmployeeCount"]</h3>
-                    <p>Employees</p>
+    <!--Status Board start---->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Employees</span>
+                        <span class="info-box-number">@TempData["EmployeeCount"]</span>
+                    </div>
+                    <a href="@Url.Action("List","Employee")" class="small-box-footer">List All Employees <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-address-book"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Purchase</span>
+                        <span class="info-box-number">@TempData["PurchaseCount"]</span>
+                    </div>
+                    <a href="@Url.Action("List","Purchase")" class="small-box-footer">List All Purchases <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-                <a href="@Url.Action("List","Employee")" class="small-box-footer">List All Employees <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sales</span>
+                        <span class="info-box-number">@TempData["SalesCount"]</span>
+                    </div>
+                    <a href="@Url.Action("List","Sales")" class="small-box-footer">List All Sales <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-dollar"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Payment</span>
+                        <span class="info-box-number">@TempData["PaymentCount"]</span>
+                    </div>
+                    <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@TempData["PaymentReceiptCount"]</h3>
+                        <p>Payment Received</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments Received <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@TempData["TotalStockCount"]</h3>
+                        <p>Total Stock</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <a href="@Url.Action("TotalStock","Home")" class="small-box-footer">List All Current Stock <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
             </div>
         </div>
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>@TempData["PurchaseCount"]</h3>
-                    <p>Purchase</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <a href="@Url.Action("List","Purchase")" class="small-box-footer">List All Purchases <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>@TempData["SalesCount"]</h3>
-                    <p>Sale</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <a href="@Url.Action("List","Sales")" class="small-box-footer">List All Sales <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>@TempData["PaymentCount"]</h3>
-                    <p>Payment Done</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3>@TempData["PaymentReceiptCount"]</h3>
-                    <p>Payment Received</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <a href="@Url.Action("List","Payment")" class="small-box-footer">List All Payments Received <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>@TempData["TotalStockCount"]</h3>
-                    <p>Total Stock</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <a href="@Url.Action("TotalStock","Home")" class="small-box-footer">List All Current Stock <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Status Board end---->
+    </section>
+    <!--Status Board end---->
+</div>
 
-<style>
-    /**SWITCHBOARD**/
-    .test {
-        margin: 0px 15px !important;
-        min-height: auto !important;
-    }
-    .switch-board {
-        padding: 20px 20px 5px 12px;
-        margin-left: -5px;
-        background: #222d32;
-        color: #fff;
-    }
-    .switch-item {
-        text-align: center;
-        margin: 0px;
-    }
-    .switch-item li {
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0px 8px;
-        display: inline-block;
-        margin: 0px 0px 10px 0px;
-        position: relative;
-        list-style: none;
-    }
-    .switch-item li a {
-        box-shadow: none !important;
-        width: 70px;
-        height: 70px;
-        padding: 0px !important;
-        display: block;
-        text-decoration: none;
-        border-radius: 50%;
-        border: 1px solid #fff;
-        margin-bottom: 8px;
-    }
-    .switch-item li a img {
-        margin-top: 25%;
-    }
-    .switch-item li a span {
-        display: block;
-        text-align: center;
-        padding: 0px 5px !important;
-        font-size: 12px !important;
-        color: #eee !important;
-    }
-    .switch-item li > span:hover {
-        color: #a1cc3a;
-    }
-    .switch-item li a:hover {
-        background: #a1cc3a;
-        border: 1px solid #a1cc3a;
-    }
-</style>
-
-<script>
-    $(function () {
-        $('#Stocklist').DataTable({
-            'paging': true,
-            'searching': true,
-            'info': false,
-            'lengthChange': false,
-            'pageLength': 5
-        })
-        //$('#Stocklist').DataTable({
-        //    'paging': true,
-        //    'lengthChange': false,
-        //    'searching': false,
-        //    'ordering': false,
-        //    'info': false,
-        //    'autoWidth': false,
-        //    'pageLength': 5
-        //})
-    });
-
-    $(function () {
-        $('#BalanceAmountlist').DataTable({
-            'paging': true,
-            'searching': true,
-            'info': false,
-            'lengthChange': false,
-            'pageLength': 5
-        })
-        //$('#BalanceAmountlist').DataTable({
-        //    'paging': true,
-        //    'lengthChange': false,
-        //    'searching': false,
-        //    'ordering': false,
-        //    'info': false,
-        //    'autoWidth': false,
-        //    'pageLength': 5
-        //})
-    });
-</script>
-
-<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/dashboard2")
+}
