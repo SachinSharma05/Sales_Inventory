@@ -85,16 +85,33 @@ namespace Sales_Inventory.Controllers
             }
         }
 
-        public ActionResult TotalStock(string StartDate, string EndDate)
+        public List<SelectListItem> GetProductTypeList()
+        {
+            var query = worker.ProductTypeEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Product" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Product
+            }));
+
+            ViewBag.ProductList = list;
+
+            return list;
+        }
+        public ActionResult TotalStock(string StartDate, string EndDate, string Product)
         {
             try
             {
-                if (StartDate != null && EndDate != null)
+                if (StartDate != null && EndDate != null && Product != null)
                 {
-                    return View(GetFilterStockList(StartDate, EndDate));
+                    ViewBag.ProductList = GetProductTypeList();
+                    return View(GetFilterStockList(StartDate, EndDate, Product));
                 }
                 else
                 {
+                    ViewBag.ProductList = GetProductTypeList();
                     return View(GetStockList());
                 }
             }
@@ -103,7 +120,6 @@ namespace Sales_Inventory.Controllers
                 throw ex;
             }
         }
-
         public List<Purchase_Products> GetStockList()
         {
             List<Purchase_Products> StockList = new List<Purchase_Products>();
@@ -123,12 +139,26 @@ namespace Sales_Inventory.Controllers
             }
             return StockList;
         }
-        public List<Purchase_Products> GetFilterStockList(string StartDate, string EndDate)
+        public List<Purchase_Products> GetFilterStockList(string StartDate, string EndDate, string Product)
         {
             List<Purchase_Products> FilterStockList = new List<Purchase_Products>();
+            List<Purchase_Product> list = new List<Purchase_Product>();
             var NewStartDate = Convert.ToDateTime(StartDate);
             var NewEndDate = Convert.ToDateTime(EndDate);
-            var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate).ToList();
+           
+            if(Product != null)
+            {
+                list = worker.PurchaseProductEntity.Get(x => x.ItemName == Product).ToList();
+            }
+            else if(Product != null && StartDate != null && EndDate != null)
+            {
+                list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate && x.ItemName == Product).ToList();
+            } 
+            else if(StartDate != null && EndDate != null)
+            {
+                list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate).ToList();
+            }
+            
             if (list.Count > 0)
             {
                 foreach (var item in list)

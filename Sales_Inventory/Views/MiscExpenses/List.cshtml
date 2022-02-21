@@ -4,101 +4,111 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>Expenses List</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">List</li>
+        </ol>
+    </section>
 
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>Expenses List</h1>
-    <ol class="breadcrumb">
-        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">List</li>
-    </ol>
-</section>
-
-<div class="col-md-12">
-    <div class="box">
-        <div class="box-body">
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Expense</label>
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "expenseName" })
-                    @Html.ValidationMessageFor(m => m.Name)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Expense Amount</label>
-                    @Html.TextBoxFor(m => m.ExpenseAmt, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "expenseAmt" })
-                    @Html.ValidationMessageFor(m => m.ExpenseAmt)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Expense Date</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Expense</label>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "expenseName" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
                         </div>
-                        @Html.TextBoxFor(m => m.ExpenseDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "expenseDate" })
-                        @Html.ValidationMessageFor(m => m.ExpenseDate)
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Expense Amount</label>
+                                @Html.TextBoxFor(m => m.ExpenseAmt, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "expenseAmt" })
+                                @Html.ValidationMessageFor(m => m.ExpenseAmt)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Expense Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.ExpenseDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "expenseDate" })
+                                    @Html.ValidationMessageFor(m => m.ExpenseDate)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Expense Reason</label>
+                                @Html.TextBoxFor(m => m.ExpenseReason, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "expenseReason" })
+                                @Html.ValidationMessageFor(m => m.ExpenseReason)
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table id="Expenselist" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Expense Amount</th>
+                                    <th>Expense Date</th>
+                                    <th>Expense Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblbody">
+                                @foreach (var item in ViewBag.ListExpenses)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.ExpenseAmt</td>
+                                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.ExpenseDate)</td>
+                                        <td>@item.ExpenseReason</td>
+                                        @if (Convert.ToInt32(Session["UserId"]) == 1)
+                                        {
+                                            <td>
+                                                <a href="/Employee/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
+                                                <a href="/MiscExpenses/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Expense Reason</label>
-                    @Html.TextBoxFor(m => m.ExpenseReason, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "expenseReason" })
-                    @Html.ValidationMessageFor(m => m.ExpenseReason)
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
-            </div>
         </div>
-        <div class="box-body">
-            <table id="Expenselist" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Expense Amount</th>
-                        <th>Expense Date</th>
-                        <th>Expense Reason</th>
-                    </tr>
-                </thead>
-                <tbody id="tblbody">
-                    @foreach (var item in ViewBag.ListExpenses)
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.ExpenseAmt</td>
-                            <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.ExpenseDate)</td>
-                            <td>@item.ExpenseReason</td>
-                            @if (Convert.ToInt32(Session["UserId"]) == 1)
-                            {
-                                <td>
-                                    <a href="/Employee/Edit/@item.Id"><span class="label label-success"><i class="fa fa-pencil"></i></span></a>
-                                    <a href="/MiscExpenses/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </section>
 </div>
-<script>
-    $(function () {
-        $('#Expenselist').DataTable({
-            'paging': true,
-            'lengthChange': false,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        })
-    });
 
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Expenselist').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'pageLength': 10
+            })
+        })
+    </script>
+}
+
+<script>
     $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
         var data = new FormData();
@@ -123,5 +133,3 @@
         });
     });
 </script>
-
-<script src="/Content/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
