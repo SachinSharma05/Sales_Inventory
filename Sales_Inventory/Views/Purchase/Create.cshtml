@@ -91,8 +91,11 @@
     </section>
 </div>
 
-<script type="text/javascript">
-    $("body").on("click", "#btnAdd", function () {
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $("body").on("click", "#btnAdd", function () {
         //Reference the Name and Country TextBoxes.
         var txtItemName = $("#txtItemName");
         var txtQuantity = $("#txtQuantity");
@@ -185,26 +188,21 @@
             }
         });
     });
-</script>
 
-<script type="text/javascript">
-    $('.txtPrice').keyup(function () {
-        var textone;
-        var texttwo;
-        textone = parseFloat($('.txtQuantity').val());
-        texttwo = parseFloat($('.txtPrice').val());
-        var result = textone * texttwo;
-        $('.txtTotal').val(result);
-    });
-</script>
-
-@section Scripts
-{
-    <script type="text/javascript">
         //Date picker
         $('#purchaseDate').datepicker({
             autoclose: true,
-            dateFormat: "dd/mm/yy"
+            dateFormat: "mm/dd/yy"
         });
+
+        $('.txtPrice').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('.txtQuantity').val());
+            texttwo = parseFloat($('.txtPrice').val());
+            var result = textone * texttwo;
+            $('.txtTotal').val(result);
+        });
+
     </script>
 }

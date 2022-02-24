@@ -92,119 +92,125 @@
     </section>
 </div>
 
-<script>
-    $("body").on("click", "#btnAdd", function () {
-        //Reference the Name and Country TextBoxes.
-        var txtItemName = $("#txtItemName");
-        var txtQuantity = $("#txtQuantity");
-        var txtPrice = $("#txtPrice");
-        var txtTotal = $("#txtTotal");
+@section Scripts
+{
+    <script>
+        $("body").on("click", "#btnAdd", function () {
+            //Reference the Name and Country TextBoxes.
+            var txtItemName = $("#txtItemName");
+            var txtQuantity = $("#txtQuantity");
+            var txtPrice = $("#txtPrice");
+            var txtTotal = $("#txtTotal");
 
-        //Get the reference of the Table's TBODY element.
-        var tBody = $("#tblProducts > TBODY")[0];
+            //Get the reference of the Table's TBODY element.
+            var tBody = $("#tblProducts > TBODY")[0];
 
-        //Add Row.
-        var row = tBody.insertRow(-1);
+            //Add Row.
+            var row = tBody.insertRow(-1);
 
-        //Add Name cell.
-        var cell = $(row.insertCell(-1));
-        cell.html(txtItemName.val());
+            //Add Name cell.
+            var cell = $(row.insertCell(-1));
+            cell.html(txtItemName.val());
 
-        //Add Quantity cell.
-        cell = $(row.insertCell(-1));
-        cell.html(txtQuantity.val());
+            //Add Quantity cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtQuantity.val());
 
-        //Add Price cell.
-        cell = $(row.insertCell(-1));
-        cell.html(txtPrice.val());
+            //Add Price cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtPrice.val());
 
-        //Add Total cell.
-        cell = $(row.insertCell(-1));
-        cell.html(txtTotal.val());
+            //Add Total cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtTotal.val());
 
-        //Add Button cell.
-        cell = $(row.insertCell(-1));
-        var btnRemove = $("<input />");
-        btnRemove.attr("type", "button");
-        btnRemove.attr("class", "form-control");
-        btnRemove.attr("onclick", "Remove(this);");
-        btnRemove.val("Remove");
-        cell.append(btnRemove);
+            //Add Button cell.
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<input />");
+            btnRemove.attr("type", "button");
+            btnRemove.attr("class", "form-control");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.val("Remove");
+            cell.append(btnRemove);
 
-        //Clear the TextBoxes.
-        txtItemName.val("");
-        txtQuantity.val("");
-        txtPrice.val("");
-        txtTotal.val("");
-    });
-
-    function Remove(button) {
-        //Determine the reference of the Row using the Button.
-        var row = $(button).closest("TR");
-        var name = $("TD", row).eq(0).html();
-        if (confirm("Do you want to delete this product")) {
-            //Get the reference of the Table.
-            var table = $("#tblProducts")[0];
-
-            //Delete the Table row using it's Index.
-            table.deleteRow(row[0].rowIndex);
-        }
-    };
-
-    $("body").on("click", "#btnSave", function () {
-        //Loop through the Table rows and build a JSON array.
-        var purchase_Products = new Array();
-        $("#tblProducts TBODY TR").each(function () {
-            var row = $(this);
-            var product = {};
-            product.ItemName = row.find("TD").eq(0).html();
-            product.Quantity = row.find("TD").eq(1).html();
-            product.Price = row.find("TD").eq(2).html();
-            product.Total = row.find("TD").eq(3).html();
-            purchase_Products.push(product);
+            //Clear the TextBoxes.
+            txtItemName.val("");
+            txtQuantity.val("");
+            txtPrice.val("");
+            txtTotal.val("");
         });
 
-        var data = new FormData();
-        data.append('purchaseId', $("#purchaseId").val());
-        data.append('purchaseFrom', $("#purchaseFrom").val());
-        data.append('purchaseBy', $("#purchaseBy").val());
-        data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
-        data.append('buyerPhoneNo', $("#buyerPhoneNo").val());
-        data.append('purchaseDate', $("#purchaseDate").val());
-        data.append('purchase_Prod', JSON.stringify(purchase_Products));
-        debugger;
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            if (confirm("Do you want to delete this product")) {
+                //Get the reference of the Table.
+                var table = $("#tblProducts")[0];
 
-        //Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            url: "/Purchase/Edit",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function (r) {
-                alert("Record(s) Updated.");
-                window.location.href("/Purchase/List");
+                //Delete the Table row using it's Index.
+                table.deleteRow(row[0].rowIndex);
             }
+        };
+
+        $("body").on("click", "#btnSave", function () {
+            //Loop through the Table rows and build a JSON array.
+            var purchase_Products = new Array();
+            $("#tblProducts TBODY TR").each(function () {
+                var row = $(this);
+                var product = {};
+                product.ItemName = row.find("TD").eq(0).html();
+                product.Quantity = row.find("TD").eq(1).html();
+                product.Price = row.find("TD").eq(2).html();
+                product.Total = row.find("TD").eq(3).html();
+                purchase_Products.push(product);
+            });
+
+            var data = new FormData();
+            data.append('purchaseId', $("#purchaseId").val());
+            data.append('purchaseFrom', $("#purchaseFrom").val());
+            data.append('purchaseBy', $("#purchaseBy").val());
+            data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
+            data.append('buyerPhoneNo', $("#buyerPhoneNo").val());
+            data.append('purchaseDate', $("#purchaseDate").val());
+            data.append('purchase_Prod', JSON.stringify(purchase_Products));
+            debugger;
+
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/Purchase/Edit",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (r) {
+                    alert("Record(s) Updated.");
+                    window.location.href("/Purchase/List");
+                }
+            });
         });
-    });
-</script>
 
-<script>
-    $('#txtPrice').keyup(function () {
-        var textone;
-        var texttwo;
-        textone = parseFloat($('#txtQuantity').val());
-        texttwo = parseFloat($('#txtPrice').val());
-        var result = textone * texttwo;
-        $('#txtTotal').val(result.toFixed(2));
-    });
+        $('#txtPrice').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#txtQuantity').val());
+            texttwo = parseFloat($('#txtPrice').val());
+            var result = textone * texttwo;
+            $('#txtTotal').val(result.toFixed(2));
+        });
 
-    $('#txtPrice1').keyup(function () {
-        var textone;
-        var texttwo;
-        textone = parseFloat($('#txtQuantity1').val());
-        texttwo = parseFloat($('#txtPrice1').val());
-        var result = textone * texttwo;
-        $('#txtTotal1').val(result.toFixed(2));
-    });
-</script>
+        $('#txtPrice1').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#txtQuantity1').val());
+            texttwo = parseFloat($('#txtPrice1').val());
+            var result = textone * texttwo;
+            $('#txtTotal1').val(result.toFixed(2));
+        });
+
+        $('#purchaseDate').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
+        });
+    </script>
+}

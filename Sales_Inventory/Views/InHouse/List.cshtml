@@ -1,0 +1,339 @@
+﻿@model  Sales_Inventory.Models.InHouseViewModel
+
+@{ 
+    ViewBag.Title = "In-House Transaction List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+@section Styles
+{
+    <style>
+        .example-modal .modal {
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: 50%;
+            display: block;
+            z-index: 1040 !important;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+        .modal-dialog
+    </style>
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>In-House Transaction List</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Start Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>End Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Action:</label><br />
+                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                                <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Expense</label>
+                                @Html.TextBoxFor(m => m.PaidBy, new { @class = "form-control required", placeholder = "Enter Paid By", @id = "paidBy" })
+                                @Html.ValidationMessageFor(m => m.PaidBy)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid To</label>
+                                @Html.TextBoxFor(m => m.PaidTo, new { @class = "form-control required", placeholder = "Enter Paid To", @id = "paidTo" })
+                                @Html.ValidationMessageFor(m => m.PaidTo)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Paid Date dd/mm/yyyy", @id = "paidDate" })
+                                    @Html.ValidationMessageFor(m => m.PaidDate)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Total Amount</label>
+                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control required", placeholder = "Enter Total Amount", @id = "totalAmount" })
+                                @Html.ValidationMessageFor(m => m.TotalAmount)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid Amount</label>
+                                @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", placeholder = "Enter Paid Amount", @id = "paidAmount" })
+                                @Html.ValidationMessageFor(m => m.PaidAmount)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Return Received Amount</label>
+                                @Html.TextBoxFor(m => m.ReturnAmtReceived, new { @class = "form-control required", placeholder = "Enter Return Amount", @id = "returnAmtReceived" })
+                                @Html.ValidationMessageFor(m => m.ReturnAmtReceived)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Balance Amount</label>
+                                @Html.TextBoxFor(m => m.BalanceAmt, new { @class = "form-control required", @readonly = "readonly", @id = "balanceAmt" })
+                                @Html.ValidationMessageFor(m => m.BalanceAmt)
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <input type="submit" class="btn btn-primary" value="Create" id="btnSave" />
+                        </div>
+                        <table id="InHouseTransactionlist" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Paid By</th>
+                                    <th>Paid To</th>
+                                    <th>Paid Date</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Return Amount</th>
+                                    <th>Balance Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblbody">
+                                @foreach (var item in ViewBag.InHouseTransaction)
+                                {
+                                    <tr>
+                                        <td>@item.PaidBy</td>
+                                        <td>@item.PaidTo</td>
+                                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.PaidDate)</td>
+                                        <td>@item.TotalAmount</td>
+                                        <td>@item.PaidAmount</td>
+                                        <td>@item.ReturnAmtReceived</td>
+                                        <td>@item.BalanceAmt</td>
+                                        @if (Convert.ToInt32(Session["UserId"]) == 1)
+                                        {
+                                            <td>
+                                                <a href="#" onclick="GetDetails(@item.Id)"><span class="label label-success">Edit</span></a>
+                                                <a href="/InHouse/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#InHouseTransactionlist').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'pageLength': 10
+            })
+        });
+
+        $('#startdatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#enddatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#paidDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+            var data = new FormData();
+            data.append('paidBy', $("#paidBy").val());
+            data.append('paidTo', $("#paidTo").val());
+            data.append('paidDate', $("#paidDate").val());
+            data.append('totalAmount', $("#totalAmount").val());
+            data.append('paidAmount', $("#paidAmount").val());
+            data.append('returnAmtReceived', $("#returnAmtReceived").val());
+            data.append('balanceAmt', $("#balanceAmt").val());
+
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/InHouse/Create",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    toastr.success('Record(s) Inserted Successfully')
+                    if (result) {
+                        window.location.href = '@Url.Action("List","InHouse")';
+                    }
+                }
+            });
+        });
+
+        function GetDetails(id) {
+            $.ajax({
+                url: "/InHouse/Edit/" + id,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    $('#Id').val(response.Id);
+                    $('#paidBy').val(response.PaidBy);
+                    $('#paidTo').val(response.PaidTo);
+                    $('#paidDate').val(response.PaidDate);
+                    $('#totalAmount').val(response.TotalAmount);
+                    $('#paidAmount').val(response.PaidAmount);
+                    $('#returnAmtReceived').val(response.ReturnedAmtReceived);
+                    $('#balanceAmt').val(response.BalanceAmt);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        };
+
+        $('#returnAmtReceived').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#paidAmount').val());
+            texttwo = parseFloat($('#returnAmtReceived').val());
+            var result = textone - texttwo;
+            $('#balanceAmt').val(result);
+        });
+    </script>
+}
+
+<div class="modal fade bd-example-modal-lg" id="ModalEditInHouseTransaction">
+    <div class="modal-dialog" style="position:absolute;left:30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Update", "InHouse", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Transaction Id</label>
+                                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.Id)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid By</label>
+                                @Html.TextBoxFor(m => m.PaidBy, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.PaidBy)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid To</label>
+                                @Html.TextBoxFor(m => m.PaidTo, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.PaidTo)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid Date</label>
+                                @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.PaidDate)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Total Amount</label>
+                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.TotalAmount)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Paid Amount</label>
+                                @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.PaidAmount)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Return Amount</label>
+                                @Html.TextBoxFor(m => m.ReturnAmtReceived, new { @class = "form-control required", placeholder = "Enter Return Amount" })
+                                @Html.ValidationMessageFor(m => m.ReturnAmtReceived)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Balance Amount</label>
+                                @Html.TextBoxFor(m => m.BalanceAmt, new { @class = "form-control required", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.BalanceAmt)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="@Url.Action("List", "InHouse")" class="btn btn-default">Cancel</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

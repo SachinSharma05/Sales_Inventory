@@ -14,6 +14,7 @@
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
     <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
     <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
+    <EntitySet Name="InHouses" EntityType="Sales_InventoryModel.InHouse" />
   </EntityContainer>
   <EntityType Name="Advance">
     <Key>
@@ -209,5 +210,20 @@
     <Property Name="UpdatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="InHouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaidBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaidTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaidDate" Type="DateTime" Precision="0" />
+    <Property Name="TotalAmount" Type="Int32" />
+    <Property Name="PaidAmount" Type="Int32" />
+    <Property Name="ReturnAmtReceived" Type="Int32" />
+    <Property Name="BalanceAmt" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

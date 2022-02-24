@@ -104,12 +104,9 @@
                 'autoWidth': false,
                 'pageLength': 10
             })
-        })
-    </script>
-}
+        });
 
-<script>
-    $("body").on("click", "#btnSave", function () {
+        $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
         var data = new FormData();
         data.append('expenseName', $("#expenseName").val());
@@ -128,8 +125,9 @@
                 toastr.success('Record(s) Inserted Successfully')
                 if (result) {
                     window.location.href = '@Url.Action("List","MiscExpenses")';
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
+}

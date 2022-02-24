@@ -12,8 +12,6 @@ namespace Sales_Inventory.Controllers
     {
         DBWorker worker = new DBWorker();
 
-        // GET: Employee
-
         #region Employee List
         public ActionResult List()
         {
@@ -121,10 +119,7 @@ namespace Sales_Inventory.Controllers
         [HttpPost]
         public ActionResult Edit(EmployeeViewModel model)
         {
-            if(ModelState.IsValid)
-            {
-                UpdateEmployee(model);
-            }
+            UpdateEmployee(model);
             return RedirectToAction("List");
         }
 

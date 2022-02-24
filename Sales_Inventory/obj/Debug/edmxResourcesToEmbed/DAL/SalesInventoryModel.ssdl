@@ -38,6 +38,21 @@
     <Property Name="CreatedDate" Type="date" />
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
+  <EntityType Name="InHouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaidBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaidTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaidDate" Type="date" />
+    <Property Name="TotalAmount" Type="int" />
+    <Property Name="PaidAmount" Type="int" />
+    <Property Name="ReturnAmtReceived" Type="int" />
+    <Property Name="BalanceAmt" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
   <EntityType Name="MiscExpenses">
     <Key>
       <PropertyRef Name="Id" />
@@ -198,6 +213,7 @@
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InHouse" EntityType="Self.InHouse" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />

@@ -1,9 +1,7 @@
 ﻿@model Sales_Inventory.Models.EmployeeViewModel
 
-@{
-    ViewBag.Title = "Create Employee";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewBag.Title = "Create Employee";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 
 <div class="content-wrapper">
@@ -57,7 +55,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                @Html.TextBoxFor(m => m.DOB, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Birth Date dd/mm/yyyy" })
+                                @Html.TextBoxFor(m => m.DOB, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Birth Date dd/mm/yyyy", @id = "DOB" })
                                 @Html.ValidationMessageFor(m => m.DOB)
                             </div>
                         </div>
@@ -111,7 +109,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                @Html.TextBoxFor(m => m.DateofJoining, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Joining Date dd/mm/yyyy" })
+                                @Html.TextBoxFor(m => m.DateofJoining, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Joining Date dd/mm/yyyy", @id = "DOJ" })
                                 @Html.ValidationMessageFor(m => m.DateofJoining)
                             </div>
                         </div>
@@ -146,3 +144,18 @@
         </div>
      }
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#DOB').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
+        });
+
+        $('#DOJ').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
+        });
+    </script>
+}

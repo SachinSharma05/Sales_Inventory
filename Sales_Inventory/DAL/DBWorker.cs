@@ -278,5 +278,20 @@ namespace Sales_Inventory.DAL
             }
         }
         #endregion
+
+        #region [In-House Transaction]
+        private GenericRepository<InHouse> inHouseTransactionEntity;
+        public GenericRepository<InHouse> InHouseTransactionEntity
+        {
+            get
+            {
+                if (this.inHouseTransactionEntity == null)
+                {
+                    this.inHouseTransactionEntity = new GenericRepository<InHouse>(context);
+                }
+                return inHouseTransactionEntity;
+            }
+        }
+        #endregion
     }
 }

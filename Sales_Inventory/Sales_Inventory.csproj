@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AdvancePaymentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InHouseController.cs" />
     <Compile Include="Controllers\MiscExpensesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PaymentReceiptController.cs" />
@@ -147,6 +148,9 @@
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\InHouse.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\MiscExpens.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -205,6 +209,7 @@
     <Compile Include="Models\DayCashModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ForgotViewModel.cs" />
+    <Compile Include="Models\InHouseViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MiscExpensesViewModel.cs" />
     <Compile Include="Models\PaymentReceiptViewModel.cs" />
@@ -298,6 +303,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="DAL\SalesInventoryModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SalesInventoryModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\SalesInventoryModel.edmx.diagram">
+      <DependentUpon>SalesInventoryModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\adminlte.zip" />
+    <Content Include="Content\adminlte\css\adminlte.css.map" />
+    <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -4130,18 +4145,40 @@
     <Content Include="Scripts\adminlte\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Scripts\adminlte\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Scripts\adminlte\plugins\timepicker\bootstrap-timepicker.min.js" />
-    <EntityDeploy Include="DAL\SalesInventoryModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SalesInventoryModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAL\SalesInventoryModel.edmx.diagram">
-      <DependentUpon>SalesInventoryModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Content\adminlte\css\adminlte.css.map" />
-    <Content Include="Content\adminlte\css\adminlte.min.css.map" />
-    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Account\_ForgotPassword.cshtml" />
+    <Content Include="Views\Account\_ResetPassword.cshtml" />
+    <Content Include="Views\Employee\List.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Purchase\Create.cshtml" />
+    <Content Include="Views\Purchase\List.cshtml" />
+    <Content Include="Views\AdvancePayment\List.cshtml" />
+    <Content Include="Views\AdvancePayment\Create.cshtml" />
+    <Content Include="Views\AdvancePayment\Edit.cshtml" />
+    <Content Include="Views\Purchase\Edit.cshtml" />
+    <Content Include="Views\Sales\List.cshtml" />
+    <Content Include="Views\Sales\Create.cshtml" />
+    <Content Include="Views\Sales\Edit.cshtml" />
+    <Content Include="Views\Payment\List.cshtml" />
+    <Content Include="Views\Payment\Create.cshtml" />
+    <Content Include="Views\Payment\Edit.cshtml" />
+    <Content Include="Views\MiscExpenses\List.cshtml" />
+    <Content Include="Views\Home\DayCashBook.cshtml" />
+    <Content Include="Views\PaymentReceipt\List.cshtml" />
+    <Content Include="Views\PaymentReceipt\Create.cshtml" />
+    <Content Include="Views\Home\TotalStock.cshtml" />
+    <Content Include="Views\InHouse\List.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\adminlte.zip" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.css.map" />
@@ -4179,48 +4216,17 @@
     <Content Include="Scripts\adminlte\components\jquery\dist\jquery.slim.min.map" />
     <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-codes.json" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
+    <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
+    </None>
+    <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Shared\_SideBar.cshtml" />
-    <Content Include="Views\Account\_ForgotPassword.cshtml" />
-    <Content Include="Views\Account\_ResetPassword.cshtml" />
-    <Content Include="Views\Employee\List.cshtml" />
-    <Content Include="Views\Employee\Create.cshtml" />
-    <Content Include="Views\Employee\Edit.cshtml" />
-    <Content Include="Views\Purchase\Create.cshtml" />
-    <Content Include="Views\Purchase\List.cshtml" />
-    <Content Include="Views\AdvancePayment\List.cshtml" />
-    <Content Include="Views\AdvancePayment\Create.cshtml" />
-    <Content Include="Views\AdvancePayment\Edit.cshtml" />
-    <Content Include="Views\Purchase\Edit.cshtml" />
-    <Content Include="Views\Sales\List.cshtml" />
-    <Content Include="Views\Sales\Create.cshtml" />
-    <Content Include="Views\Sales\Edit.cshtml" />
-    <Content Include="Views\Payment\List.cshtml" />
-    <Content Include="Views\Payment\Create.cshtml" />
-    <Content Include="Views\Payment\Edit.cshtml" />
-    <Content Include="Views\MiscExpenses\List.cshtml" />
-    <Content Include="Views\Home\DayCashBook.cshtml" />
-    <Content Include="Views\PaymentReceipt\List.cshtml" />
-    <Content Include="Views\PaymentReceipt\Create.cshtml" />
-    <Content Include="Views\Home\TotalStock.cshtml" />
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

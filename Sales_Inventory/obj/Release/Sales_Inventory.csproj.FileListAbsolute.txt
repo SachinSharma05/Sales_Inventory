@@ -80,7 +80,6 @@ C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Rel
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.csproj.CopyComplete
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.pdb
-C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.dll.config
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.pdb
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\bin\roslyn\csc.exe
@@ -163,3 +162,4 @@ C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inven
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.csproj.CopyComplete
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.dll
 C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\obj\Release\Sales_Inventory.pdb
+C:\Users\Admin\Documents\Sales_Inventory\Sales_Inventory\bin\Sales_Inventory.dll.config
