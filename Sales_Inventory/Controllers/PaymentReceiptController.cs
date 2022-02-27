@@ -15,7 +15,10 @@ namespace Sales_Inventory.Controllers
         #region Payment Receipt List
         public ActionResult List()
         {
-            return View(GetPaymentReceiptList());
+            PaymentReceiptViewModel model = new PaymentReceiptViewModel();
+            model.PaymentReceiptName = GetPaymentReceiptName();
+            ViewBag.PaymentReceiptList = GetPaymentReceiptList();
+            return View(model);
         }
         public List<PaymentReceiptViewModel> GetPaymentReceiptList()
         {
@@ -40,6 +43,19 @@ namespace Sales_Inventory.Controllers
             }
             ViewBag.SalesListModel = worker.SaleEntity.Get(x => x.Balance > 0).ToList();
             return PaymentReceiptList;
+        }
+        public List<SelectListItem> GetPaymentReceiptName()
+        {
+            var query = worker.PaymentReceiptEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Payment Receipt" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.ReceivedFrom
+            }));
+
+            return list;
         }
         #endregion
 

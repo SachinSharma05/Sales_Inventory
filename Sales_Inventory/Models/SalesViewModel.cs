@@ -19,5 +19,6 @@ namespace Sales_Inventory.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<Sale_Products> sale_Products { get; set; }
         public List<SelectListItem> ProductList { get; set; }
+        public List<SelectListItem> SaleTo { get; set; }
     }
 }

@@ -17,7 +17,10 @@ namespace Sales_Inventory.Controllers
         #region Sale List
         public ActionResult List()
         {
-            return View(GetSaleList());
+            SalesViewModel model = new SalesViewModel();
+            model.SaleTo = GetSaleTo();
+            ViewBag.SalesList = GetSaleList();
+            return View(model);
         }
         public List<SalesViewModel> GetSaleList()
         {
@@ -40,6 +43,20 @@ namespace Sales_Inventory.Controllers
                 }
             }
             return SaleList;
+        }
+
+        public List<SelectListItem> GetSaleTo()
+        {
+            var query = worker.SaleEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Sales To" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Sale_To
+            }));
+
+            return list;
         }
         #endregion
 

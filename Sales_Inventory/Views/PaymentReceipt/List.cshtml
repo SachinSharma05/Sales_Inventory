@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Sales_Inventory.Models.PaymentReceiptViewModel>
+﻿@model  Sales_Inventory.Models.PaymentReceiptViewModel
 
 @{
     ViewBag.Title = "Payment Receipt List";
@@ -19,10 +19,16 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label>Create:</label>
                             <div class="input-group">
                                 <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToReceived"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Payment Receipt To:</label>
+                            <div class="input-group">
+                                @Html.DropDownList("PaymentReceiptName", new SelectList(Model.PaymentReceiptName, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -43,13 +49,13 @@
                                 <input type="text" class="form-control pull-right" id="enddatepicker">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label>Action:</label><br />
                             <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
                             <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
                         </div>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body table-responsive">
                         <table id="PaymentReceiptlist" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -63,7 +69,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tblbody">
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewBag.PaymentReceiptList)
                                 {
                                     <tr>
                                         <td>@item.ReceiptNo</td>

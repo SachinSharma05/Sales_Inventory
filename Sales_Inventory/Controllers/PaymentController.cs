@@ -16,7 +16,10 @@ namespace Sales_Inventory.Controllers
         #region Payment List
         public ActionResult List()
         {
-            return View(GetPaymentList());
+            PaymentViewModel model = new PaymentViewModel();
+            model.PaymentName = GetPaymentName();
+            ViewBag.PaymentList = GetPaymentList();
+            return View(model);
         }
         public List<PaymentViewModel> GetPaymentList()
         {
@@ -40,6 +43,19 @@ namespace Sales_Inventory.Controllers
             }
             ViewBag.PaymentListModel = worker.PurchaseEntity.Get(x => x.Balance > 0).ToList();
             return PaymentList;
+        }
+        public List<SelectListItem> GetPaymentName()
+        {
+            var query = worker.PaymentEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Payment To" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Payment_To
+            }));
+
+            return list;
         }
         #endregion
 

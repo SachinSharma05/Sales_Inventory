@@ -17,7 +17,10 @@ namespace Sales_Inventory.Controllers
         #region Purchase List
         public ActionResult List()
         {
-            return View(GetPurchaseList());
+            PurchaseViewModel model = new PurchaseViewModel();
+            model.PurchaseName = GetPurchaseName();
+            ViewBag.PurchaseList = GetPurchaseList();
+            return View(model);
         }
         public List<PurchaseViewModel> GetPurchaseList()
         {
@@ -40,6 +43,20 @@ namespace Sales_Inventory.Controllers
                 }
             }
             return PurchaseList;
+        }
+
+        public List<SelectListItem> GetPurchaseName()
+        {
+            var query = worker.PurchaseEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Purchase From" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Purchase_From
+            }));
+
+            return list;
         }
         #endregion
 
