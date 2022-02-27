@@ -27,7 +27,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(UserViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -36,6 +36,14 @@ namespace Sales_Inventory.Controllers
                 {
                     if(user.IsAvtive)
                     {
+                        #region Modle Serialization
+                        CurrentUser serializeModel = new CurrentUser();
+                        serializeModel.UserId = user.UserId;
+                        serializeModel.Email = user.Email;
+                        serializeModel.Fullname = user.FullName;
+                        serializeModel.RoleId = user.RoleId;
+                        #endregion
+
                         Session["UserId"] = user.UserId;
                         Session["Email"] = user.Email;
                         Session["Fullname"] = user.FullName;

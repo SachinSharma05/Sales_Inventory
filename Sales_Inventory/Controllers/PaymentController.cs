@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : BaseController
     {
         DBWorker worker = new DBWorker();
 
@@ -103,9 +103,12 @@ namespace Sales_Inventory.Controllers
             {
                 PaymentViewModel model = new PaymentViewModel();
                 var payment = worker.PaymentEntity.GetByID(Id);
+                model.Purchase_No = payment.Purchase_No;
                 model.Payment_To = payment.Payment_To;
                 model.Payment_Date = payment.Payment_Date;
                 model.Payment_Type = payment.Payment_Type;
+                model.Total_Payment_Amount = payment.Total_Payment_Amount;
+                model.Contact_No = payment.Contact_No;
                 model.Balance = payment.Balance;
                 return View(model);
             }

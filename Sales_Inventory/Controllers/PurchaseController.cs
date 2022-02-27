@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class PurchaseController : Controller
+    public class PurchaseController : BaseController
     {
         DBWorker worker = new DBWorker();
 
@@ -59,6 +59,7 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
+
         public ActionResult Create()
         {
             PurchaseViewModel viewModel = new PurchaseViewModel();
@@ -148,49 +149,6 @@ namespace Sales_Inventory.Controllers
                 throw ex;
             }
         }
-
-        //public bool UpdateStock(string ItemName)
-        //{
-        //    try
-        //    {
-        //        var chkProduct = worker.StockEntity.Get(x => x.Product == ItemName).ToList();
-        //        var oldQuantity = worker.PurchaseProductEntity.Get(x => x.ItemName == ItemName).ToList();
-        //        if (chkProduct.Count > 0)
-        //        {
-        //            Stock stock = new Stock();
-        //            stock.TotalQuantity = oldQuantity[0].Quantity + chkProduct[0].TotalQuantity;
-        //            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-        //            stock.CreatedDate = DateTime.Now.Date;
-        //            worker.StockEntity.Update(stock);
-        //            worker.Save();
-        //        }
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //public bool InsertStock()
-        //{
-        //    try
-        //    {
-        //        Stock stock = new Stock();
-        //        stock.Product = item.ItemName;
-        //        stock.TotalQuantity = item.Quantity;
-        //        stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-        //        stock.CreatedDate = DateTime.Now.Date;
-        //        worker.StockEntity.Insert(stock);
-        //        worker.Save();
-
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
         #endregion
 
         #region Edit Purchase

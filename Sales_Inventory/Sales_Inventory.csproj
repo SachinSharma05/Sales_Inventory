@@ -132,6 +132,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvancePaymentController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InHouseController.cs" />
@@ -227,7 +228,9 @@
   <ItemGroup>
     <Content Include="Content\adminltemvc.png" />
     <Content Include="Content\adminlte\css\AdminLTE.css" />
+    <Content Include="Content\adminlte\css\adminlte.css.map" />
     <Content Include="Content\adminlte\css\AdminLTE.min.css" />
+    <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Content\adminlte\css\alt\AdminLTE-bootstrap-social.css" />
     <Content Include="Content\adminlte\css\alt\AdminLTE-bootstrap-social.min.css" />
     <Content Include="Content\adminlte\css\alt\AdminLTE-fullcalendar.css" />
@@ -310,11 +313,10 @@
     <Content Include="DAL\SalesInventoryModel.edmx.diagram">
       <DependentUpon>SalesInventoryModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\adminlte.zip" />
-    <Content Include="Content\adminlte\css\adminlte.css.map" />
-    <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha.png" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue-horizontal.png" />
@@ -323,12 +325,16 @@
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.js" />
     <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.min.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.min.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\js\bootstrap-datepicker.js" />
     <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\js\bootstrap-datepicker.min.js" />
@@ -417,12 +423,21 @@
     <Content Include="Scripts\adminlte\components\bootstrap-daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\adminlte\components\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\adminlte\components\bootstrap-slider\slider.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap-timepicker\css\timepicker.less" />
     <Content Include="Scripts\adminlte\components\bootstrap-timepicker\js\bootstrap-timepicker.js" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.min.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.css.map" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\js\bootstrap.js" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="Scripts\adminlte\components\bootstrap\dist\js\npm.js" />
@@ -750,7 +765,10 @@
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lang\vi.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lang\zh-cn.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lang\zh.js" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\CHANGES.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\highlight.pack.js" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\LICENSE" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\README.ru.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\styles\arta.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\styles\ascetic.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-dune.dark.css" />
@@ -2441,9 +2459,11 @@
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\save\lang\zh-cn.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\save\lang\zh.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\save\plugin.js" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\CHANGELOG.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\dialogs\dialog.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\selectall\icons\hidpi\selectall.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\selectall\icons\selectall.png" />
@@ -3101,6 +3121,7 @@
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\dialogs\wsc.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\plugins\xml\plugin.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\dialog.css" />
@@ -3123,6 +3144,7 @@
     <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\images\sprites.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\images\sprites_ie6.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\images\toolbar_start.gif" />
+    <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\readme.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\skin.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\dialog.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\dialog_ie.css" />
@@ -3145,6 +3167,7 @@
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\images\lock.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\dialog.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\dialog_ie.css" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\dialog_ie7.css" />
@@ -3170,6 +3193,7 @@
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\images\spinner.gif" />
+    <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\skin.js" />
     <Content Include="Scripts\adminlte\components\ckeditor\styles.js" />
     <Content Include="Scripts\adminlte\components\datatables.net-bs\css\dataTables.bootstrap.css" />
@@ -3199,8 +3223,14 @@
     <Content Include="Scripts\adminlte\components\Flot\jquery.flot.threshold.js" />
     <Content Include="Scripts\adminlte\components\Flot\jquery.flot.time.js" />
     <Content Include="Scripts\adminlte\components\font-awesome\css\font-awesome.css" />
+    <Content Include="Scripts\adminlte\components\font-awesome\css\font-awesome.css.map" />
     <Content Include="Scripts\adminlte\components\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Scripts\adminlte\components\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="Scripts\adminlte\components\fullcalendar\dist\fullcalendar.css" />
     <Content Include="Scripts\adminlte\components\fullcalendar\dist\fullcalendar.js" />
     <Content Include="Scripts\adminlte\components\fullcalendar\dist\fullcalendar.min.css" />
@@ -3319,7 +3349,10 @@
     <Content Include="Scripts\adminlte\components\ion.rangeSlider\js\ion.rangeSlider.min.js" />
     <Content Include="Scripts\adminlte\components\Ionicons\css\ionicons.css" />
     <Content Include="Scripts\adminlte\components\Ionicons\css\ionicons.min.css" />
+    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.eot" />
     <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.svg" />
+    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.ttf" />
+    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.woff" />
     <Content Include="Scripts\adminlte\components\Ionicons\png\512\alert-circled.png" />
     <Content Include="Scripts\adminlte\components\Ionicons\png\512\alert.png" />
     <Content Include="Scripts\adminlte\components\Ionicons\png\512\android-add-contact.png" />
@@ -3931,8 +3964,10 @@
     <Content Include="Scripts\adminlte\components\jquery\dist\core.js" />
     <Content Include="Scripts\adminlte\components\jquery\dist\jquery.js" />
     <Content Include="Scripts\adminlte\components\jquery\dist\jquery.min.js" />
+    <Content Include="Scripts\adminlte\components\jquery\dist\jquery.min.map" />
     <Content Include="Scripts\adminlte\components\jquery\dist\jquery.slim.js" />
     <Content Include="Scripts\adminlte\components\jquery\dist\jquery.slim.min.js" />
+    <Content Include="Scripts\adminlte\components\jquery\dist\jquery.slim.min.map" />
     <Content Include="Scripts\adminlte\components\jvectormap\jquery-jvectormap.css" />
     <Content Include="Scripts\adminlte\components\jvectormap\jquery-jvectormap.js" />
     <Content Include="Scripts\adminlte\components\moment\moment.js" />
@@ -4130,6 +4165,8 @@
     <Content Include="Scripts\adminlte\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
     <Content Include="Scripts\adminlte\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
     <Content Include="Scripts\adminlte\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
+    <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-be.json" />
+    <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\readme.txt" />
     <Content Include="Scripts\adminlte\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Scripts\adminlte\plugins\jQueryUI\jquery-ui.min.js" />
@@ -4178,44 +4215,7 @@
     <Content Include="Views\Home\TotalStock.cshtml" />
     <Content Include="Views\InHouse\List.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\adminlte.zip" />
-    <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap-timepicker\css\timepicker.less" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap-theme.min.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\adminlte\components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\CHANGES.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\LICENSE" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\codesnippet\lib\highlight\README.ru.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\CHANGELOG.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\skins\kama\readme.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\skins\moono-lisa\readme.md" />
-    <Content Include="Scripts\adminlte\components\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\adminlte\components\font-awesome\css\font-awesome.css.map" />
-    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="Scripts\adminlte\components\font-awesome\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Scripts\adminlte\components\font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.eot" />
-    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.ttf" />
-    <Content Include="Scripts\adminlte\components\Ionicons\fonts\ionicons.woff" />
-    <Content Include="Scripts\adminlte\components\jquery\dist\jquery.min.map" />
-    <Content Include="Scripts\adminlte\components\jquery\dist\jquery.slim.min.map" />
-    <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-be.json" />
-    <Content Include="Scripts\adminlte\plugins\input-mask\phone-codes\phone-codes.json" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4226,7 +4226,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\" />
-    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Sales_Inventory.Models.PurchaseViewModel>
 
 @{
+    ViewBag.Title = "Purchase List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,12 +19,40 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <div class="form-group col-md-3">
-                            <a class="btn btn-primary pull-left" href="/Purchase/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Purchase</a>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Create:</label>
+                                <div class="input-group">
+                                    <a class="btn btn-primary pull-left" href="/Purchase/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Purchase</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Sale Start Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Sale End Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Action:</label><br />
+                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                                <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                            </div>
                         </div>
                     </div>
                     <div class="box-body">
-                        <table id="Productlist" class="table table-bordered table-striped">
+                        <table id="PurchaseProductlist" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Purchase_No</th>
@@ -32,9 +61,10 @@
                                     <th>Purchase Date</th>
                                     <th>Total Amount</th>
                                     <th>Balance Amount</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tblbody">
                                 @foreach (var item in Model)
                                 {
                                     <tr>
@@ -73,16 +103,23 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Productlist').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-                'pageLength': 10
-            })
-        })
+        $('#PurchaseProductlist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': true
+        });
+
+        $('#startdatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#enddatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
     </script>
 }

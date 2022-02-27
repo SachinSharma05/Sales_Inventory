@@ -1,6 +1,7 @@
 ﻿@model  Sales_Inventory.Models.MiscExpensesViewModel
 
 @{
+    ViewBag.Title = "Expenses List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -63,6 +64,7 @@
                                     <th>Expense Amount</th>
                                     <th>Expense Date</th>
                                     <th>Expense Reason</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblbody">
@@ -94,16 +96,18 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Expenselist').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-                'pageLength': 10
-            })
+        $('#Expenselist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('#expenseDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
         });
 
         $("body").on("click", "#btnSave", function () {
@@ -128,6 +132,11 @@
                     }
                 }
             });
+        });
+
+        $('#expenseDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
         });
     </script>
 }

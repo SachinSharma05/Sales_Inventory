@@ -1,6 +1,7 @@
 ﻿@model Sales_Inventory.Models.PurchaseViewModel
 
 @{
+    ViewBag.Title = "Create Purchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -181,10 +182,8 @@
             processData: false,
             contentType: false,
             success: function (result) {
-                toastr.success('Record(s) Inserted Successfully')
-                if (result) {
-                    window.location.href = '@Url.Action("List","Purchase")';
-                }
+                //toastr.success('Record(s) Inserted Successfully')
+                window.location.href = '@Url.Action("List","Purchase")';
             }
         });
     });

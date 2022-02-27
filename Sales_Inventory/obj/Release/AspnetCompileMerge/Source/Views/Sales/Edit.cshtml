@@ -1,94 +1,108 @@
 ﻿@model Sales_Inventory.Models.SalesViewModel
 
 @{
-    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-md-12">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Profile Detail</h3>
-        </div>
-        <div class="box-body">
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Sale From</label>
-                    @Html.TextBoxFor(m => m.Sale_To, new { @class = "form-control required", placeholder = "Enter Sale To Name", @id = "saleFrom" })
-                    @Html.ValidationMessageFor(m => m.Sale_To)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Buyer Name</label>
-                    @Html.TextBoxFor(m => m.Sale_By, new { @class = "form-control required", placeholder = "Enter Sale By Name", @id = "saleBy" })
-                    @Html.ValidationMessageFor(m => m.Sale_By)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Seller Phone </label>
-                    @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "sellerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Sale_To_Phone)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Buyer Phone </label>
-                    @Html.TextBoxFor(m => m.Sale_By_Phone, new { @class = "form-control required", placeholder = "Enter Seller Phone No", @id = "buyerPhoneNo" })
-                    @Html.ValidationMessageFor(m => m.Sale_By_Phone)
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="form-group">
-                    <label>Purchase Date</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>Sales Edit</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="@Url.Action("List", "Sales")"><i class="fa fa-calendar"></i> Sales List</a></li>
+            <li class="active">Edit</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Profile Detail</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Sale From</label>
+                                @Html.TextBoxFor(m => m.Sale_To, new { @class = "form-control required", placeholder = "Enter Sale To Name", @id = "saleTo" })
+                                @Html.ValidationMessageFor(m => m.Sale_To)
+                            </div>
                         </div>
-                        @Html.TextBoxFor(m => m.Sale_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Sale Date dd/mm/yyyy", @id = "saleDate" })
-                        @Html.ValidationMessageFor(m => m.Sale_Date)
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Seller Phone </label>
+                                @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo" })
+                                @Html.ValidationMessageFor(m => m.Sale_To_Phone)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Purchase Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.Sale_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Sale Date dd/mm/yyyy", @id = "saleDate" })
+                                    @Html.ValidationMessageFor(m => m.Sale_Date)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Gross Total </label>
+                                @Html.TextBoxFor(m => m.GrossTotal, new { @class = "form-control required", @readonly = "readonly", @id = "GrossTotal" })
+                                @Html.ValidationMessageFor(m => m.GrossTotal)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Balance </label>
+                                @Html.TextBoxFor(m => m.Balance, new { @class = "form-control required", @readonly = "readonly", @id = "Balance" })
+                                @Html.ValidationMessageFor(m => m.Balance)
+                            </div>
+                        </div>
+                        <table id="tblProducts" class="table" cellpadding="0" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Quantity(Kgs)</th>
+                                    <th>Price(Per KG)</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.sale_Products)
+                                {
+                                    <tr>
+                                        <td>@item.Item</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.Total</td>
+                                        <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
+                                    <td><input type="number" id="txtQuantity" class="form-control" /></td>
+                                    <td><input type="text" id="txtPrice" class="form-control" /></td>
+                                    <td><input type="text" id="txtTotal" class="form-control" /></td>
+                                    <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                        <a href="@Url.Action("List", "Sales")" class="btn btn-default">Cancel</a>
                     </div>
                 </div>
             </div>
-            <table id="tblProducts" class="table" cellpadding="0" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Quantity(Kgs)</th>
-                        <th>Price(Per KG)</th>
-                        <th>Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.sale_Products)
-                    {
-                        <tr>
-                            <td>@item.Item</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Price</td>
-                            <td>@item.Total</td>
-                            <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
-                        </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td><input type="text" id="txtItemName" class="form-control" /></td>
-                        <td><input type="number" id="txtQuantity" class="form-control" /></td>
-                        <td><input type="text" id="txtPrice" class="form-control" /></td>
-                        <td><input type="text" id="txtTotal" class="form-control" /></td>
-                        <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>
-                    </tr>
-                </tfoot>
-            </table>
         </div>
-        <div class="box-footer">
-            <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
-            <a href="@Url.Action("List", "Sales")" class="btn btn-default">Cancel</a>
-        </div>
-    </div>
+    </section>
 </div>
 
 <script type="text/javascript">

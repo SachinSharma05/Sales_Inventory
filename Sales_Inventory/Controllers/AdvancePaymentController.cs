@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class AdvancePaymentController : Controller
+    public class AdvancePaymentController : BaseController
     {
         DBWorker worker = new DBWorker();
 
@@ -17,9 +17,27 @@ namespace Sales_Inventory.Controllers
         #region Advance List
         public ActionResult List()
         {
+            AdvanceViewModel model = new AdvanceViewModel();
             var AdvanceList = worker.AdvanceEntity.Get().ToList();
+            model.AdvanceTo = GetAdvanceToList();
             ViewBag.ListAdvance = AdvanceList;
-            return View();
+            return View(model);
+        }
+
+        public List<SelectListItem> GetAdvanceToList()
+        {
+            var query = worker.AdvanceEntity.Get().ToList();
+
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Advance To" } };
+            list.AddRange(query.ToList().Select(C => new SelectListItem
+            {
+                Value = C.Id.ToString(),
+                Text = C.Advance_To
+            }).Distinct());
+
+            ViewBag.ProductList = list;
+
+            return list;
         }
         #endregion
 

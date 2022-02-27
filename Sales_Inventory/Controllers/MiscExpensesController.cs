@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class MiscExpensesController : Controller
+    public class MiscExpensesController : BaseController
     {
         DBWorker worker = new DBWorker();
 

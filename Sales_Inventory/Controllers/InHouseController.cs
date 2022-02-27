@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class InHouseController : Controller
+    public class InHouseController : BaseController
     {
         DBWorker worker = new DBWorker();
 
-        #region Employee List
+        #region InHouse Transaction List
         public ActionResult List()
         {
             var InHouseTransaction = worker.InHouseTransactionEntity.Get().ToList();

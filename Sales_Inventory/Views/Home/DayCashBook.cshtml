@@ -1,6 +1,7 @@
 ﻿@model  IEnumerable<Sales_Inventory.Models.DayCashModel>
 
 @{
+    ViewBag.Title = "Day Cash Book";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -95,8 +96,7 @@
                 'searching': false,
                 'ordering': true,
                 'info': true,
-                'autoWidth': false,
-                'pageLength': 10
+                'autoWidth': false
             })
         })
     </script>

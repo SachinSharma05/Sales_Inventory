@@ -22,4 +22,15 @@ namespace Sales_Inventory.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     }
+
+    public class CurrentUser
+    {
+        public int UserId { get; set; }
+        public int? RoleId { get; set; }
+        public string Email { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Fullname { get; set; }
+        public string ProfileImageUrl { get; set; }
+    }
 }

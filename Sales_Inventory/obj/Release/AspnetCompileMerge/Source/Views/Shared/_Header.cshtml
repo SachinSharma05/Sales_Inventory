@@ -1,51 +1,25 @@
-﻿
-<header class="main-header">
+﻿<header class="main-header">
     <!-- Logo -->
     <a href="/Home/Index" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>H</b>TM</span>
-        <!-- logo for regular state and mobile devices -->
+        <span class="logo-mini"><b>JS</b></span>
         <span class="logo-lg"><b>Sales </b>Inventory</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
+
     <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        @if (Session["ProfileImageUrl"] != null && Session["ProfileImageUrl"].ToString() != "")
-                        {
-                            <img src="@Session["ProfileImageUrl"].ToString()" class="user-image" alt="User Image">
-                        }
-                        else
-                        {
-                            <img src="/Content/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        }
-
-                    <span class="hidden-xs">@Session["Fullname"]</span>
+                        @*<img src="~/Content/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">*@
+                        <span class="hidden-xs"><strong>@Session["Fullname"]</strong></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                @if (Session["UserId"] != null && Session["RoleId"] != null)
-                                {
-                                    if (Convert.ToInt32(Session["RoleId"].ToString()) == 1)
-                                    {
-                                        @Html.ActionLink("Profile", "Edit", "Admin", new { @id = Convert.ToInt32(Session["UserId"]) }, new { @class = "btn btn-default btn-flat" })
-                                    }
-                                    else if (Convert.ToInt32(Session["RoleId"].ToString()) == 3)
-                                    {
-                                        @Html.ActionLink("Profile", "Edit", "Employee", new { @id = Convert.ToInt32(Session["UserId"]) }, new { @class = "btn btn-default btn-flat" })
-                                        <a href="/Employee/Edit" class="btn btn-default btn-flat">Profile</a>
-                                    }
-                                }
+                                <a href="/Employee/Edit" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
@@ -53,9 +27,7 @@
                         </li>
                     </ul>
                 </li>
-                <!-- Control Sidebar Toggle Button -->
             </ul>
         </div>
     </nav>
 </header>
-

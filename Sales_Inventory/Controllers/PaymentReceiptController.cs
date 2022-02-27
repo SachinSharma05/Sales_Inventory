@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class PaymentReceiptController : Controller
+    public class PaymentReceiptController : BaseController
     {
         DBWorker worker = new DBWorker();
         // GET: PaymentReceipt
