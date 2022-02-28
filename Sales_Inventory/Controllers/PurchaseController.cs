@@ -63,7 +63,7 @@ namespace Sales_Inventory.Controllers
         #region Create Purchase
         public List<SelectListItem> GetProductTypeList()
         {
-            var query = worker.ProductTypeEntity.Get().ToList();
+            var query = worker.ProductTypeEntity.Get().ToList().OrderBy(x => x.Product);
 
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Product" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem

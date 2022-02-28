@@ -1,0 +1,37 @@
+﻿@model List<Sales_Inventory.Models.PaymentReceiptViewModel>
+
+<div class="box-body table-responsive">
+    <table id="PaymentReceiptlist" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Receipt No</th>
+                <th>Received Date</th>
+                <th>Received From</th>
+                <th>Total Amount</th>
+                <th>Paid Amount</th>
+                <th>Balance</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tblbody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ReceiptNo</td>
+                    <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.ReceivedDate)</td>
+                    <td>@item.ReceivedFrom</td>
+                    <td>@item.TotalAmount</td>
+                    <td>@item.PaidAmount</td>
+                    <td>@item.Balance</td>
+                    @if (Convert.ToInt32(Session["UserId"]) == 1)
+                    {
+                        <td>
+                            <a href="/PaymentReceipt/Edit/@item.Id"><span class="label label-success">Edit</span></a>
+                            <a href="/PaymentReceipt/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

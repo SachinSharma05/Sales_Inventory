@@ -12,14 +12,16 @@ namespace Sales_Inventory.Controllers
     {
         DBWorker worker = new DBWorker();
 
+        #region Dashboard
         public ActionResult Index()
         {
-            var EmployeeCount = worker.EmployeeEntity.Get().ToList().Count;
-            var PurchaseCount = worker.PurchaseEntity.Get().ToList().Count;
-            var SalesCount = worker.SaleEntity.Get().ToList().Count;
-            var PaymentCount = worker.PaymentEntity.Get().ToList().Count;
-            var PaymentReceiptCount = worker.PaymentReceiptEntity.Get().ToList().Count;
-            var TotalStock = worker.PurchaseProductEntity.Get().ToList().Count;
+            var EmployeeCount = worker.EmployeeEntity.Get().Count();
+            var PurchaseCount = worker.PurchaseEntity.Get().Count();
+            var SalesCount = worker.SaleEntity.Get().Count();
+            var PaymentCount = worker.PaymentEntity.Get().Count();
+            var PaymentReceiptCount = worker.PaymentReceiptEntity.Get().Count();
+            var TotalStock = worker.PurchaseProductEntity.Get().Count();
+            var InHouseTransaction = worker.InHouseTransactionEntity.Get().Count();
 
             TempData["EmployeeCount"] = EmployeeCount;
             TempData["PurchaseCount"] = PurchaseCount;
@@ -27,10 +29,13 @@ namespace Sales_Inventory.Controllers
             TempData["PaymentCount"] = PaymentCount;
             TempData["PaymentReceiptCount"] = PaymentReceiptCount;
             TempData["TotalStockCount"] = TotalStock;
+            TempData["TotalInHouseTransaction"] = InHouseTransaction;
 
             return View();
         }
+        #endregion
 
+        #region Day Cash Book
         public ActionResult DayCashBook()
         {
             try
@@ -84,12 +89,21 @@ namespace Sales_Inventory.Controllers
                 throw ex;
             }
         }
+        #endregion
 
+        #region Total Stock
+        public ActionResult TotalStockList()
+        {
+            Purchase_Products model = new Purchase_Products();
+            model.ProductName = GetProductTypeList();
+            model.List = GetStockList();
+            return View(model);
+        }
         public List<SelectListItem> GetProductTypeList()
         {
-            var query = worker.ProductTypeEntity.Get().ToList();
+            var query = worker.ProductTypeEntity.Get().ToList().OrderBy(x => x.Product);
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Product" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -99,26 +113,6 @@ namespace Sales_Inventory.Controllers
             ViewBag.ProductList = list;
 
             return list;
-        }
-        public ActionResult TotalStock(string StartDate, string EndDate, string Product)
-        {
-            try
-            {
-                if (StartDate != null && EndDate != null && Product != null)
-                {
-                    ViewBag.ProductList = GetProductTypeList();
-                    return View(GetFilterStockList(StartDate, EndDate, Product));
-                }
-                else
-                {
-                    ViewBag.ProductList = GetProductTypeList();
-                    return View(GetStockList());
-                }
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
         }
         public List<Purchase_Products> GetStockList()
         {
@@ -139,40 +133,120 @@ namespace Sales_Inventory.Controllers
             }
             return StockList;
         }
-        public List<Purchase_Products> GetFilterStockList(string StartDate, string EndDate, string Product)
+        public ActionResult SearchList(string PurchaseName, string StartDate, string EndDate)
         {
-            List<Purchase_Products> FilterStockList = new List<Purchase_Products>();
-            List<Purchase_Product> list = new List<Purchase_Product>();
-            var NewStartDate = Convert.ToDateTime(StartDate);
-            var NewEndDate = Convert.ToDateTime(EndDate);
-           
-            if(Product != null)
+            try
             {
-                list = worker.PurchaseProductEntity.Get(x => x.ItemName == Product).ToList();
-            }
-            else if(Product != null && StartDate != null && EndDate != null)
-            {
-                list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate && x.ItemName == Product).ToList();
-            } 
-            else if(StartDate != null && EndDate != null)
-            {
-                list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == NewStartDate && x.CreatedDate == NewEndDate).ToList();
-            }
-            
-            if (list.Count > 0)
-            {
-                foreach (var item in list)
+                List<Purchase_Products> model = new List<Purchase_Products>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if (PurchaseName != "" && StartDate != "" && EndDate != "")
                 {
-                    FilterStockList.Add(new Purchase_Products
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
+                    foreach (var item in list)
                     {
-                        Id = item.Id,
-                        ItemName = item.ItemName,
-                        Quantity = item.Quantity,
-                        CreatedDate = item.CreatedDate
-                    });
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
                 }
+                else if (PurchaseName != "" && StartDate != "" && EndDate == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && EndDate != "" && StartDate == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+                else if (StartDate != "" && EndDate != "" && PurchaseName == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+                else if (PurchaseName != null && StartDate == "" && EndDate == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+                else if (StartDate != "" && PurchaseName == "" && EndDate == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+                else if (EndDate != "" && StartDate == "" && PurchaseName == "")
+                {
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new Purchase_Products
+                        {
+                            Id = item.Id,
+                            ItemName = item.ItemName,
+                            Quantity = item.Quantity,
+                            CreatedDate = item.CreatedDate
+                        });
+                    }
+                }
+
+                return PartialView("_SearchList", model);
             }
-            return FilterStockList;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+        #endregion
     }
 }

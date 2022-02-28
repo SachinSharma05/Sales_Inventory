@@ -48,7 +48,7 @@ namespace Sales_Inventory.Controllers
         {
             var query = worker.SaleEntity.Get().ToList();
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Sales To" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -62,7 +62,7 @@ namespace Sales_Inventory.Controllers
         #region Create Sale
         public List<SelectListItem> GetProductTypeList()
         {
-            var query = worker.ProductTypeEntity.Get().ToList();
+            var query = worker.ProductTypeEntity.Get().ToList().OrderBy(x => x.Product);
 
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Product" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem

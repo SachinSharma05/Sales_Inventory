@@ -18,7 +18,7 @@ namespace Sales_Inventory.Controllers
         {
             PaymentViewModel model = new PaymentViewModel();
             model.PaymentName = GetPaymentName();
-            ViewBag.PaymentList = GetPaymentList();
+            model.List = GetPaymentList();
             return View(model);
         }
         public List<PaymentViewModel> GetPaymentList()
@@ -48,7 +48,7 @@ namespace Sales_Inventory.Controllers
         {
             var query = worker.PaymentEntity.Get().ToList();
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Payment To" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -177,6 +177,144 @@ namespace Sales_Inventory.Controllers
             }
             else
                 return false;
+        }
+        #endregion
+
+        #region Search List
+        public ActionResult SearchList(string PurchaseName, string StartDate, string EndDate)
+        {
+            try
+            {
+                List<PaymentViewModel> model = new List<PaymentViewModel>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if (PurchaseName != "" && StartDate != "" && EndDate != "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date >= SDate && x.Payment_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && StartDate != "" && EndDate == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && EndDate != "" && StartDate == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (StartDate != "" && EndDate != "" && PurchaseName == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_Date == SDate && x.Payment_Date == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (PurchaseName != null && StartDate == "" && EndDate == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (StartDate != "" && PurchaseName == "" && EndDate == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if (EndDate != "" && StartDate == "" && PurchaseName == "")
+                {
+                    var list = worker.PaymentEntity.Get(x => x.Payment_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Payment_To = item.Payment_To,
+                            Payment_Date = item.Payment_Date,
+                            Payment_Type = item.Payment_Type,
+                            Paid_Amount = item.Paid_Amount,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+
+                return PartialView("_SearchList", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

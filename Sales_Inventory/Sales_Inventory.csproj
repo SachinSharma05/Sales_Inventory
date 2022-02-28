@@ -4212,13 +4212,18 @@
     <Content Include="Views\Home\DayCashBook.cshtml" />
     <Content Include="Views\PaymentReceipt\List.cshtml" />
     <Content Include="Views\PaymentReceipt\Create.cshtml" />
-    <Content Include="Views\Home\TotalStock.cshtml" />
+    <Content Include="Views\Home\TotalStockList.cshtml" />
     <Content Include="Views\InHouse\List.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Purchase\_SearchList.cshtml" />
     <Content Include="Views\Sales\_SearchList.cshtml" />
     <None Include="Properties\PublishProfiles\apps.jssalesinventory.in - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Payment\_SearchList.cshtml" />
+    <Content Include="Views\PaymentReceipt\_SearchList.cshtml" />
+    <Content Include="Views\AdvancePayment\_SearchList.cshtml" />
+    <Content Include="Views\Home\_SearchList.cshtml" />
+    <Content Include="Views\InHouse\_SearchList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

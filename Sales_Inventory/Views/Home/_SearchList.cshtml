@@ -1,0 +1,25 @@
+﻿@model List<Sales_Inventory.Models.Purchase_Products>
+
+<div class="box-body table-responsive">
+    <table id="Stocklist" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product</th>
+                <th>Purchase Quantity</th>
+                <th>Purchase Date</th>
+            </tr>
+        </thead>
+        <tbody id="tblbody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

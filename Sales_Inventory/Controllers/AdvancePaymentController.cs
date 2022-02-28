@@ -18,17 +18,37 @@ namespace Sales_Inventory.Controllers
         public ActionResult List()
         {
             AdvanceViewModel model = new AdvanceViewModel();
-            var AdvanceList = worker.AdvanceEntity.Get().ToList();
             model.AdvanceTo = GetAdvanceToList();
-            ViewBag.ListAdvance = AdvanceList;
+            model.List = GetAdvanceList();
             return View(model);
+        }
+
+        public List<AdvanceViewModel> GetAdvanceList()
+        {
+            List<AdvanceViewModel> AdvanceList = new List<AdvanceViewModel>();
+            var list = worker.AdvanceEntity.Get().ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    AdvanceList.Add(new AdvanceViewModel
+                    {
+                        Id = item.Id,
+                        Advance_To = item.Advance_To,
+                        Advance_Date = item.Advance_Date,
+                        Advance_Amount = item.Advance_Amount,
+                        Advance_Against = item.Advance_Against
+                    });
+                }
+            }
+            return AdvanceList;
         }
 
         public List<SelectListItem> GetAdvanceToList()
         {
             var query = worker.AdvanceEntity.Get().ToList();
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Advance To" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -142,6 +162,130 @@ namespace Sales_Inventory.Controllers
             }
             else
                 return false;
+        }
+        #endregion
+
+        #region Search List
+        public ActionResult SearchList(string PurchaseName, string StartDate, string EndDate)
+        {
+            try
+            {
+                List<AdvanceViewModel> model = new List<AdvanceViewModel>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if (PurchaseName != "" && StartDate != "" && EndDate != "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_To == PurchaseName && x.Advance_Date >= SDate && x.Advance_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && StartDate != "" && EndDate == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_To == PurchaseName && x.Advance_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && EndDate != "" && StartDate == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_To == PurchaseName && x.Advance_Date == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (StartDate != "" && EndDate != "" && PurchaseName == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_Date >= SDate && x.Advance_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (PurchaseName != null && StartDate == "" && EndDate == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_To == PurchaseName).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (StartDate != "" && PurchaseName == "" && EndDate == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+                else if (EndDate != "" && StartDate == "" && PurchaseName == "")
+                {
+                    var list = worker.AdvanceEntity.Get(x => x.Advance_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new AdvanceViewModel
+                        {
+                            Id = item.Id,
+                            Advance_To = item.Advance_To,
+                            Advance_Date = item.Advance_Date,
+                            Advance_Amount = item.Advance_Amount,
+                            Advance_Against = item.Advance_Against
+                        });
+                    }
+                }
+
+                return PartialView("_SearchList", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

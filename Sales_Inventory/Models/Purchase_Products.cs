@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
@@ -15,5 +16,7 @@ namespace Sales_Inventory.Models
         public string Total { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public List<SelectListItem> ProductName { get; set; }
+        public List<Purchase_Products> List { get; set; }
     }
 }

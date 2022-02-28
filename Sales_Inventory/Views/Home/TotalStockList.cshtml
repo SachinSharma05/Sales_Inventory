@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Sales_Inventory.Models.Purchase_Products>
+﻿@model  Sales_Inventory.Models.Purchase_Products
 
 @{
     ViewBag.Title = "Stock List";
@@ -22,11 +22,8 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Products:</label>
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    @Html.DropDownList("MyProducts", new SelectList(ViewBag.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "ProductList", type = "option" })
+                                <div class="input-group">
+                                    @Html.DropDownList("MyProducts", new SelectList(ViewBag.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -35,7 +32,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                    <input type="text" class="form-control pull-right" id="startdatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -44,38 +41,18 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                    <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select End Date">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label>Action:</label><br />
-                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                                <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
                                 <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
                             </div>
                         </div>
                     </div>
-                    <div class="box-body table-responsive">
-                        <table id="Stocklist" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Product</th>
-                                    <th>Purchase Quantity</th>
-                                    <th>Purchase Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblbody">
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.ItemName</td>
-                                        <td>@item.Quantity</td>
-                                        <td>@item.CreatedDate</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                    <div id="SearchList">
+                        @Html.Partial("_SearchList", Model.List)
                     </div>
                 </div>
             </div>
@@ -91,7 +68,7 @@
                 'paging': true,
                 'lengthChange': false,
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false
             })
@@ -106,27 +83,41 @@
             autoclose: true,
             dateFormat: "dd/mm/yy"
         })
+
+        $("body").on("click", "#btnSearch", function () {
+            var data = new FormData();
+            data.append('PurchaseName', $("#PurchaseName").val());
+            data.append('StartDate', $("#startdatepicker").val());
+            data.append('EndDate', $("#enddatepicker").val());
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/SearchList",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result) {
+                        $('#SearchList').html(result);
+                    }
+                }
+            });
+        });
+
+        $("body").on("click", "#btnReset", function () {
+            $('#startdatepicker').datepicker('setDate', null);
+            $('#enddatepicker').datepicker('setDate', null);
+            $('#PurchaseName').prop('selectedIndex', 0);
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/TotalStockList",
+                success: function (result) {
+                    if (result) {
+                        window.location.href = '@Url.Action("TotalStockList", "Home")';
+                    }
+                }
+            });
+        })
     </script>
 }
-
-<script>
-    $("body").on("click", "#btnSave", function () {
-        //Loop through the Table rows and build a JSON array.
-        var data = new FormData();
-        data.append('StartDate', $("#startdatepicker").val());
-        data.append('EndDate', $("#enddatepicker").val());
-        data.append('Product', $("#ProductList").val());
-
-        //Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            url: "/Home/TotalStock",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-
-            }
-        });
-    });
-</script>

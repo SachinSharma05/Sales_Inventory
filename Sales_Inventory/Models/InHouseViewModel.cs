@@ -17,5 +17,6 @@ namespace Sales_Inventory.Models
         public Nullable<int> BalanceAmt { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public List<InHouseViewModel> List { get; set; }
     }
 }

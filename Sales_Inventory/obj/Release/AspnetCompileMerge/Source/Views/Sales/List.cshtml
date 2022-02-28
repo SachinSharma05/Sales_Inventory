@@ -109,5 +109,21 @@
                 }
             });
         });
+
+        $("body").on("click", "#btnReset", function () {
+            $('#startdatepicker').datepicker('setDate', null);
+            $('#enddatepicker').datepicker('setDate', null);
+            $('#PurchaseName').prop('selectedIndex', 0);
+
+            $.ajax({
+                type: "GET",
+                url: "/Sales/List",
+                success: function (result) {
+                    if (result) {
+                        window.location.href = '@Url.Action("List","Sales")';
+                    }
+                }
+            });
+        })
     </script>
 }

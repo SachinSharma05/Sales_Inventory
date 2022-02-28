@@ -17,7 +17,7 @@ namespace Sales_Inventory.Controllers
         {
             PaymentReceiptViewModel model = new PaymentReceiptViewModel();
             model.PaymentReceiptName = GetPaymentReceiptName();
-            ViewBag.PaymentReceiptList = GetPaymentReceiptList();
+            model.List = GetPaymentReceiptList();
             return View(model);
         }
         public List<PaymentReceiptViewModel> GetPaymentReceiptList()
@@ -46,9 +46,9 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetPaymentReceiptName()
         {
-            var query = worker.PaymentReceiptEntity.Get().ToList();
+            var query = worker.PaymentReceiptEntity.Get().ToList().Distinct();
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Payment Receipt" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -185,6 +185,151 @@ namespace Sales_Inventory.Controllers
             }
             else
                 return false;
+        }
+        #endregion
+
+        #region Search List
+        public ActionResult SearchList(string PurchaseName, string StartDate, string EndDate)
+        {
+            try
+            {
+                List<PaymentReceiptViewModel> model = new List<PaymentReceiptViewModel>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if (PurchaseName != "" && StartDate != "" && EndDate != "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate >= SDate && x.ReceivedDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && StartDate != "" && EndDate == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (PurchaseName != "" && EndDate != "" && StartDate == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (StartDate != "" && EndDate != "" && PurchaseName == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate >= SDate && x.ReceivedDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (PurchaseName != null && StartDate == "" && EndDate == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (StartDate != "" && PurchaseName == "" && EndDate == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+                else if (EndDate != "" && StartDate == "" && PurchaseName == "")
+                {
+                    var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PaymentReceiptViewModel
+                        {
+                            Id = item.Id,
+                            ReceiptNo = item.ReceiptNo,
+                            ReceivedDate = item.ReceivedDate,
+                            ReceivedFrom = item.ReceivedFrom,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            Balance = item.Balance,
+                            PaymentAgainst = item.PaymentAgainst
+                        });
+                    }
+                }
+
+                return PartialView("_SearchList", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

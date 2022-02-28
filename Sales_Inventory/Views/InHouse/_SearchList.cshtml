@@ -1,0 +1,39 @@
+﻿@model List<Sales_Inventory.Models.InHouseViewModel>
+
+<div class="box-body table-responsive">
+    <table id="InHouseTransactionlist" class="table table-bordered table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Paid By</th>
+                <th>Paid To</th>
+                <th>Paid Date</th>
+                <th>Total Amount</th>
+                <th>Paid Amount</th>
+                <th>Return Amount</th>
+                <th>Balance Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tblbody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PaidBy</td>
+                    <td>@item.PaidTo</td>
+                    <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.PaidDate)</td>
+                    <td>@item.TotalAmount</td>
+                    <td>@item.PaidAmount</td>
+                    <td>@item.ReturnAmtReceived</td>
+                    <td>@item.BalanceAmt</td>
+                    @if (Convert.ToInt32(Session["UserId"]) == 1)
+                    {
+                        <td>
+                            <a href="#" onclick="GetDetails(@item.Id)"><span class="label label-success">Edit</span></a>
+                            <a href="/InHouse/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

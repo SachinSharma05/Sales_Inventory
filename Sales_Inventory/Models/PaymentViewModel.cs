@@ -27,5 +27,6 @@ namespace Sales_Inventory.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> PaymentName { get; set; }
+        public List<PaymentViewModel> List { get; set; }
     }
 }

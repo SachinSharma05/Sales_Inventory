@@ -15,9 +15,32 @@ namespace Sales_Inventory.Controllers
         #region InHouse Transaction List
         public ActionResult List()
         {
-            var InHouseTransaction = worker.InHouseTransactionEntity.Get().ToList();
-            ViewBag.InHouseTransaction = InHouseTransaction;
-            return View();
+            InHouseViewModel model = new InHouseViewModel();
+            model.List = GetInHouseList();
+            return View(model);
+        }
+        public List<InHouseViewModel> GetInHouseList()
+        {
+            List<InHouseViewModel> InHouseList = new List<InHouseViewModel>();
+            var list = worker.InHouseTransactionEntity.Get().ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    InHouseList.Add(new InHouseViewModel
+                    {
+                        Id = item.Id,
+                        PaidBy = item.PaidBy,
+                        PaidTo = item.PaidTo,
+                        PaidDate = item.PaidDate,
+                        TotalAmount = item.TotalAmount,
+                        PaidAmount = item.PaidAmount,
+                        ReturnAmtReceived = item.ReturnAmtReceived,
+                        BalanceAmt = item.BalanceAmt
+                    });
+                }
+            }
+            return InHouseList;
         }
         #endregion
 
@@ -92,6 +115,79 @@ namespace Sales_Inventory.Controllers
                 return RedirectToAction("list");
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Search List
+        public ActionResult SearchList(string StartDate, string EndDate)
+        {
+            try
+            {
+                List<InHouseViewModel> model = new List<InHouseViewModel>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if (StartDate != "" && EndDate != "")
+                {
+                    var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate >= SDate && x.PaidDate <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new InHouseViewModel
+                        {
+                            Id = item.Id,
+                            PaidBy = item.PaidBy,
+                            PaidTo = item.PaidTo,
+                            PaidDate = item.PaidDate,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            ReturnAmtReceived = item.ReturnAmtReceived,
+                            BalanceAmt = item.BalanceAmt
+                        });
+                    }
+                }
+                else if (StartDate != "" && EndDate == "")
+                {
+                    var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new InHouseViewModel
+                        {
+                            Id = item.Id,
+                            PaidBy = item.PaidBy,
+                            PaidTo = item.PaidTo,
+                            PaidDate = item.PaidDate,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            ReturnAmtReceived = item.ReturnAmtReceived,
+                            BalanceAmt = item.BalanceAmt
+                        });
+                    }
+                }
+                else if (EndDate != "" && StartDate == "")
+                {
+                    var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new InHouseViewModel
+                        {
+                            Id = item.Id,
+                            PaidBy = item.PaidBy,
+                            PaidTo = item.PaidTo,
+                            PaidDate = item.PaidDate,
+                            TotalAmount = item.TotalAmount,
+                            PaidAmount = item.PaidAmount,
+                            ReturnAmtReceived = item.ReturnAmtReceived,
+                            BalanceAmt = item.BalanceAmt
+                        });
+                    }
+                }
+                
+                return PartialView("_SearchList", model);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
