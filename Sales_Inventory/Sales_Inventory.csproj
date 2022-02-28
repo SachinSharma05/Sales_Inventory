@@ -4215,7 +4215,10 @@
     <Content Include="Views\Home\TotalStock.cshtml" />
     <Content Include="Views\InHouse\List.cshtml" />
     <Content Include="Web.config" />
-    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <Content Include="Views\Purchase\_SearchList.cshtml" />
+    <Content Include="Views\Sales\_SearchList.cshtml" />
+    <None Include="Properties\PublishProfiles\apps.jssalesinventory.in - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -19,7 +19,7 @@ namespace Sales_Inventory.Controllers
         {
             PurchaseViewModel model = new PurchaseViewModel();
             model.PurchaseName = GetPurchaseName();
-            ViewBag.PurchaseList = GetPurchaseList();
+            model.List = GetPurchaseList();
             return View(model);
         }
         public List<PurchaseViewModel> GetPurchaseList()
@@ -49,7 +49,7 @@ namespace Sales_Inventory.Controllers
         {
             var query = worker.PurchaseEntity.Get().ToList();
 
-            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "Select Purchase From" } };
+            var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
@@ -276,6 +276,144 @@ namespace Sales_Inventory.Controllers
             }
             else
                 return false;
+        }
+        #endregion
+
+        #region Search List
+        public ActionResult SearchList(string PurchaseName, string StartDate, string EndDate)
+        {
+            try
+            {
+                List<PurchaseViewModel> model = new List<PurchaseViewModel>();
+                var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
+                var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
+
+                if(PurchaseName != "" && StartDate != "" && EndDate != "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date >= SDate && x.Purchase_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(PurchaseName != "" && StartDate != "" && EndDate == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(PurchaseName != "" && EndDate != "" && StartDate == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(StartDate != "" && EndDate != "" && PurchaseName == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_Date == SDate && x.Purchase_Date == EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(PurchaseName != null && StartDate == "" && EndDate == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(StartDate != "" && PurchaseName == "" && EndDate == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_Date == SDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+                else if(EndDate != "" && StartDate == "" && PurchaseName == "")
+                {
+                    var list = worker.PurchaseEntity.Get(x => x.Purchase_Date <= EDate).ToList();
+                    foreach (var item in list)
+                    {
+                        model.Add(new PurchaseViewModel
+                        {
+                            Id = item.Id,
+                            Purchase_No = item.Purchase_No,
+                            Purchase_From = item.Purchase_From,
+                            Purchase_From_Phone = item.Purchase_From_Phone,
+                            Purchase_Date = item.Purchase_Date,
+                            GrossTotal = item.GrossTotal,
+                            Balance = item.Balance
+                        });
+                    }
+                }
+
+                return PartialView("_SearchList", model);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

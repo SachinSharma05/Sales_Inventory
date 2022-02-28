@@ -1,6 +1,7 @@
-﻿@model  IEnumerable<Sales_Inventory.Models.PaymentViewModel>
+﻿@model  Sales_Inventory.Models.PaymentViewModel
 
 @{
+    ViewBag.Title = "Payment List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,11 +19,45 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <div class="form-group col-md-3">
-                            <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToMake"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label>Create:</label>
+                                <div class="input-group">
+                                    <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToMake"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Payment To:</label>
+                                <div class="input-group">
+                                    @Html.DropDownList("PaymentName", new SelectList(Model.PaymentName, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Sale Start Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Sale End Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Action:</label><br />
+                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                                <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                            </div>
                         </div>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body table-responsive">
                         <table id="Paymentlist" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -32,10 +67,11 @@
                                     <th>Mode</th>
                                     <th>Paid Amount</th>
                                     <th>Balance</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblbody">
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewBag.PaymentList)
                                 {
                                     <tr>
                                         <td>@item.Purchase_No</td>
@@ -65,16 +101,24 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Paymentlist').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': false,
-                'info': true,
-                'autoWidth': false
-            })
-        })
+        $('#Paymentlist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('#startdatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#enddatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
     </script>
 }
 

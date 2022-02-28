@@ -1,6 +1,7 @@
-﻿@model IEnumerable<Sales_Inventory.Models.SalesViewModel>
+﻿@model Sales_Inventory.Models.SalesViewModel
 
 @{
+    ViewBag.Title = "Sales List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,51 +19,46 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <div class="form-group col-md-3">
-                            <a class="btn btn-primary pull-left" href="/Sales/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Sale</a>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label>Create:</label>
+                                <div class="input-group">
+                                    <a class="btn btn-primary pull-left" href="/Sales/Create"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>New Sale</a>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Name:</label>
+                                <div class="input-group">
+                                    @Html.DropDownList("SaleTo", new SelectList(Model.SaleTo, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Purchase Start Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Purchase End Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Action:</label><br />
+                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSearch" />
+                                <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                            </div>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <table id="Saleslist" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Sale_No</th>
-                                    <th>Sale_To</th>
-                                    <th>Seller Phone</th>
-                                    <th>Sale Date</th>
-                                    <th>Sale Amount</th>
-                                    <th>Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblbody">
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Sale_No</td>
-                                        <td>@item.Sale_To</td>
-                                        <td>@item.Sale_To_Phone</td>
-                                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Sale_Date)</td>
-                                        <td>@item.GrossTotal</td>
-                                        <td>@item.Balance</td>
-                                        @if (Convert.ToInt32(Session["UserId"]) == 1)
-                                        {
-                                            <td>
-                                                <a href="/Sales/Edit/@item.Id"><span class="label label-success">Edit</span></a>
-                                                <a href="/Sales/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
-                                                @if (item.Balance > 0)
-                                                {
-                                                    <a href="/PaymentReceipt/Create/@item.Id"><span class="label label-success">Pay Amount</span></a>
-                                                }
-                                                else
-                                                {
-                                                    <a href=""><span class="label label-info">No Dues</span></a>
-                                                }
-                                            </td>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                    <div id="SearchList">
+                        @Html.Partial("_SearchList", Model.List)
                     </div>
                 </div>
             </div>
@@ -83,5 +79,35 @@
                 'autoWidth': false
             })
         })
+
+        $('#startdatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#enddatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("body").on("click", "#btnSearch", function () {
+            var data = new FormData();
+            data.append('PurchaseName', $("#PurchaseName").val());
+            data.append('StartDate', $("#startdatepicker").val());
+            data.append('EndDate', $("#enddatepicker").val());
+
+            $.ajax({
+                type: "POST",
+                url: "/Sales/SearchList",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result) {
+                        $('#SearchList').html(result);
+                    }
+                }
+            });
+        });
     </script>
 }

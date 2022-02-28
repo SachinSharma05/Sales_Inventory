@@ -57,6 +57,37 @@
                         </div>
                     </div>
                     <div class="box-body">
+                        <div class="col-md-3">
+                            <label>Advance To:</label>
+                            <div class="input-group">
+                                @Html.DropDownList("AdvanceToList", new SelectList(Model.AdvanceTo, "Text", "Text"), new { @class = "form-control required", @id = "AdvanceToList", type = "option" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Sale Start Date:</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="startdatepicker">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Sale End Date:</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="enddatepicker">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Action:</label><br />
+                            <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                            <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive">
                         <table id="Advancelist" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -64,6 +95,7 @@
                                     <th>Advance Date</th>
                                     <th>Advance Amount</th>
                                     <th>Advance Reason</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblbody">
@@ -95,22 +127,31 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Advancelist').DataTable({
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-                'pageLength': 10
-            })
+        $('#Advancelist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
         })
-    </script>
-}
 
-<script>
-    $("body").on("click", "#btnSave", function () {
+        $('#startdatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#enddatepicker').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#AdvanceDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
         var data = new FormData();
         data.append('AdvanceTo', $("#AdvanceTo").val());
@@ -119,18 +160,19 @@
         data.append('AdvanceAgainst', $("#AdvanceAgainst").val());
 
         //Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            url: "/AdvancePayment/Create",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-                toastr.success('Record(s) Inserted Successfully')
-                if (result) {
-                    window.location.href = '@Url.Action("List","AdvancePayment")';
+            $.ajax({
+                type: "POST",
+                url: "/AdvancePayment/Create",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    toastr.success('Record(s) Inserted Successfully')
+                    if (result) {
+                        window.location.href = '@Url.Action("List","AdvancePayment")';
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
+}

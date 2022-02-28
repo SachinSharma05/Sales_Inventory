@@ -20,5 +20,6 @@ namespace Sales_Inventory.Models
         public List<Purchase_Products> purchase_Products { get; set; }
         public List<SelectListItem> ProductList { get; set; }
         public List<SelectListItem> PurchaseName { get; set; }
+        public List<PurchaseViewModel> List { get; set; }
     }
 }
