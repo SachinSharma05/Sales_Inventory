@@ -118,9 +118,14 @@
                                 @Html.ValidationMessageFor(m => m.BalanceAmt)
                             </div>
                         </div>
-                        <div class="box-footer">
-                            <input type="submit" class="btn btn-primary" value="Create" id="btnSave" />
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Action</label><br />
+                                <input type="submit" class="btn btn-primary" value="Create" id="btnSave" />
+                                <input type="reset" class="btn btn-default" value="Reset" id="btnReset" />
+                            </div>
                         </div>
+                        
                     </div>
                     <div id="SearchList">
                         @Html.Partial("_SearchList", Model.List)
@@ -179,7 +184,6 @@
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                    toastr.success('Record(s) Inserted Successfully')
                     if (result) {
                         window.location.href = '@Url.Action("List","InHouse")';
                     }

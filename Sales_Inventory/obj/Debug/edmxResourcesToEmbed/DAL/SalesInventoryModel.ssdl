@@ -142,6 +142,8 @@
     <Property Name="Purchase_No" Type="nvarchar" MaxLength="150" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
     <Property Name="Quantity" Type="int" />
+    <Property Name="Damaged" Type="int" />
+    <Property Name="FinalQty" Type="int" />
     <Property Name="Price" Type="int" />
     <Property Name="Total" Type="int" />
     <Property Name="CreatedBy" Type="int" />

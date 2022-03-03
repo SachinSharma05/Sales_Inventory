@@ -47,7 +47,7 @@ namespace Sales_Inventory.Controllers
 
         public List<SelectListItem> GetPurchaseName()
         {
-            var query = worker.PurchaseEntity.Get().ToList();
+            var query = worker.PurchaseEntity.Get().Distinct().ToList();
 
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem
@@ -127,6 +127,8 @@ namespace Sales_Inventory.Controllers
                         purchase_Product.Purchase_No = pur.Purchase_No;
                         purchase_Product.ItemName = item.ItemName;
                         purchase_Product.Quantity = item.Quantity;
+                        purchase_Product.Damaged = item.Damaged;
+                        purchase_Product.FinalQty = item.FinalQty;
                         purchase_Product.Price = item.Price;
                         purchase_Product.Total = Convert.ToInt32(item.Total);
                         purchase_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
@@ -189,6 +191,8 @@ namespace Sales_Inventory.Controllers
                     purchase_Product.Purchase_No = pur.Purchase_No;
                     purchase_Product.ItemName = item.ItemName;
                     purchase_Product.Quantity = item.Quantity;
+                    purchase_Product.Damaged = item.Damaged;
+                    purchase_Product.FinalQty = item.FinalQty;
                     purchase_Product.Price = item.Price;
                     purchase_Product.Total = Convert.ToString(item.Total);
                     purchase_Products.Add(purchase_Product);
@@ -204,7 +208,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(string purchaseId, string purchaseFrom, string purchaseBy, string sellerPhoneNo, string buyerPhoneNo, string purchaseDate, List<string> purchase_Prod)
+        public ActionResult Edit(string purchaseId, string purchaseFrom, string sellerPhoneNo, string purchaseDate, List<string> purchase_Prod)
         {
             string json = purchase_Prod[0].ToString();
             List<Purchase_Products> purchase_Products = JsonConvert.DeserializeObject<List<Purchase_Products>>(json);
@@ -225,6 +229,8 @@ namespace Sales_Inventory.Controllers
                         Purchase_Product purchase_Product = new Purchase_Product();
                         purchase_Product.ItemName = item.ItemName;
                         purchase_Product.Quantity = item.Quantity;
+                        purchase_Product.Damaged = item.Damaged;
+                        purchase_Product.FinalQty = item.FinalQty;
                         purchase_Product.Price = item.Price;
                         purchase_Product.Total = item.Total;
                         worker.PurchaseProductEntity.Update(purchase_Product);
@@ -409,6 +415,45 @@ namespace Sales_Inventory.Controllers
                 }
 
                 return PartialView("_SearchList", model);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Print Invoice
+        public ActionResult InvoicePrint(int Id)
+        {
+            int TotalAmount = 0;
+            try
+            {
+                PurchaseViewModel model = new PurchaseViewModel();
+                List<Purchase_Products> purchase_Products = new List<Purchase_Products>();
+                var pur = worker.PurchaseEntity.GetByID(Id);
+                model.Id = pur.Id;
+                model.Purchase_No = pur.Purchase_No;
+                model.Purchase_From = pur.Purchase_From;
+                model.Purchase_From_Phone = pur.Purchase_From_Phone;
+                model.Purchase_Date = pur.Purchase_Date;
+
+                var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
+                foreach (var item in pur_prod)
+                {
+                    Purchase_Products purchase_Product = new Purchase_Products();
+                    purchase_Product.Purchase_No = pur.Purchase_No;
+                    purchase_Product.ItemName = item.ItemName;
+                    purchase_Product.Quantity = item.Quantity;
+                    purchase_Product.Price = item.Price;
+                    purchase_Product.Total = Convert.ToString(item.Total);
+                    TotalAmount += Convert.ToInt32(item.Total);
+                    purchase_Products.Add(purchase_Product);
+                }
+                model.purchase_Products = purchase_Products;
+                model.ProductList = GetProductTypeList();
+                ViewBag.TotalAmount = TotalAmount;
+                return View(model);
             }
             catch(Exception ex)
             {

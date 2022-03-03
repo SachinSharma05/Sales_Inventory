@@ -42,8 +42,6 @@ public partial class Sales_InventoryEntities : DbContext
 
     public DbSet<Purchase> Purchases { get; set; }
 
-    public DbSet<Purchase_Product> Purchase_Product { get; set; }
-
     public DbSet<Role> Roles { get; set; }
 
     public DbSet<Sale_Product> Sale_Product { get; set; }
@@ -59,6 +57,8 @@ public partial class Sales_InventoryEntities : DbContext
     public DbSet<Employee> Employees { get; set; }
 
     public DbSet<InHouse> InHouses { get; set; }
+
+    public DbSet<Purchase_Product> Purchase_Product { get; set; }
 
 }
 

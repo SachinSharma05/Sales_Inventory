@@ -5,6 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    <style>
+        .modal-body {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+    </style>
+}
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Payment List</h1>
@@ -29,68 +39,36 @@
                             <div class="col-md-2">
                                 <label>Payment To:</label>
                                 <div class="input-group">
-                                    @Html.DropDownList("PaymentName", new SelectList(Model.PaymentName, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
+                                    @Html.DropDownList("PaymentName", new SelectList(Model.PaymentName, "Text", "Text"), new { @class = "form-control required", @placeholder = "Select Product", @id = "PurchaseName", type = "option" })
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label>Sale Start Date:</label>
+                                <label>Start Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                    <input type="text" class="form-control pull-right" id="startdatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label>Sale End Date:</label>
+                                <label>End Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                    <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select End Date">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label>Action:</label><br />
-                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSave" />
+                                <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
                                 <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
                             </div>
                         </div>
                     </div>
-                    <div class="box-body table-responsive">
-                        <table id="Paymentlist" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <td>Purchase No</td>
-                                    <th>Payment To</th>
-                                    <th>Date</th>
-                                    <th>Mode</th>
-                                    <th>Paid Amount</th>
-                                    <th>Balance</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblbody">
-                                @foreach (var item in ViewBag.PaymentList)
-                                {
-                                    <tr>
-                                        <td>@item.Purchase_No</td>
-                                        <td>@item.Payment_To</td>
-                                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Payment_Date)</td>
-                                        <td>@item.Payment_Type</td>
-                                        <td>@item.Paid_Amount</td>
-                                        <td>@item.Balance</td>
-                                        @if (Convert.ToInt32(Session["UserId"]) == 1)
-                                        {
-                                            <td>
-                                                <a href="/Payment/Edit/@item.Id"><span class="label label-success">Edit</span></a>
-                                                <a href="/Payment/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
-                                            </td>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                    <div id="SearchList">
+                        @Html.Partial("_SearchList", Model.List)
                     </div>
                 </div>
             </div>
@@ -119,6 +97,42 @@
             autoclose: true,
             dateFormat: "dd/mm/yy"
         });
+
+        $("body").on("click", "#btnSearch", function () {
+            var data = new FormData();
+            data.append('PurchaseName', $("#PurchaseName").val());
+            data.append('StartDate', $("#startdatepicker").val());
+            data.append('EndDate', $("#enddatepicker").val());
+
+            $.ajax({
+                type: "POST",
+                url: "/Payment/SearchList",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result) {
+                        $('#SearchList').html(result);
+                    }
+                }
+            });
+        });
+
+        $("body").on("click", "#btnReset", function () {
+            $('#startdatepicker').datepicker('setDate', null);
+            $('#enddatepicker').datepicker('setDate', null);
+            $('#PurchaseName').prop('selectedIndex', 0);
+
+            $.ajax({
+                type: "GET",
+                url: "/Payment/List",
+                success: function (result) {
+                    if (result) {
+                        window.location.href = '@Url.Action("List","Payment")';
+                    }
+                }
+            });
+        })
     </script>
 }
 

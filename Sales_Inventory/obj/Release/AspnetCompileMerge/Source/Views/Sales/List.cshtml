@@ -27,32 +27,32 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <label>Name:</label>
+                                <label>Sale To:</label>
                                 <div class="input-group">
                                     @Html.DropDownList("SaleTo", new SelectList(Model.SaleTo, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label>Purchase Start Date:</label>
+                                <label>Start Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startdatepicker">
+                                    <input type="text" class="form-control pull-right" id="startdatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label>Purchase End Date:</label>
+                                <label>End Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="enddatepicker">
+                                    <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <label>Action:</label><br />
-                                <input type="submit" class="btn btn-primary" value="Submit" id="btnSearch" />
+                                <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
                                 <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
                             </div>
                         </div>

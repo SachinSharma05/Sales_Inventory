@@ -58,8 +58,8 @@ namespace Sales_Inventory.Controllers
                     transaction.PaidDate = Convert.ToDateTime(paidDate);
                     transaction.TotalAmount = Convert.ToInt32(totalAmount);
                     transaction.PaidAmount = Convert.ToInt32(paidAmount);
-                    transaction.ReturnAmtReceived = Convert.ToInt32(returnAmtReceived);
-                    transaction.BalanceAmt = Convert.ToInt32(balanceAmt);
+                    transaction.ReturnAmtReceived = returnAmtReceived != "" ? Convert.ToInt32(returnAmtReceived) : 0;
+                    transaction.BalanceAmt = balanceAmt != "" ? Convert.ToInt32(balanceAmt) : 0;
                     transaction.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     transaction.CreatedDate = DateTime.Now.Date;
                     worker.InHouseTransactionEntity.Insert(transaction);

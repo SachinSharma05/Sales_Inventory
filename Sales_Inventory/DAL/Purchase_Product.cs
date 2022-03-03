@@ -26,6 +26,10 @@ public partial class Purchase_Product
 
     public Nullable<int> Quantity { get; set; }
 
+    public Nullable<int> Damaged { get; set; }
+
+    public Nullable<int> FinalQty { get; set; }
+
     public Nullable<int> Price { get; set; }
 
     public Nullable<int> Total { get; set; }

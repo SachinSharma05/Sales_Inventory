@@ -4217,13 +4217,14 @@
     <Content Include="Web.config" />
     <Content Include="Views\Purchase\_SearchList.cshtml" />
     <Content Include="Views\Sales\_SearchList.cshtml" />
-    <None Include="Properties\PublishProfiles\apps.jssalesinventory.in - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Payment\_SearchList.cshtml" />
     <Content Include="Views\PaymentReceipt\_SearchList.cshtml" />
     <Content Include="Views\AdvancePayment\_SearchList.cshtml" />
     <Content Include="Views\Home\_SearchList.cshtml" />
     <Content Include="Views\InHouse\_SearchList.cshtml" />
+    <Content Include="Views\Purchase\InvoicePrint.cshtml" />
+    <Content Include="Views\Sales\InvoicePrint.cshtml" />
+    <Content Include="Views\Home\_AddNewProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4234,6 +4235,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

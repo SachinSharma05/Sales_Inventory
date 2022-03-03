@@ -1,9 +1,7 @@
 ﻿@model Sales_Inventory.Models.SalesViewModel
 
-@{
-    ViewBag.Title = "Create Sale";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewBag.Title = "Create Sale";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -30,7 +28,7 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Contact No </label>
-                                @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo" })
+                                @Html.TextBoxFor(m => m.Sale_To_Phone, new { @class = "form-control required", placeholder = "Enter Buyer Phone No", @id = "buyerPhoneNo", @maxlength = "10" })
                                 @Html.ValidationMessageFor(m => m.Sale_To_Phone)
                             </div>
                         </div>
@@ -89,7 +87,9 @@
     </section>
 </div>
 
-<script type="text/javascript">
+@section Scripts
+{
+    <script type="text/javascript">
     $("body").on("click", "#btnAdd", function () {
         //Reference the Name and Country TextBoxes.
         var txtItem = $("#txtItem");
@@ -175,17 +175,19 @@
             data: data,
             processData: false,
             contentType: false,
-            success: function (r) {
-                toastr.success('Record(s) Inserted Successfully')
+            success: function (result) {
                 if (result) {
                     window.location.href = '@Url.Action("List","Sales")';
                 }
             }
         });
     });
-</script>
 
-<script>
+    $('#saleDate').datepicker({
+        autoclose: true,
+        dateFormat: "dd/mm/yy"
+    });
+
     $('#txtPrice').keyup(function () {
         var textone;
         var texttwo;
@@ -194,4 +196,5 @@
         var result = textone * texttwo;
         $('#txtTotal').val(result);
     });
-</script>
+    </script>
+}

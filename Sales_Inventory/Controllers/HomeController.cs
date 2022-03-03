@@ -248,5 +248,30 @@ namespace Sales_Inventory.Controllers
             }
         }
         #endregion
+
+        #region Add New Product
+        public ActionResult AddNewProduct()
+        {
+            return PartialView("_AddNewProduct");
+        }
+        [HttpPost]
+        public ActionResult AddNewProduct(string Product)
+        {
+            try
+            {
+                ProductType model = new ProductType();
+                model.Product = Product;
+                model.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                model.CreatedDate = DateTime.Now.Date;
+                worker.ProductTypeEntity.Insert(model);
+                worker.Save();
+                return PartialView("_AddNewProduct");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
     }
 }

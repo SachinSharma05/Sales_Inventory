@@ -76,20 +76,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Purchase_Product">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase_Product">
-        <MappingFragment StoreEntitySet="Purchase_Product">
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Total" ColumnName="Total" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-          <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="Sales_InventoryModel.Role">
         <MappingFragment StoreEntitySet="Role">
@@ -221,6 +207,22 @@
           <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
           <ScalarProperty Name="PaidTo" ColumnName="PaidTo" />
           <ScalarProperty Name="PaidBy" ColumnName="PaidBy" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Purchase_Product">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.Purchase_Product">
+        <MappingFragment StoreEntitySet="Purchase_Product">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="FinalQty" ColumnName="FinalQty" />
+          <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Purchase_No" ColumnName="Purchase_No" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

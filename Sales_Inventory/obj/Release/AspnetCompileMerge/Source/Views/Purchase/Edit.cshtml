@@ -55,6 +55,8 @@
                                 <tr>
                                     <th>Item Name</th>
                                     <th>Quantity(Kgs)</th>
+                                    <th>Waste</th>
+                                    <th>Actual Quantity</th>
                                     <th>Price(Per KG)</th>
                                     <th>Total</th>
                                     <th></th>
@@ -63,22 +65,26 @@
                             <tbody>
                                 @foreach (var item in Model.purchase_Products)
                                 {
-                                    <tr>
-                                        <td>@Html.TextBoxFor(m => item.ItemName, new { @class = "form-control", @id = "txtItemName" })</td>
-                                        <td>@Html.TextBoxFor(m => item.Quantity, new { @class = "form-control", @id = "txtQuantity" })</td>
-                                        <td>@Html.TextBoxFor(m => item.Price, new { @class = "form-control", @id = "txtPrice" })</td>
-                                        <td>@Html.TextBoxFor(m => item.Total, new { @class = "form-control", @id = "txtTotal", @readonly = "true" })</td>
-                                        <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
-                                    </tr>
+                                <tr>
+                                    <td>@Html.TextBoxFor(m => item.ItemName, new { @class = "form-control", @id = "txtItemName" })</td>
+                                    <td>@Html.TextBoxFor(m => item.Quantity, new { @class = "form-control", @id = "txtQuantity" })</td>
+                                    <td>@Html.TextBoxFor(m => item.Damaged, new { @class = "form-control", @id = "txtDamaged" })</td>
+                                    <td>@Html.TextBoxFor(m => item.FinalQty, new { @class = "form-control", @id = "txtFinalQty", @readonly = "readonly" })</td>
+                                    <td>@Html.TextBoxFor(m => item.Price, new { @class = "form-control", @id = "txtPrice" })</td>
+                                    <td>@Html.TextBoxFor(m => item.Total, new { @class = "form-control", @id = "txtTotal", @readonly = "true" })</td>
+                                    <td><input type="button" value="Remove" onclick="Remove(this)" class=" btn btn-danger form-control" /></td>
+                                </tr>
                                 }
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
                                     <td><input type="number" id="txtQuantityNew" class="form-control" /></td>
+                                    <td><input type="number" id="txtDamagedNew" class="form-control" /></td>
+                                    <td><input type="number" id="txtFinalQtyNew" class="form-control" readonly /></td>
                                     <td><input type="text" id="txtPriceNew" class="form-control" /></td>
                                     <td><input type="text" id="txtTotal" class="form-control" readonly /></td>
-                                    <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>
+                                    <td><input type="button" id="btnAdd" value="Add" class="btn btn-primary form-control" /></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -100,6 +106,8 @@
             //Reference the Name and Country TextBoxes.
             var txtItemName = $("#txtItemName");
             var txtQuantity = $("#txtQuantity");
+            var txtDamaged = $("#txtDamaged");
+            var txtFinalQty = $("#txtFinalQty");
             var txtPrice = $("#txtPrice");
             var txtTotal = $("#txtTotal");
 
@@ -117,6 +125,14 @@
             cell = $(row.insertCell(-1));
             cell.html(txtQuantity.val());
 
+            //Add Age cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtDamaged.val());
+
+            //Add Age cell.
+            cell = $(row.insertCell(-1));
+            cell.html(txtFinalQty.val());
+
             //Add Price cell.
             cell = $(row.insertCell(-1));
             cell.html(txtPrice.val());
@@ -129,7 +145,7 @@
             cell = $(row.insertCell(-1));
             var btnRemove = $("<input />");
             btnRemove.attr("type", "button");
-            btnRemove.attr("class", "form-control");
+            btnRemove.attr("class", "btn btn-danger form-control");
             btnRemove.attr("onclick", "Remove(this);");
             btnRemove.val("Remove");
             cell.append(btnRemove);
@@ -137,6 +153,8 @@
             //Clear the TextBoxes.
             txtItemName.val("");
             txtQuantity.val("");
+            txtDamaged.val("");
+            txtFinalQty.val("");
             txtPrice.val("");
             txtTotal.val("");
         });
@@ -162,17 +180,17 @@
                 var product = {};
                 product.ItemName = row.find("TD").eq(0).html();
                 product.Quantity = row.find("TD").eq(1).html();
-                product.Price = row.find("TD").eq(2).html();
-                product.Total = row.find("TD").eq(3).html();
+                product.Damaged = row.find("TD").eq(2).html();
+                product.FinalQty = row.find("TD").eq(3).html();
+                product.Price = row.find("TD").eq(4).html();
+                product.Total = row.find("TD").eq(5).html();
                 purchase_Products.push(product);
             });
 
             var data = new FormData();
             data.append('purchaseId', $("#purchaseId").val());
             data.append('purchaseFrom', $("#purchaseFrom").val());
-            data.append('purchaseBy', $("#purchaseBy").val());
             data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
-            data.append('buyerPhoneNo', $("#buyerPhoneNo").val());
             data.append('purchaseDate', $("#purchaseDate").val());
             data.append('purchase_Prod', JSON.stringify(purchase_Products));
             debugger;
