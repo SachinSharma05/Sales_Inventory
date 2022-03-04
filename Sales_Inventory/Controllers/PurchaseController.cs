@@ -208,7 +208,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(string purchaseId, string purchaseFrom, string sellerPhoneNo, string purchaseDate, List<string> purchase_Prod)
+        public ActionResult Update(string purchaseId, string purchaseFrom, string sellerPhoneNo, string purchaseDate, List<string> purchase_Prod)
         {
             string json = purchase_Prod[0].ToString();
             List<Purchase_Products> purchase_Products = JsonConvert.DeserializeObject<List<Purchase_Products>>(json);

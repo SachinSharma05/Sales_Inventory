@@ -64,7 +64,7 @@ namespace Sales_Inventory.Controllers
         #region Create Advance
         public ActionResult Create()
         {
-            return View();
+            return View("_Create");
         }
 
         [HttpPost]

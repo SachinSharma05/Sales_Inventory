@@ -1,5 +1,20 @@
 ﻿@model List<Sales_Inventory.Models.Purchase_Products>
 
+<style type="text/css">
+    body {
+        counter-reset: Serial;
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    tr td:first-child:before {
+        counter-increment: Serial;
+        content: counter(Serial);
+    }
+</style>
+
 <div class="box-body table-responsive">
     <table id="Stocklist" class="table table-bordered table-striped">
         <thead>
@@ -14,10 +29,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Id</td>
+                    <td></td>
                     <td>@item.ItemName</td>
                     <td>@item.Quantity</td>
-                    <td>@item.CreatedDate</td>
+                    <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.CreatedDate)</td>
                 </tr>
             }
         </tbody>
