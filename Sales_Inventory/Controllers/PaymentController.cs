@@ -67,6 +67,7 @@ namespace Sales_Inventory.Controllers
             var data = worker.PurchaseEntity.GetByID(model.Id);
             model.Total_Payment_Amount = data.Balance != null ? data.Balance : data.GrossTotal;
             model.Purchase_No = data.Purchase_No;
+            model.Payment_To = data.Purchase_From;
             return View(model);
         }
 

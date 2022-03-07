@@ -17,5 +17,13 @@ namespace Sales_Inventory
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        void Session_Start(object sender, EventArgs e)
+        {
+            if (Session.IsNewSession)
+            {
+                Session.Timeout = 1440;
+            }
+        }
     }
 }

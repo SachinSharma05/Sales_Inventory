@@ -48,7 +48,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        @Html.TextBoxFor(m => m.Payment_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy" })
+                                        @Html.TextBoxFor(m => m.Payment_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy", @id = "PaymentDate" })
                                         @Html.ValidationMessageFor(m => m.Payment_Date)
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    @Html.TextBoxFor(m => m.Contact_No, new { @class = "form-control required", placeholder = "Enter Payment To Name" })
+                                    @Html.TextBoxFor(m => m.Contact_No, new { @class = "form-control required", placeholder = "Enter Contact No", @maxlength = "10" })
                                     @Html.ValidationMessageFor(m => m.Contact_No)
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.TextBoxFor(m => m.Cheque_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy" })
+                                    @Html.TextBoxFor(m => m.Cheque_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy", @id = "ChequeDate" })
                                     @Html.ValidationMessageFor(m => m.Cheque_Date)
                                 </div>
                             </div>
@@ -209,6 +209,16 @@
             texttwo = parseFloat($('#PaymentAmt').val());
             var result = textone - texttwo;
             $('#BalanceAmt').val(result);
+        });
+
+        $('#PaymentDate').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
+        });
+
+        $('#ChequeDate').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
         });
     </script>
 }

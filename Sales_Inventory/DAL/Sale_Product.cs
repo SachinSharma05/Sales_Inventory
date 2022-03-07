@@ -24,7 +24,7 @@ public partial class Sale_Product
 
     public string Item { get; set; }
 
-    public Nullable<int> Quantity { get; set; }
+    public string Quantity { get; set; }
 
     public string Price { get; set; }
 

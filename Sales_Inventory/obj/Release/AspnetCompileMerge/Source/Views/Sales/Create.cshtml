@@ -69,7 +69,7 @@
                             <tfoot>
                                 <tr>
                                     <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItem", type = "option" })</td>
-                                    <td><input type="number" id="txtQuantity" class="form-control" /></td>
+                                    <td><input type="text" id="txtQuantity" class="form-control" /></td>
                                     <td><input type="text" id="txtPrice" class="form-control" /></td>
                                     <td><input type="text" id="txtTotal" class="form-control" readonly /></td>
                                     <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>

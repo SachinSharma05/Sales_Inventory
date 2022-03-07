@@ -46,7 +46,7 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetPaymentReceiptName()
         {
-            var query = worker.PaymentReceiptEntity.Get().ToList().Distinct();
+            var query = worker.PaymentReceiptEntity.Get().ToList();
 
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
             list.AddRange(query.ToList().Select(C => new SelectListItem

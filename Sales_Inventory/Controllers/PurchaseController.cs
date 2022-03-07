@@ -87,7 +87,7 @@ namespace Sales_Inventory.Controllers
         [HttpPost]
         public ActionResult Create(string purchaseFrom, string sellerPhoneNo, string purchaseDate, List<string> purchase_Prod)
         {
-            string json = purchase_Prod[0].ToString();
+            string json = purchase_Prod[0];
             string Purchase_No = "";
             int GrossTotal = 0;
             List<Purchase_Products> purchase_Products = JsonConvert.DeserializeObject<List<Purchase_Products>>(json);
@@ -95,7 +95,7 @@ namespace Sales_Inventory.Controllers
             {
                 foreach (var item in purchase_Products)
                 {
-                    GrossTotal += Convert.ToInt32(item.Total);
+                    GrossTotal += Convert.ToInt32(Math.Floor(Convert.ToDouble(item.Total)));
                 }
 
                 if (ModelState.IsValid)
@@ -114,7 +114,7 @@ namespace Sales_Inventory.Controllers
                     var Id = pur.Id;
                     Purchase_No = Id == 1 ? "PR-1" : "PR-" + Id;
 
-                    var record = worker.SaleEntity.Get(x => x.Id == Id).ToList();
+                    var record = worker.PurchaseEntity.Get(x => x.Id == Id).ToList();
                     if (record != null)
                     {
                         pur.Purchase_No = Purchase_No;
@@ -130,7 +130,7 @@ namespace Sales_Inventory.Controllers
                         purchase_Product.Damaged = item.Damaged;
                         purchase_Product.FinalQty = item.FinalQty;
                         purchase_Product.Price = item.Price;
-                        purchase_Product.Total = Convert.ToInt32(item.Total);
+                        purchase_Product.Total = item.Total;
                         purchase_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                         purchase_Product.CreatedDate = DateTime.Now.Date;
                         worker.PurchaseProductEntity.Insert(purchase_Product);
@@ -143,7 +143,7 @@ namespace Sales_Inventory.Controllers
                         if(stockList.Count > 0)
                         {
                             Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
-                            stockItem.TotalQuantity = stockItem.TotalQuantity + item.Quantity;
+                            stockItem.TotalQuantity = stockItem.TotalQuantity + Convert.ToInt32(Math.Floor(Convert.ToDouble(item.Quantity)));
                             stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                             stockItem.CreatedDate = DateTime.Now.Date;
                             worker.StockEntity.Update(stockItem);
@@ -153,7 +153,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Stock stock = new Stock();
                             stock.Product = item.ItemName;
-                            stock.TotalQuantity = item.Quantity;
+                            stock.TotalQuantity = Convert.ToInt32(Math.Floor(Convert.ToDouble(item.Quantity)));
                             stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                             stock.CreatedDate = DateTime.Now.Date;
                             worker.StockEntity.Insert(stock);
@@ -194,7 +194,7 @@ namespace Sales_Inventory.Controllers
                     purchase_Product.Damaged = item.Damaged;
                     purchase_Product.FinalQty = item.FinalQty;
                     purchase_Product.Price = item.Price;
-                    purchase_Product.Total = Convert.ToString(item.Total);
+                    purchase_Product.Total = item.Total;
                     purchase_Products.Add(purchase_Product);
                 }
                 model.purchase_Products = purchase_Products;
@@ -224,17 +224,40 @@ namespace Sales_Inventory.Controllers
                     worker.Save();
 
                     var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
-                    foreach (var item in pur_prod)
+
+                    foreach (var databaseItem in pur_prod)
                     {
-                        Purchase_Product purchase_Product = new Purchase_Product();
-                        purchase_Product.ItemName = item.ItemName;
-                        purchase_Product.Quantity = item.Quantity;
-                        purchase_Product.Damaged = item.Damaged;
-                        purchase_Product.FinalQty = item.FinalQty;
-                        purchase_Product.Price = item.Price;
-                        purchase_Product.Total = item.Total;
-                        worker.PurchaseProductEntity.Update(purchase_Product);
-                        worker.Save();
+                        foreach (var formItem in purchase_Products)
+                        {
+                            if(databaseItem.ItemName == formItem.ItemName)
+                            {
+                                Purchase_Product purchase_Product = worker.PurchaseProductEntity.GetByID(databaseItem.Id);
+                                purchase_Product.ItemName = databaseItem.ItemName;
+                                purchase_Product.Quantity = databaseItem.Quantity;
+                                purchase_Product.Damaged = databaseItem.Damaged;
+                                purchase_Product.FinalQty = databaseItem.FinalQty;
+                                purchase_Product.Price = databaseItem.Price;
+                                purchase_Product.Total = databaseItem.Total;
+                                worker.PurchaseProductEntity.Update(purchase_Product);
+                                worker.Save();
+                            }
+                            else
+                            {
+                                Purchase_Product purchase_Product = new Purchase_Product();
+                                purchase_Product.Purchase_No = pur.Purchase_No;
+                                purchase_Product.ItemName = databaseItem.ItemName;
+                                purchase_Product.Quantity = databaseItem.Quantity;
+                                purchase_Product.Damaged = databaseItem.Damaged;
+                                purchase_Product.FinalQty = databaseItem.FinalQty;
+                                purchase_Product.Price = databaseItem.Price;
+                                purchase_Product.Total = databaseItem.Total;
+                                purchase_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                                purchase_Product.CreatedDate = DateTime.Now.Date;
+                                worker.PurchaseProductEntity.Insert(purchase_Product);
+                                worker.Save();
+                            }
+                        }
+                        
                     }
                 }
                 catch(Exception ex)
@@ -446,7 +469,7 @@ namespace Sales_Inventory.Controllers
                     purchase_Product.ItemName = item.ItemName;
                     purchase_Product.Quantity = item.Quantity;
                     purchase_Product.Price = item.Price;
-                    purchase_Product.Total = Convert.ToString(item.Total);
+                    purchase_Product.Total = item.Total;
                     TotalAmount += Convert.ToInt32(item.Total);
                     purchase_Products.Add(purchase_Product);
                 }

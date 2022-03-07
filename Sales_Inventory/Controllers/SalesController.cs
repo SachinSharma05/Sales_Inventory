@@ -139,7 +139,7 @@ namespace Sales_Inventory.Controllers
                         if(stockList.Count > 0)
                         {
                             Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
-                            stockItem.TotalQuantity = stockItem.TotalQuantity - item.Quantity;
+                            stockItem.TotalQuantity = stockItem.TotalQuantity - Convert.ToInt32(item.Quantity);
                             stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                             stockItem.CreatedDate = DateTime.Now.Date;
                             worker.StockEntity.Update(stockItem);
@@ -149,7 +149,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Stock stock = new Stock();
                             stock.Product = item.Item;
-                            stock.TotalQuantity = item.Quantity;
+                            stock.TotalQuantity = Convert.ToInt32(item.Quantity);
                             stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                             stock.CreatedDate = DateTime.Now.Date;
                             worker.StockEntity.Insert(stock);

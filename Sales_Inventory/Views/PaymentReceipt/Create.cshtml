@@ -41,7 +41,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.TextBoxFor(m => m.ReceivedDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy" })
+                                    @Html.TextBoxFor(m => m.ReceivedDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy", @id = "PaymentReceiptDate" })
                                     @Html.ValidationMessageFor(m => m.ReceivedDate)
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                @Html.TextBoxFor(m => m.ChequeDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy" })
+                                @Html.TextBoxFor(m => m.ChequeDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy", @id = "ChequeDate" })
                                 @Html.ValidationMessageFor(m => m.ChequeDate)
                             </div>
                         </div>
@@ -210,6 +210,16 @@
             texttwo = parseFloat($('#PaymentAmt').val());
             var result = textone - texttwo;
             $('#BalanceAmt').val(result);
+        });
+
+        $('#PaymentReceiptDate').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
+        });
+
+        $('#ChequeDate').datepicker({
+            autoclose: true,
+            dateFormat: "mm/dd/yy"
         });
     </script>
 }

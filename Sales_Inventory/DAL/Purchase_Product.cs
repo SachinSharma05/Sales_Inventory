@@ -24,15 +24,15 @@ public partial class Purchase_Product
 
     public string ItemName { get; set; }
 
-    public Nullable<int> Quantity { get; set; }
+    public string Quantity { get; set; }
 
-    public Nullable<int> Damaged { get; set; }
+    public string Damaged { get; set; }
 
-    public Nullable<int> FinalQty { get; set; }
+    public string FinalQty { get; set; }
 
-    public Nullable<int> Price { get; set; }
+    public string Price { get; set; }
 
-    public Nullable<int> Total { get; set; }
+    public string Total { get; set; }
 
     public Nullable<int> CreatedBy { get; set; }
 

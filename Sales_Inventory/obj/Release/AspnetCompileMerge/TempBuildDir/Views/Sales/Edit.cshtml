@@ -74,18 +74,19 @@
                             <tbody>
                                 @foreach (var item in Model.sale_Products)
                                 {
-                    <tr>
-                        <td>@item.Item</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Price</td>
-                        <td>@item.Total</td>
-                        <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
-                    </tr>}
+                                    <tr>
+                                        <td>@item.Item</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.Total</td>
+                                        <td><input type="button" value="Remove" onclick="Remove(this)" class="form-control" /></td>
+                                    </tr>
+                                }
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
-                                    <td><input type="number" id="txtQuantity" class="form-control" /></td>
+                                    <td><input type="text" id="txtQuantity" class="form-control" /></td>
                                     <td><input type="text" id="txtPrice" class="form-control" /></td>
                                     <td><input type="text" id="txtTotal" class="form-control" /></td>
                                     <td><input type="button" id="btnAdd" value="Add" class="form-control" /></td>

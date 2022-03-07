@@ -1,6 +1,8 @@
 ﻿using Sales_Inventory.DAL;
 using Sales_Inventory.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,7 +16,6 @@ namespace Sales_Inventory.Controllers
         protected CurrentUser currentUser { get; set; }
         #endregion
 
-        #region Initialization
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -56,7 +57,6 @@ namespace Sales_Inventory.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
-        #endregion
 
         #region Globle Exception handler
         protected override void OnException(ExceptionContext filterContext)
@@ -66,6 +66,7 @@ namespace Sales_Inventory.Controllers
                 return;
 
             #region log
+
             var ex = filterContext.Exception ??
                    new Exception("No further information exists.");
 
@@ -113,5 +114,6 @@ namespace Sales_Inventory.Controllers
         //    }
         //}
         #endregion
+
     }
 }

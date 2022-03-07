@@ -205,6 +205,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HTMLHelperExtensions.cs" />
+    <Compile Include="BAL\KeepSessionAlive.ashx.cs">
+      <DependentUpon>KeepSessionAlive.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdvanceViewModel.cs" />
     <Compile Include="Models\CommonViewModel.cs" />
     <Compile Include="Models\DayCashModel.cs" />
@@ -4225,6 +4228,7 @@
     <Content Include="Views\Sales\Create.cshtml" />
     <Content Include="Views\Sales\Edit.cshtml" />
     <Content Include="Views\Sales\List.cshtml" />
+    <Content Include="BAL\KeepSessionAlive.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4234,7 +4238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BAL\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

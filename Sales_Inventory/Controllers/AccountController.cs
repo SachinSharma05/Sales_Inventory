@@ -48,6 +48,7 @@ namespace Sales_Inventory.Controllers
                         Session["Email"] = user.Email;
                         Session["Fullname"] = user.FullName;
                         Session["RoleId"] = user.RoleId;
+                        Session.Timeout = 1440;
                         return RedirectToAction("Index", "Home");
                     }
                     else

@@ -164,8 +164,8 @@
     <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
     <Property Name="Item" Type="nvarchar" MaxLength="150" />
     <Property Name="Quantity" Type="int" />
-    <Property Name="Price" Type="nvarchar" MaxLength="150" />
-    <Property Name="Total" Type="nvarchar" MaxLength="150" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Total" Type="int" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>

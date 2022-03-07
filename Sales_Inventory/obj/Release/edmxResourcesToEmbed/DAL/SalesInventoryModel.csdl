@@ -7,7 +7,6 @@
     <EntitySet Name="ProductTypes" EntityType="Sales_InventoryModel.ProductType" />
     <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
     <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
-    <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
     <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
     <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
@@ -15,6 +14,7 @@
     <EntitySet Name="Employees" EntityType="Sales_InventoryModel.Employee" />
     <EntitySet Name="InHouses" EntityType="Sales_InventoryModel.InHouse" />
     <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
+    <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
   </EntityContainer>
   <EntityType Name="Advance">
     <Key>
@@ -92,19 +92,6 @@
     </Key>
     <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Sale_Product">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="Price" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="Sale">
     <Key>
@@ -223,6 +210,19 @@
     <Property Name="Quantity" Type="Int32" />
     <Property Name="Damaged" Type="Int32" />
     <Property Name="FinalQty" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Total" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Sale_Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Int32" />
     <Property Name="Price" Type="Int32" />
     <Property Name="Total" Type="Int32" />
     <Property Name="CreatedBy" Type="Int32" />

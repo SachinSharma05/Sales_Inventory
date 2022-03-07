@@ -56,32 +56,39 @@
                                     <th>Actual Quantity</th>
                                     <th>Price(Per KG)</th>
                                     <th>Total</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @{ 
+                                    int index = 0;
+                                }
+
                                 @foreach (var item in Model.purchase_Products)
                                 {
+                                    index = index + 1;
                                 <tr>
-                                    <td>@Html.TextBoxFor(m => item.ItemName, new { @class = "form-control", @id = "txtItemName" })</td>
-
-                                    <td><input type="number" id="txtQuantity" class="form-control" value="@item.Quantity" /></td>
-                                    <td><input type="number" id="txtDamaged" class="form-control" value="@item.Damaged" /></td>
-                                    <td><input type="number" id="txtFinalQty" class="form-control" value="@item.FinalQty" readonly /></td>
-                                    <td><input type="number" id="txtPrice" class="form-control" value="@item.Price" /></td>
-                                    <td><input type="number" id="txtTotal" class="form-control" value="@item.Total" readonly /></td>
+                                    <td>
+                                        <input type="hidden" id="txtItemId_@index" class="form-control" value="@item.Id" />
+                                        <input type="text" id="txtItemName_@index" class="form-control" value="@item.ItemName" />
+                                    </td>
+                                    <td><input type="text" id="txtQuantity_@index" class="form-control" value="@item.Quantity" /></td>
+                                    <td><input type="text" id="txtDamaged_@index" onkeyup="finalQty(@index)" class="form-control" value="@item.Damaged" /></td>
+                                    <td><input type="text" id="txtFinalQty_@index" class="form-control" value="@item.FinalQty" readonly /></td>
+                                    <td><input type="text" id="txtPrice_@index" onkeyup="subTotal(@index)" class="form-control" value="@item.Price" /></td>
+                                    <td><input type="text" id="txtTotal_@index" class="form-control" value="@item.Total" readonly /></td>
                                     <td><input type="button" value="Remove" onclick="Remove(this)" class=" btn btn-danger form-control" /></td>
                                 </tr>
                                 }
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
-                                    <td><input type="number" id="txtQuantity" class="form-control" /></td>
-                                    <td><input type="number" id="txtDamaged" class="form-control" /></td>
-                                    <td><input type="number" id="txtFinalQty" class="form-control" readonly /></td>
-                                    <td><input type="number" id="txtPrice" class="form-control" /></td>
-                                    <td><input type="number" id="txtTotal" class="form-control" readonly /></td>
+                                    <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "ddlProductName", type = "option" })</td>
+                                    <td><input type="text" id="txtQuantity_0" class="form-control" /></td>
+                                    <td><input type="text" id="txtDamaged_0" onkeyup="finalQty(0)" class="form-control" /></td>
+                                    <td><input type="text" id="txtFinalQty_0" class="form-control" readonly /></td>
+                                    <td><input type="text" id="txtPrice_0" onkeyup="subTotal(0)" class="form-control" /></td>
+                                    <td><input type="text" id="txtTotal_0" class="form-control" readonly /></td>
                                     <td><input type="button" id="btnAdd" value="Add" class="btn btn-primary form-control" /></td>
                                 </tr>
                             </tfoot>
@@ -101,13 +108,15 @@
 {
     <script type="text/javascript">
         $("body").on("click", "#btnAdd", function () {
-            //Reference the Name and Country TextBoxes.
-            var txtItemName = $("#txtItemName");
-            var txtQuantity = $("#txtQuantity");
-            var txtDamaged = $("#txtDamaged");
-            var txtFinalQty = $("#txtFinalQty");
-            var txtPrice = $("#txtPrice");
-            var txtTotal = $("#txtTotal");
+            ////Reference the Name and Country TextBoxes.
+            var ddlProductName = $("#ddlProductName");
+            var txtQuantity = $("#txtQuantity_0");
+            var txtDamaged = $("#txtDamaged_0");
+            var txtFinalQty = $("#txtFinalQty_0");
+            var txtPrice = $("#txtPrice_0");
+            var txtTotal = $("#txtTotal_0");
+
+            var id = @index+1;
 
             //Get the reference of the Table's TBODY element.
             var tBody = $("#tblProducts > TBODY")[0];
@@ -117,27 +126,27 @@
 
             //Add Name cell.
             var cell = $(row.insertCell(-1));
-            cell.html(txtItemName.val());
+            cell.append(CreateTextBox('txtItemName', id, ddlProductName.val(), false, null));
 
             //Add Quantity cell.
-            cell = $(row.insertCell(-1));
-            cell.html(txtQuantity.val());
+            var cell = $(row.insertCell(-1));
+            cell.append(CreateTextBox('txtQuantity', id, txtQuantity.val(), false, null));
 
             //Add Age cell.
-            cell = $(row.insertCell(-1));
-            cell.html(txtDamaged.val());
+            var cell = $(row.insertCell(-1));
+            cell.append(CreateTextBox('txtDamaged', id, txtDamaged.val(), false, 'finalQty'));
 
             //Add Age cell.
-            cell = $(row.insertCell(-1));
-            cell.html(txtFinalQty.val());
+            var cell = $(row.insertCell(-1));
+            cell.append(CreateTextBox('txtFinalQty', id, txtFinalQty.val(), true, null));
 
             //Add Price cell.
-            cell = $(row.insertCell(-1));
-            cell.html(txtPrice.val());
+            var cell = $(row.insertCell(-1));
+            cell.append(CreateTextBox('txtPrice', id, txtPrice.val(), false, 'subTotal'));
 
             //Add Total cell.
-            cell = $(row.insertCell(-1));
-            cell.html(txtTotal.val());
+            var cell = $(row.insertCell(-1));
+            cell.append(CreateTextBox('txtTotal', id, txtTotal.val(), true, null));
 
             //Add Button cell.
             cell = $(row.insertCell(-1));
@@ -149,13 +158,29 @@
             cell.append(btnRemove);
 
             //Clear the TextBoxes.
-            txtItemName.val("");
+            ddlProductName.val("Select Product");
             txtQuantity.val("");
             txtDamaged.val("");
             txtFinalQty.val("");
             txtPrice.val("");
             txtTotal.val("");
         });
+
+        function CreateTextBox(name, id, value, isreadonly, eventname) {
+            var tbox = document.createElement('input');
+            tbox.type = 'Text';
+            tbox.className = 'form-control';
+            tbox.id = name + '_' + id;
+            tbox.value = value;
+            if (isreadonly) {
+                tbox.setAttribute('readonly', true);
+            }
+            if (eventname) {
+                tbox.setAttribute('onkeyup', '' + eventname + '(' + id + ')');
+            }
+            
+            return tbox;
+        }
 
         function Remove(button) {
             //Determine the reference of the Row using the Button.
@@ -172,17 +197,29 @@
 
         $("body").on("click", "#btnSave", function () {
             //Loop through the Table rows and build a JSON array.
+
+            var customers = new Array();
+            $("#tblCustomers TBODY TR").each(function () {
+                var row = $(this);
+                var customer = {};
+                customer.Name = $(this).find("td:eq(0) input[type='text']").val();
+                customer.Country = $(this).find("td:eq(1) input[type='text']").val();
+                customers.push(customer);
+            });
+
+
             var purchase_Products = new Array();
             $("#tblProducts TBODY TR").each(function () {
-                var row = $(this);
                 var product = {};
-                product.ItemName = row.find("TD").eq(0).html();
-                product.Quantity = row.find("TD").eq(1).html();
-                product.Damaged = row.find("TD").eq(2).html();
-                product.FinalQty = row.find("TD").eq(3).html();
-                product.Price = row.find("TD").eq(4).html();
-                product.Total = row.find("TD").eq(5).html();
+                product.ItemName = $(this).find("td:eq(0) input[type='text']").val();
+                product.Quantity = $(this).find("td:eq(1) input[type='text']").val();
+                product.Damaged = $(this).find("td:eq(2) input[type='text']").val();
+                product.FinalQty = $(this).find("td:eq(3) input[type='text']").val();
+                product.Price = $(this).find("td:eq(4) input[type='text']").val();
+                product.Total = $(this).find("td:eq(5) input[type='text']").val();
                 purchase_Products.push(product);
+
+                console.log(product);
             });
 
             var data = new FormData();
@@ -200,7 +237,7 @@
                 data: data,
                 processData: false,
                 contentType: false,
-                success: function (result) {     
+                success: function (result) {
                     if (result) {
                         alert("Record(s) Updated.");
                         window.location.href = '@Url.Action("List","Purchase")';
@@ -215,29 +252,22 @@
             });
         });
 
-        $('#txtPrice').keyup(function () {
+        function finalQty(index) {
             var textone;
             var texttwo;
-            textone = parseFloat($('#txtFinalQty').val());
-            texttwo = parseFloat($('#txtPrice').val());
-            var result = textone * texttwo;
-            $('#txtTotal').val(result);
-        });
-
-        $('#txtDamaged').keyup(function () {
-            var textone;
-            var texttwo;
-            textone = parseFloat($('#txtQuantity').val());
-            texttwo = parseFloat($('#txtDamaged').val());
+            textone = parseFloat($('#txtQuantity_' + index).val());
+            texttwo = parseFloat($('#txtDamaged_' + index).val());
             var result = textone - texttwo;
-            $('#txtFinalQty').val(result);
-        });
+            $('#txtFinalQty_' + index).val(result);
+        };
 
-        $('#txtDamaged').blur(function () {
-            if ($(this).val().length == 0) {
-                $(this).val("0");
-                $('#txtFinalQty').val($("#txtQuantity").val());
-            }
-        })
+        function subTotal(index) {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#txtFinalQty_' + index).val());
+            texttwo = parseFloat($('#txtPrice_' + index).val());
+            var result = textone * texttwo;
+            $('#txtTotal_' + index).val(result);
+        };
     </script>
 }
