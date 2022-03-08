@@ -188,9 +188,9 @@ namespace Sales_Inventory.Controllers
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
                     sale_Product.Item = item.Item;
-                    sale_Product.Quantity = item.Quantity;
-                    sale_Product.Price = item.Price;
-                    sale_Product.Total = item.Total;
+                    sale_Product.Quantity = (decimal)item.Quantity;
+                    sale_Product.Price = (decimal)item.Price;
+                    sale_Product.Total = (decimal)item.Total;
                     sale_Products.Add(sale_Product);
                 }
                 model.sale_Products = sale_Products;
@@ -201,6 +201,67 @@ namespace Sales_Inventory.Controllers
             {
                 throw ex;
             }
+        }
+
+        [HttpPost]
+        public ActionResult Update(string saleId, string saleTo, string buyerPhoneNo, string saleDate, List<string> sale_prod)
+        {
+            string json = sale_prod[0].ToString();
+            List<Sale_Products> sale_Products = JsonConvert.DeserializeObject<List<Sale_Products>>(json);
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    if(!String.IsNullOrEmpty(saleId))
+                    {
+                        Sale sale = worker.SaleEntity.GetByID(Convert.ToInt32(saleId));
+                        sale.Sale_To = saleTo;
+                        sale.Sale_To_Phone = buyerPhoneNo;
+                        sale.Sale_Date = Convert.ToDateTime(saleDate);
+                        worker.SaleEntity.Update(sale);
+                        worker.Save();
+
+                        var sale_products = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
+
+                        foreach (var item in sale_Products)
+                        {
+                            var itmName = sale_products.Any(x => x.Item == item.Item);
+                            if (itmName)
+                            {
+                                var SaleNo = worker.SaleEntity.GetByID(Convert.ToInt32(saleId)).Sale_No;
+                                var data = worker.SaleProductEntity.Get(x => x.Sale_No == SaleNo && x.Item == item.Item).FirstOrDefault();
+                                Sale_Product sale_Product = worker.SaleProductEntity.GetByID(data.Id);
+                                sale_Product.Item = item.Item;
+                                sale_Product.Quantity = item.Quantity;
+                                sale_Product.Price = item.Price;
+                                sale_Product.Total = item.Total;
+                                worker.SaleProductEntity.Update(sale_Product);
+                                worker.Save();
+                                continue;
+                            }
+                            else
+                            {
+                                Sale_Product sale_Product = new Sale_Product();
+                                sale_Product.Sale_No = sale.Sale_No;
+                                sale_Product.Item = item.Item;
+                                sale_Product.Quantity = item.Quantity;
+                                sale_Product.Price = item.Price;
+                                sale_Product.Total = item.Total;
+                                sale_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                                sale_Product.CreatedDate = DateTime.Now.Date;
+                                worker.SaleProductEntity.Insert(sale_Product);
+                                worker.Save();
+                                continue;
+                            }
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return RedirectToAction("List");
         }
         #endregion
 
@@ -404,9 +465,9 @@ namespace Sales_Inventory.Controllers
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
                     sale_Product.Item = item.Item;
-                    sale_Product.Quantity = item.Quantity;
-                    sale_Product.Price = item.Price;
-                    sale_Product.Total = item.Total;
+                    sale_Product.Quantity = (decimal)item.Quantity;
+                    sale_Product.Price = (decimal)item.Price;
+                    sale_Product.Total = (decimal)item.Total;
                     TotalAmount += Convert.ToInt32(item.Total);
                     sale_Products.Add(sale_Product);
                 }

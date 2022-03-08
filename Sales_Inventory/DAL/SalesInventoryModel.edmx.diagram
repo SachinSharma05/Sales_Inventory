@@ -17,8 +17,8 @@
         <EntityTypeShape EntityType="Sales_InventoryModel.PaymentReceipt" Width="1.5" PointX="2.125" PointY="4.75" />
         <EntityTypeShape EntityType="Sales_InventoryModel.Employee" Width="1.5" PointX="8.625" PointY="3.625" />
         <EntityTypeShape EntityType="Sales_InventoryModel.InHouse" Width="1.5" PointX="7" PointY="0.75" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase_Product" Width="1.5" PointX="5.375" PointY="2.875" />
-        <EntityTypeShape EntityType="Sales_InventoryModel.Sale_Product" Width="1.5" PointX="7" PointY="3.875" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Purchase_Product" Width="1.5" PointX="5.375" PointY="5.125" />
+        <EntityTypeShape EntityType="Sales_InventoryModel.Sale_Product" Width="1.5" PointX="7" PointY="5.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

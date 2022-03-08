@@ -10,7 +10,9 @@ namespace Sales_Inventory.Controllers
 {
     public class EmployeeController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
         #region Employee List
         public ActionResult List()

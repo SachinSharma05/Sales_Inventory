@@ -183,18 +183,21 @@ namespace Sales_Inventory.Controllers
                 model.Purchase_From = pur.Purchase_From;
                 model.Purchase_From_Phone = pur.Purchase_From_Phone;
                 model.Purchase_Date = pur.Purchase_Date;
+                model.GrossTotal = pur.GrossTotal;
+                model.Balance = pur.Balance;
 
                 var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
                 foreach (var item in pur_prod)
                 {
                     Purchase_Products purchase_Product = new Purchase_Products();
+                    purchase_Product.Id = item.Id;
                     purchase_Product.Purchase_No = pur.Purchase_No;
                     purchase_Product.ItemName = item.ItemName;
-                    purchase_Product.Quantity = item.Quantity;
-                    purchase_Product.Damaged = item.Damaged;
-                    purchase_Product.FinalQty = item.FinalQty;
-                    purchase_Product.Price = item.Price;
-                    purchase_Product.Total = item.Total;
+                    purchase_Product.Quantity = (decimal)item.Quantity;
+                    purchase_Product.Damaged = (decimal)item.Damaged;
+                    purchase_Product.FinalQty = (decimal)item.FinalQty;
+                    purchase_Product.Price = (decimal)item.Price;
+                    purchase_Product.Total = (decimal)item.Total;
                     purchase_Products.Add(purchase_Product);
                 }
                 model.purchase_Products = purchase_Products;
@@ -216,48 +219,52 @@ namespace Sales_Inventory.Controllers
             {
                 try
                 {
-                    Purchase pur = worker.PurchaseEntity.GetByID(Convert.ToInt32(purchaseId));
-                    pur.Purchase_From = purchaseFrom;
-                    pur.Purchase_From_Phone = sellerPhoneNo;
-                    pur.Purchase_Date = Convert.ToDateTime(purchaseDate);
-                    worker.PurchaseEntity.Update(pur);
-                    worker.Save();
-
-                    var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
-
-                    foreach (var databaseItem in pur_prod)
+                    if(!String.IsNullOrEmpty(purchaseId))
                     {
-                        foreach (var formItem in purchase_Products)
+                        Purchase pur = worker.PurchaseEntity.GetByID(Convert.ToInt32(purchaseId));
+                        pur.Purchase_From = purchaseFrom;
+                        pur.Purchase_From_Phone = sellerPhoneNo;
+                        pur.Purchase_Date = Convert.ToDateTime(purchaseDate);
+                        worker.PurchaseEntity.Update(pur);
+                        worker.Save();
+
+                        var pur_prod = worker.PurchaseProductEntity.Get(x => x.Purchase_No == pur.Purchase_No).ToList();
+
+                        foreach (var item in purchase_Products)
                         {
-                            if(databaseItem.ItemName == formItem.ItemName)
+                            var itmName = pur_prod.Any(x => x.ItemName == item.ItemName);
+                            if (itmName)
                             {
-                                Purchase_Product purchase_Product = worker.PurchaseProductEntity.GetByID(databaseItem.Id);
-                                purchase_Product.ItemName = databaseItem.ItemName;
-                                purchase_Product.Quantity = databaseItem.Quantity;
-                                purchase_Product.Damaged = databaseItem.Damaged;
-                                purchase_Product.FinalQty = databaseItem.FinalQty;
-                                purchase_Product.Price = databaseItem.Price;
-                                purchase_Product.Total = databaseItem.Total;
+                                var PurchaseNo = worker.PurchaseEntity.GetByID(Convert.ToInt32(purchaseId)).Purchase_No;
+                                var data = worker.PurchaseProductEntity.Get(x => x.Purchase_No == PurchaseNo && x.ItemName == item.ItemName).FirstOrDefault();
+                                Purchase_Product purchase_Product = worker.PurchaseProductEntity.GetByID(data.Id);
+                                purchase_Product.ItemName = item.ItemName;
+                                purchase_Product.Quantity = item.Quantity;
+                                purchase_Product.Damaged = item.Damaged;
+                                purchase_Product.FinalQty = item.FinalQty;
+                                purchase_Product.Price = item.Price;
+                                purchase_Product.Total = item.Total;
                                 worker.PurchaseProductEntity.Update(purchase_Product);
                                 worker.Save();
+                                continue;
                             }
                             else
                             {
                                 Purchase_Product purchase_Product = new Purchase_Product();
                                 purchase_Product.Purchase_No = pur.Purchase_No;
-                                purchase_Product.ItemName = databaseItem.ItemName;
-                                purchase_Product.Quantity = databaseItem.Quantity;
-                                purchase_Product.Damaged = databaseItem.Damaged;
-                                purchase_Product.FinalQty = databaseItem.FinalQty;
-                                purchase_Product.Price = databaseItem.Price;
-                                purchase_Product.Total = databaseItem.Total;
+                                purchase_Product.ItemName = item.ItemName;
+                                purchase_Product.Quantity = item.Quantity;
+                                purchase_Product.Damaged = item.Damaged;
+                                purchase_Product.FinalQty = item.FinalQty;
+                                purchase_Product.Price = item.Price;
+                                purchase_Product.Total = item.Total;
                                 purchase_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                                 purchase_Product.CreatedDate = DateTime.Now.Date;
                                 worker.PurchaseProductEntity.Insert(purchase_Product);
                                 worker.Save();
+                                continue;
                             }
                         }
-                        
                     }
                 }
                 catch(Exception ex)
@@ -467,9 +474,9 @@ namespace Sales_Inventory.Controllers
                     Purchase_Products purchase_Product = new Purchase_Products();
                     purchase_Product.Purchase_No = pur.Purchase_No;
                     purchase_Product.ItemName = item.ItemName;
-                    purchase_Product.Quantity = item.Quantity;
-                    purchase_Product.Price = item.Price;
-                    purchase_Product.Total = item.Total;
+                    purchase_Product.Quantity = (decimal)item.Quantity;
+                    purchase_Product.Price = (decimal)item.Price;
+                    purchase_Product.Total = (decimal)item.Total;
                     TotalAmount += Convert.ToInt32(item.Total);
                     purchase_Products.Add(purchase_Product);
                 }

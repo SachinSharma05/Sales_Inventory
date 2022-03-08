@@ -207,11 +207,11 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Damaged" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FinalQty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Damaged" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
@@ -222,9 +222,9 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>

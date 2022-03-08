@@ -133,7 +133,7 @@ namespace Sales_Inventory.Controllers
                     {
                         Id = item.Id,
                         ItemName = item.ItemName,
-                        Quantity = item.Quantity,
+                        Quantity = (decimal)item.Quantity,
                         CreatedDate = item.CreatedDate
                     });
                 }
@@ -157,7 +157,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -171,7 +171,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -185,7 +185,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -199,7 +199,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -213,7 +213,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -227,7 +227,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
@@ -241,7 +241,7 @@ namespace Sales_Inventory.Controllers
                         {
                             Id = item.Id,
                             ItemName = item.ItemName,
-                            Quantity = item.Quantity,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }

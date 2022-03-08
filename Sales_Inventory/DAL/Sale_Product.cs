@@ -24,11 +24,11 @@ public partial class Sale_Product
 
     public string Item { get; set; }
 
-    public string Quantity { get; set; }
+    public Nullable<decimal> Quantity { get; set; }
 
-    public string Price { get; set; }
+    public Nullable<decimal> Price { get; set; }
 
-    public string Total { get; set; }
+    public Nullable<decimal> Total { get; set; }
 
     public Nullable<int> CreatedBy { get; set; }
 

@@ -11,11 +11,11 @@ namespace Sales_Inventory.Models
         public int Id { get; set; }
         public string Purchase_No { get; set; }
         public string ItemName { get; set; }
-        public string Quantity { get; set; }
-        public string Damaged { get; set; }
-        public string FinalQty { get; set; }
-        public string Price { get; set; }
-        public string Total { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal Damaged { get; set; }
+        public decimal FinalQty { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> ProductName { get; set; }
