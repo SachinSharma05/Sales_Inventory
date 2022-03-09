@@ -26,11 +26,11 @@ public partial class PaymentReceipt
 
     public string ReceivedFrom { get; set; }
 
-    public Nullable<int> TotalAmount { get; set; }
+    public Nullable<decimal> TotalAmount { get; set; }
 
-    public Nullable<int> PaidAmount { get; set; }
+    public Nullable<decimal> PaidAmount { get; set; }
 
-    public Nullable<int> Balance { get; set; }
+    public Nullable<decimal> Balance { get; set; }
 
     public string PaymentMode { get; set; }
 

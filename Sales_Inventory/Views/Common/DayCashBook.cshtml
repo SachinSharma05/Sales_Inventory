@@ -33,7 +33,7 @@
                         <div class="col-lg-4 col-xs-6">
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <h3>@ViewBag.DayCashOut</h3>
+                                    <h3>@ViewBag.DayCashIn</h3>
                                     <h4>Day Cash In</h4>
                                 </div>
                                 <div class="icon">
@@ -44,7 +44,7 @@
                         <div class="col-lg-4 col-xs-6">
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>@ViewBag.DayCashOut</h3>
+                                    <h3>@ViewBag.DayFinalAmount</h3>
                                     <h4>Balance Cash In-Hand</h4>
                                 </div>
                                 <div class="icon">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12 col-xs-12">
                         <div class="box">
                             <div class="box-body table-responsive">
                                 <table id="Paymentlist" class="table table-bordered table-striped">
@@ -64,6 +64,7 @@
                                             <th>Paid To</th>
                                             <th>Payment Date</th>
                                             <th>Paid Amount</th>
+                                            <th>Payment</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tblbody">
@@ -73,6 +74,7 @@
                                                 <td>@item.Name</td>
                                                 <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.PaidDate)</td>
                                                 <td>@item.PaidAmount</td>
+                                                <td>@item.Action</td>
                                             </tr>
                                         }
                                     </tbody>

@@ -28,11 +28,11 @@ public partial class Payment
 
     public string Payment_Type { get; set; }
 
-    public Nullable<int> Total_Payment_Amount { get; set; }
+    public Nullable<decimal> Total_Payment_Amount { get; set; }
 
     public string Contact_No { get; set; }
 
-    public Nullable<int> Paid_Amount { get; set; }
+    public Nullable<decimal> Paid_Amount { get; set; }
 
     public string Bank_Name { get; set; }
 
@@ -48,7 +48,7 @@ public partial class Payment
 
     public string Name_On_Cheque { get; set; }
 
-    public Nullable<int> Balance { get; set; }
+    public Nullable<decimal> Balance { get; set; }
 
     public Nullable<int> CreatedBy { get; set; }
 

@@ -13,9 +13,9 @@ namespace Sales_Inventory.Models
         public string Payment_To { get; set; }
         public Nullable<System.DateTime> Payment_Date { get; set; }
         public string Payment_Type { get; set; }
-        public Nullable<int> Total_Payment_Amount { get; set; }
+        public decimal Total_Payment_Amount { get; set; }
         public string Contact_No { get; set; }
-        public Nullable<int> Paid_Amount { get; set; }
+        public decimal Paid_Amount { get; set; }
         public string Bank_Name { get; set; }
         public string Account_No { get; set; }
         public string Account_Holder_Name { get; set; }
@@ -23,7 +23,7 @@ namespace Sales_Inventory.Models
         public string Cheque_No { get; set; }
         public Nullable<System.DateTime> Cheque_Date { get; set; }
         public string Name_On_Cheque { get; set; }
-        public Nullable<int> Balance { get; set; }
+        public decimal Balance { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> PaymentName { get; set; }

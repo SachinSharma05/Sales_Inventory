@@ -36,8 +36,8 @@ namespace Sales_Inventory.Controllers
                         Payment_To = item.Payment_To,
                         Payment_Date = item.Payment_Date,
                         Payment_Type = item.Payment_Type,
-                        Paid_Amount = item.Paid_Amount,
-                        Balance = item.Balance
+                        Paid_Amount = (decimal)item.Paid_Amount,
+                        Balance = (decimal)item.Balance
                     });
                 }
             }
@@ -65,7 +65,7 @@ namespace Sales_Inventory.Controllers
             PaymentViewModel model = new PaymentViewModel();
             model.Id = Id;
             var data = worker.PurchaseEntity.GetByID(model.Id);
-            model.Total_Payment_Amount = data.Balance != null ? data.Balance : data.GrossTotal;
+            model.Total_Payment_Amount = (decimal)(data.Balance != null ? data.Balance : data.GrossTotal);
             model.Purchase_No = data.Purchase_No;
             model.Payment_To = data.Purchase_From;
             return View(model);
@@ -124,9 +124,9 @@ namespace Sales_Inventory.Controllers
                 model.Payment_To = payment.Payment_To;
                 model.Payment_Date = payment.Payment_Date;
                 model.Payment_Type = payment.Payment_Type;
-                model.Total_Payment_Amount = payment.Total_Payment_Amount;
+                model.Total_Payment_Amount = (decimal)payment.Total_Payment_Amount;
                 model.Contact_No = payment.Contact_No;
-                model.Balance = payment.Balance;
+                model.Balance = (decimal)payment.Balance;
                 return View(model);
             }
             catch(Exception ex)
@@ -202,8 +202,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -219,8 +219,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -236,8 +236,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -253,8 +253,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -270,8 +270,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -287,8 +287,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -304,8 +304,8 @@ namespace Sales_Inventory.Controllers
                             Payment_To = item.Payment_To,
                             Payment_Date = item.Payment_Date,
                             Payment_Type = item.Payment_Type,
-                            Paid_Amount = item.Paid_Amount,
-                            Balance = item.Balance
+                            Paid_Amount = (decimal)item.Paid_Amount,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }

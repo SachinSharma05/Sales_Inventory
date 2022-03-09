@@ -34,9 +34,9 @@ namespace Sales_Inventory.Controllers
                         ReceiptNo = item.ReceiptNo,
                         ReceivedDate = item.ReceivedDate,
                         ReceivedFrom = item.ReceivedFrom,
-                        TotalAmount = item.TotalAmount,
-                        PaidAmount = item.PaidAmount,
-                        Balance = item.Balance,
+                        TotalAmount = (decimal)item.TotalAmount,
+                        PaidAmount = (decimal)item.PaidAmount,
+                        Balance = (decimal)item.Balance,
                         PaymentAgainst = item.PaymentAgainst
                     });
                 }
@@ -66,7 +66,7 @@ namespace Sales_Inventory.Controllers
             model.Id = Id;
             var data = worker.SaleEntity.GetByID(model.Id);
             model.ReceivedFrom = data.Sale_To;
-            model.TotalAmount = data.Balance != null ? data.Balance : data.GrossTotal;
+            model.TotalAmount = (decimal)(data.Balance != null ? data.Balance : data.GrossTotal);
             model.ReceiptNo = data.Sale_No;
             return View(model);
         }
@@ -91,6 +91,11 @@ namespace Sales_Inventory.Controllers
                     receipt.CreatedDate = DateTime.Now.Date;
                     worker.PaymentReceiptEntity.Insert(receipt);
                     worker.Save();
+
+                    Sale sale = worker.SaleEntity.Get(x => x.Sale_No == model.ReceiptNo).FirstOrDefault();
+                    sale.Balance = model.Balance;
+                    worker.SaleEntity.Update(sale);
+                    worker.Save();
                 }
                 return RedirectToAction("List");
             }
@@ -111,9 +116,9 @@ namespace Sales_Inventory.Controllers
                 model.ReceiptNo = paymentReceipt.ReceiptNo;
                 model.ReceivedDate = paymentReceipt.ReceivedDate;
                 model.ReceivedFrom = paymentReceipt.ReceivedFrom;
-                model.TotalAmount = paymentReceipt.TotalAmount;
-                model.PaidAmount = paymentReceipt.PaidAmount;
-                model.Balance = paymentReceipt.Balance;
+                model.TotalAmount = (decimal)paymentReceipt.TotalAmount;
+                model.PaidAmount = (decimal)paymentReceipt.PaidAmount;
+                model.Balance = (decimal)paymentReceipt.Balance;
                 model.PaymentMode = paymentReceipt.PaymentMode;
                 model.PaymentAgainst = paymentReceipt.PaymentAgainst;
                 model.BankName = paymentReceipt.BankName;
@@ -208,9 +213,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -226,9 +231,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -244,9 +249,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -262,9 +267,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -280,9 +285,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -298,9 +303,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }
@@ -316,9 +321,9 @@ namespace Sales_Inventory.Controllers
                             ReceiptNo = item.ReceiptNo,
                             ReceivedDate = item.ReceivedDate,
                             ReceivedFrom = item.ReceivedFrom,
-                            TotalAmount = item.TotalAmount,
-                            PaidAmount = item.PaidAmount,
-                            Balance = item.Balance,
+                            TotalAmount = (decimal)item.TotalAmount,
+                            PaidAmount = (decimal)item.PaidAmount,
+                            Balance = (decimal)item.Balance,
                             PaymentAgainst = item.PaymentAgainst
                         });
                     }

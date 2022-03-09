@@ -175,7 +175,7 @@
             if (eventname) {
                 tbox.setAttribute('onkeyup', '' + eventname + '(' + id + ')');
             }
-            
+
             return tbox;
         }
 
@@ -184,10 +184,7 @@
             var row = $(button).closest("TR");
             var name = $("TD", row).eq(0).html();
             if (confirm("Do you want to delete this product")) {
-                //Get the reference of the Table.
                 var table = $("#tblProducts")[0];
-
-                //Delete the Table row using it's Index.
                 table.deleteRow(row[0].rowIndex);
             }
         };

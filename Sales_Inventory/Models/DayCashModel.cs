@@ -8,8 +8,9 @@ namespace Sales_Inventory.Models
     public class DayCashModel
     {
         public string Name { get; set; }
-        public Nullable<int> PaidAmount { get; set; }
+        public decimal PaidAmount { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
+        public string Action { get; set; }
 
     }
 }

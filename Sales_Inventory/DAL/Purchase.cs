@@ -28,9 +28,9 @@ public partial class Purchase
 
     public Nullable<System.DateTime> Purchase_Date { get; set; }
 
-    public Nullable<int> GrossTotal { get; set; }
+    public Nullable<decimal> GrossTotal { get; set; }
 
-    public Nullable<int> Balance { get; set; }
+    public Nullable<decimal> Balance { get; set; }
 
     public Nullable<int> CreatedBy { get; set; }
 

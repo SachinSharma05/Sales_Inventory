@@ -12,9 +12,9 @@ namespace Sales_Inventory.Models
         public string ReceiptNo { get; set; }
         public Nullable<System.DateTime> ReceivedDate { get; set; }
         public string ReceivedFrom { get; set; }
-        public Nullable<int> TotalAmount { get; set; }
-        public Nullable<int> PaidAmount { get; set; }
-        public Nullable<int> Balance { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal PaidAmount { get; set; }
+        public decimal Balance { get; set; }
         public string PaymentMode { get; set; }
         public string PaymentAgainst { get; set; }
         public string BankName { get; set; }

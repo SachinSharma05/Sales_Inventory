@@ -74,9 +74,9 @@
     <Property Name="Payment_To" Type="nvarchar" MaxLength="100" />
     <Property Name="Payment_Date" Type="date" />
     <Property Name="Payment_Type" Type="nvarchar" MaxLength="100" />
-    <Property Name="Total_Payment_Amount" Type="int" />
+    <Property Name="Total_Payment_Amount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Contact_No" Type="nvarchar" MaxLength="50" />
-    <Property Name="Paid_Amount" Type="int" />
+    <Property Name="Paid_Amount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Bank_Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Account_No" Type="nvarchar" MaxLength="50" />
     <Property Name="Account_Holder_Name" Type="nvarchar" MaxLength="50" />
@@ -84,7 +84,7 @@
     <Property Name="Cheque_No" Type="nvarchar" MaxLength="50" />
     <Property Name="Cheque_Date" Type="date" />
     <Property Name="Name_On_Cheque" Type="nvarchar" MaxLength="50" />
-    <Property Name="Balance" Type="int" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -96,9 +96,9 @@
     <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
     <Property Name="ReceivedDate" Type="date" />
     <Property Name="ReceivedFrom" Type="nvarchar" MaxLength="50" />
-    <Property Name="TotalAmount" Type="int" />
-    <Property Name="PaidAmount" Type="int" />
-    <Property Name="Balance" Type="int" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
     <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" />
     <Property Name="PaymentAgainst" Type="nvarchar" MaxLength="50" />
     <Property Name="BankName" Type="nvarchar" MaxLength="50" />
@@ -129,8 +129,8 @@
     <Property Name="Purchase_From" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_From_Phone" Type="nvarchar" MaxLength="150" />
     <Property Name="Purchase_Date" Type="date" />
-    <Property Name="GrossTotal" Type="int" />
-    <Property Name="Balance" Type="int" />
+    <Property Name="GrossTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -178,8 +178,8 @@
     <Property Name="Sale_To" Type="nvarchar" MaxLength="50" />
     <Property Name="Sale_To_Phone" Type="nvarchar" MaxLength="50" />
     <Property Name="Sale_Date" Type="date" />
-    <Property Name="GrossTotal" Type="int" />
-    <Property Name="Balance" Type="int" />
+    <Property Name="GrossTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>

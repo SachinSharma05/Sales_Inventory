@@ -37,8 +37,8 @@ namespace Sales_Inventory.Controllers
                         Sale_To = item.Sale_To,
                         Sale_To_Phone = item.Sale_To_Phone,
                         Sale_Date = item.Sale_Date,
-                        GrossTotal = item.GrossTotal,
-                        Balance = item.Balance
+                        GrossTotal = (decimal)item.GrossTotal,
+                        Balance = (decimal)item.Balance
                     });
                 }
             }
@@ -87,13 +87,13 @@ namespace Sales_Inventory.Controllers
         {
             string json = sale_Prod[0].ToString();
             string Sale_No = "";
-            int GrossTotal = 0;
+            decimal GrossTotal = 0;
             List<Sale_Products> sale_Products = JsonConvert.DeserializeObject<List<Sale_Products>>(json);
             try
             {
                 foreach (var item in sale_Products)
                 {
-                    GrossTotal += Convert.ToInt32(item.Total);
+                    GrossTotal += item.Total;
                 }
 
                 if (ModelState.IsValid)
@@ -179,8 +179,8 @@ namespace Sales_Inventory.Controllers
                 model.Sale_To = sale.Sale_To;
                 model.Sale_To_Phone = sale.Sale_To_Phone;
                 model.Sale_Date = sale.Sale_Date;
-                model.GrossTotal = sale.GrossTotal;
-                model.Balance = sale.Balance;
+                model.GrossTotal = (decimal)sale.GrossTotal;
+                model.Balance = (decimal)sale.Balance;
 
                 var sale_prod = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
                 foreach (var item in sale_prod)
@@ -207,6 +207,8 @@ namespace Sales_Inventory.Controllers
         public ActionResult Update(string saleId, string saleTo, string buyerPhoneNo, string saleDate, List<string> sale_prod)
         {
             string json = sale_prod[0].ToString();
+            decimal GrossTotal = 0;
+            decimal BalanceTotal = 0;
             List<Sale_Products> sale_Products = JsonConvert.DeserializeObject<List<Sale_Products>>(json);
             if(ModelState.IsValid)
             {
@@ -222,6 +224,20 @@ namespace Sales_Inventory.Controllers
                         worker.Save();
 
                         var sale_products = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
+
+                        foreach (var item in sale_products)
+                        {
+                            var itemName = sale_Products.Any(x => x.Item == item.Item);
+                            if (!itemName)
+                            {
+                                var deleteRecord = worker.PurchaseProductEntity.Get(x => x.Purchase_No == sale.Sale_No && x.ItemName == item.Item).FirstOrDefault();
+                                if (deleteRecord != null)
+                                {
+                                    worker.SaleProductEntity.Delete(deleteRecord.Id);
+                                    worker.Save();
+                                }
+                            }
+                        }
 
                         foreach (var item in sale_Products)
                         {
@@ -254,6 +270,23 @@ namespace Sales_Inventory.Controllers
                                 continue;
                             }
                         }
+
+                        var updateTotal = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
+                        var balanceTotal = worker.PaymentReceiptEntity.Get(x => x.ReceiptNo == sale.Sale_No).ToList();
+
+                        foreach (var item in balanceTotal)
+                        {
+                            BalanceTotal += (decimal)item.PaidAmount;
+                        }
+
+                        foreach (var item in updateTotal)
+                        {
+                            GrossTotal += (decimal)item.Total;
+                        }
+                        sale.GrossTotal = GrossTotal;
+                        sale.Balance = BalanceTotal > 0 ? (GrossTotal - BalanceTotal) : GrossTotal;
+                        worker.SaleEntity.Update(sale);
+                        worker.Save();
                     }
                 }
                 catch(Exception ex)
@@ -325,8 +358,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -342,8 +375,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -359,8 +392,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -376,8 +409,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -393,8 +426,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -410,8 +443,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -427,8 +460,8 @@ namespace Sales_Inventory.Controllers
                             Sale_To = item.Sale_To,
                             Sale_To_Phone = item.Sale_To_Phone,
                             Sale_Date = item.Sale_Date,
-                            GrossTotal = item.GrossTotal,
-                            Balance = item.Balance
+                            GrossTotal = (decimal)item.GrossTotal,
+                            Balance = (decimal)item.Balance
                         });
                     }
                 }
@@ -456,8 +489,8 @@ namespace Sales_Inventory.Controllers
                 model.Sale_To = sale.Sale_To;
                 model.Sale_To_Phone = sale.Sale_To_Phone;
                 model.Sale_Date = sale.Sale_Date;
-                model.GrossTotal = sale.GrossTotal;
-                model.Balance = sale.Balance;
+                model.GrossTotal = (decimal)sale.GrossTotal;
+                model.Balance = (decimal)sale.Balance;
 
                 var sale_prod = worker.SaleProductEntity.Get(x => x.Sale_No == sale.Sale_No).ToList();
                 foreach (var item in sale_prod)
