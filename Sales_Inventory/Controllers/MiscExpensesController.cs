@@ -16,9 +16,29 @@ namespace Sales_Inventory.Controllers
         #region Expenses List
         public ActionResult List()
         {
-            var ExpensesList = worker.MiscExpensesEntity.Get().ToList();
-            ViewBag.ListExpenses = ExpensesList;
-            return View();
+            MiscExpensesViewModel model = new MiscExpensesViewModel();
+            model.ExpensesList = GetExpensesList();
+            return View(model);
+        }
+        public List<MiscExpensesViewModel> GetExpensesList()
+        {
+            List<MiscExpensesViewModel> ExpensesList = new List<MiscExpensesViewModel>();
+            var list = worker.MiscExpensesEntity.Get().ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    ExpensesList.Add(new MiscExpensesViewModel
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        ExpenseAmt = item.ExpenseAmt,
+                        ExpenseDate = item.ExpenseDate,
+                        ExpenseReason = item.ExpenseReason
+                    });
+                }
+            }
+            return ExpensesList;
         }
         #endregion
 

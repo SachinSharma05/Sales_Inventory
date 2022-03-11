@@ -1,0 +1,152 @@
+﻿@model Sales_Inventory.Models.AddNewCredits
+
+@{
+    ViewBag.Title = "Credit List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>Create Credit</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Common")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">List</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Name", @id = "name" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Amount</label>
+                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control required", placeholder = "Enter Amount", @id = "amount" })
+                                @Html.ValidationMessageFor(m => m.Amount)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <<label>Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy", @id = "creditDate" })
+                                    @Html.ValidationMessageFor(m => m.Date)
+                                </div>
+                            </div>
+                        </div>
+                        @{ List<SelectListItem> listItems = new List<SelectListItem>();
+                            listItems.Add(new SelectListItem { Text = "Payment From", Value = "Payment From" });
+                            listItems.Add(new SelectListItem { Text = "Payment To", Value = "Payment To" });
+                        }
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Payment Method</label>
+                                @Html.DropDownListFor(model => model.Type, listItems, "-- Select Credit Type --", new { @class = "form-control required", @id = "creditType" })
+                                @Html.ValidationMessageFor(m => m.Type)
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Remarks</label>
+                                @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control required", placeholder = "Enter Remarks", @id = "remarks" })
+                                @Html.ValidationMessageFor(m => m.Remarks)
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <label>Action</label><br />
+                            <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
+                            <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive">
+                        <table id="Creditlist" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Remarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblbody">
+                                @foreach (var item in Model.creditList)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Amount</td>
+                                        <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.Date)</td>
+                                        <td>@item.Type</td>
+                                        <td>@item.Remarks</td>
+                                        @if (Convert.ToInt32(Session["UserId"]) == 1)
+                                        {
+                                            <td>
+                                                <a href="/Common/DeleteCredit/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#Creditlist').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('#creditDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+        var data = new FormData();
+        data.append('Name', $("#name").val());
+        data.append('Amount', $("#amount").val());
+        data.append('CreditDate', $("#creditDate").val());
+        data.append('CreditType', $("#creditType").val());
+        data.append('Remarks', $("#remarks").val());
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/Common/AddNewCredit",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                alert('Record(s) Inserted Successfully')
+                if (result) {
+                    window.location.href = '@Url.Action("CreditList", "Common")';
+                    }
+                }
+            });
+        });
+    </script>
+}

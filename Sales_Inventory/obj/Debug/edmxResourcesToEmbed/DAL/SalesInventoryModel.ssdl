@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Sales_InventoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AddNewCredit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="date" />
+  </EntityType>
   <EntityType Name="Advance">
     <Key>
       <PropertyRef Name="Id" />
@@ -7,7 +20,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Advance_To" Type="nvarchar" MaxLength="150" />
     <Property Name="Advance_Date" Type="date" />
-    <Property Name="Advance_Amount" Type="nvarchar" MaxLength="150" />
+    <Property Name="Advance_Amount" Type="int" />
     <Property Name="Advance_Against" Type="nvarchar" MaxLength="150" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
@@ -213,6 +226,7 @@
     <Property Name="UpdatedDate" Type="date" />
   </EntityType>
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
+    <EntitySet Name="AddNewCredit" EntityType="Self.AddNewCredit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InHouse" EntityType="Self.InHouse" Schema="dbo" store:Type="Tables" />

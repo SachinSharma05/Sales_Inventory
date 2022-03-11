@@ -142,6 +142,9 @@
     <Compile Include="Controllers\PaymentReceiptController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="DAL\AddNewCredit.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Advance.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -209,6 +212,7 @@
     <Compile Include="BAL\KeepSessionAlive.ashx.cs">
       <DependentUpon>KeepSessionAlive.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddNewCredits.cs" />
     <Compile Include="Models\AdvanceViewModel.cs" />
     <Compile Include="Models\CommonViewModel.cs" />
     <Compile Include="Models\DayCashModel.cs" />
@@ -4230,6 +4234,8 @@
     <Content Include="Views\Sales\Edit.cshtml" />
     <Content Include="Views\Sales\List.cshtml" />
     <Content Include="BAL\KeepSessionAlive.ashx" />
+    <Content Include="Views\PaymentReceipt\Edit.cshtml" />
+    <Content Include="Views\Common\CreditList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

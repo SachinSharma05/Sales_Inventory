@@ -58,8 +58,8 @@ namespace Sales_Inventory.Controllers
                     transaction.PaidDate = Convert.ToDateTime(paidDate);
                     transaction.TotalAmount = Convert.ToInt32(totalAmount);
                     transaction.PaidAmount = Convert.ToInt32(paidAmount);
-                    transaction.ReturnAmtReceived = returnAmtReceived != "" ? Convert.ToInt32(returnAmtReceived) : 0;
-                    transaction.BalanceAmt = balanceAmt != "" ? Convert.ToInt32(balanceAmt) : 0;
+                    transaction.ReturnAmtReceived = Convert.ToInt32(returnAmtReceived);
+                    transaction.BalanceAmt = Convert.ToInt32(balanceAmt);
                     transaction.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     transaction.CreatedDate = DateTime.Now.Date;
                     worker.InHouseTransactionEntity.Insert(transaction);
@@ -102,16 +102,14 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                var list = worker.InHouseTransactionEntity.GetByID(model.Id);
-                if(list != null)
-                {
-                    InHouse data = new InHouse();
-                    data.ReturnAmtReceived = model.ReturnAmtReceived;
-                    data.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                    data.CreatedDate = DateTime.Now.Date;
-                    worker.InHouseTransactionEntity.Update(data);
-                    worker.Save();
-                }
+                InHouse data = worker.InHouseTransactionEntity.GetByID(model.Id);
+                data.ReturnAmtReceived = model.ReturnAmtReceived;
+                data.BalanceAmt = model.BalanceAmt;
+                data.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                data.CreatedDate = DateTime.Now.Date;
+                worker.InHouseTransactionEntity.Update(data);
+                worker.Save();
+
                 return RedirectToAction("list");
             }
             catch(Exception ex)

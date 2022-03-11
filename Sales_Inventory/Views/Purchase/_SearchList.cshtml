@@ -24,16 +24,16 @@
                     <td>@item.GrossTotal</td>
                     <td>@item.Balance</td>
                     <td>
-                        <a href="/Purchase/Edit/@item.Id"><span class="label label-success">Edit</span></a>
-                        <a href="/Purchase/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
                         @if (item.Balance > 0)
                         {
+                            <a href="/Purchase/Edit/@item.Id"><span class="label label-success">Edit</span></a>
                             <a href="/Payment/Create/@item.Id"><span class="label label-success">Pay Amount</span></a>
                         }
                         else
                         {
-                            <a href=""><span class="label label-info">No Dues</span></a>
+                            <a href="#"><span class="label label-info">No Dues</span></a>
                         }
+                        <a href="/Purchase/Delete/@item.Id" onclick="return confirm(' you want to delete?');"><span class="label label-danger">Delete</span></a>
                         <a href="/Purchase/InvoicePrint/@item.Id" target="_blank"><span class="label label-warning">Print</span></a>
                     </td>
                 </tr>

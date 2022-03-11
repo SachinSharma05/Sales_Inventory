@@ -126,6 +126,14 @@ namespace Sales_Inventory.Controllers
                 model.Payment_Type = payment.Payment_Type;
                 model.Total_Payment_Amount = (decimal)payment.Total_Payment_Amount;
                 model.Contact_No = payment.Contact_No;
+                model.Paid_Amount = (decimal)payment.Paid_Amount;
+                model.Bank_Name = payment.Bank_Name;
+                model.Account_No = payment.Account_No;
+                model.Account_Holder_Name = payment.Account_Holder_Name;
+                model.UPI_Id = payment.UPI_Id;
+                model.Cheque_No = payment.Cheque_No;
+                model.Cheque_Date = payment.Cheque_Date;
+                model.Name_On_Cheque = payment.Name_On_Cheque;
                 model.Balance = (decimal)payment.Balance;
                 return View(model);
             }
@@ -143,11 +151,27 @@ namespace Sales_Inventory.Controllers
                 try
                 {
                     Payment payment = worker.PaymentEntity.GetByID(model.Id);
+                    payment.Purchase_No = model.Purchase_No;
                     payment.Payment_To = model.Payment_To;
                     payment.Payment_Date = model.Payment_Date;
                     payment.Payment_Type = model.Payment_Type;
+                    payment.Total_Payment_Amount = model.Total_Payment_Amount;
+                    payment.Contact_No = model.Contact_No;
+                    payment.Paid_Amount = model.Paid_Amount;
+                    payment.Bank_Name = model.Bank_Name;
+                    payment.Account_No = model.Account_No;
+                    payment.Account_Holder_Name = model.Account_Holder_Name;
+                    payment.UPI_Id = model.UPI_Id;
+                    payment.Cheque_No = model.Cheque_No;
+                    payment.Cheque_Date = model.Cheque_Date;
+                    payment.Name_On_Cheque = model.Name_On_Cheque;
                     payment.Balance = model.Balance;
                     worker.PaymentEntity.Update(payment);
+                    worker.Save();
+
+                    Purchase purchase = worker.PurchaseEntity.Get(x => x.Purchase_No == model.Purchase_No).FirstOrDefault();
+                    purchase.Balance = model.Balance;
+                    worker.PurchaseEntity.Update(purchase);
                     worker.Save();
                 }
                 catch (Exception ex)

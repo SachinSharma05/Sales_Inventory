@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Controllers
 {
-    public class CommonController : Controller
+    public class CommonController : BaseController
     {
         DBWorker worker = new DBWorker();
 
@@ -266,6 +266,80 @@ namespace Sales_Inventory.Controllers
             {
                 throw ex;
             }
+        }
+        #endregion
+
+        #region Credit Transaction
+        public ActionResult CreditList()
+        {
+            AddNewCredits model = new AddNewCredits();
+            model.creditList = GetCreditList();
+            return View(model);
+        }
+        public List<AddNewCredits> GetCreditList()
+        {
+            List<AddNewCredits> CreditList = new List<AddNewCredits>();
+            var list = worker.AddNewCreditEntity.Get().ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    CreditList.Add(new AddNewCredits
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Amount = item.Amount,
+                        Date = item.Date,
+                        Type = item.Type,
+                        Remarks = item.Remarks,
+                        CreatedOn = item.CreatedOn
+                    });
+                }
+            }
+            return CreditList;
+        }
+
+        [HttpPost]
+        public ActionResult AddNewCredit(string Name, string Amount, string CreditDate, string CreditType, string Remarks)
+        {
+            try
+            {
+                AddNewCredit credit = new AddNewCredit();
+                credit.Name = Name;
+                credit.Amount = Convert.ToInt32(Amount);
+                credit.Date = Convert.ToDateTime(CreditDate);
+                credit.Type = CreditType;
+                credit.Remarks = Remarks;
+                credit.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
+                credit.CreatedOn = DateTime.Now.Date;
+                worker.AddNewCreditEntity.Insert(credit);
+                worker.Save();
+                return RedirectToAction("CreditList");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCredit(int id)
+        {
+            var model = Delete(id);
+            return RedirectToAction("CreditList"); ;
+        }
+        public bool Delete(int id)
+        {
+
+            var result = worker.AddNewCreditEntity.GetByID(id);
+            if (result != null)
+            {
+                worker.AddNewCreditEntity.Delete(result);
+                worker.Save();
+                return true;
+            }
+            else
+                return false;
         }
         #endregion
     }

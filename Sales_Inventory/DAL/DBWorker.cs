@@ -293,5 +293,20 @@ namespace Sales_Inventory.DAL
             }
         }
         #endregion
+
+        #region [Credit Transaction]
+        private GenericRepository<AddNewCredit> addNewCreditEntity;
+        public GenericRepository<AddNewCredit> AddNewCreditEntity
+        {
+            get
+            {
+                if (this.addNewCreditEntity == null)
+                {
+                    this.addNewCreditEntity = new GenericRepository<AddNewCredit>(context);
+                }
+                return addNewCreditEntity;
+            }
+        }
+        #endregion
     }
 }

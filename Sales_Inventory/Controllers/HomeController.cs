@@ -17,6 +17,9 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
+                int AdvanceGrossTotal = 0;
+                int MiscGrossTotal = 0;
+
                 var EmployeeCount = worker.EmployeeEntity.Get().Count();
                 var PurchaseCount = worker.PurchaseEntity.Get().Count();
                 var SalesCount = worker.SaleEntity.Get().Count();
@@ -24,6 +27,18 @@ namespace Sales_Inventory.Controllers
                 var PaymentReceiptCount = worker.PaymentReceiptEntity.Get().Count();
                 var TotalStock = worker.PurchaseProductEntity.Get().Count();
                 var InHouseTransaction = worker.InHouseTransactionEntity.Get().Count();
+                var AdvanceTotal = worker.AdvanceEntity.Get().GroupBy(x => x.Advance_Amount).Select(n => n.Sum(m => m.Advance_Amount)).ToList();
+                var MiscTotal = worker.MiscExpensesEntity.Get().GroupBy(x => x.ExpenseAmt).Select(n => n.Sum(m => m.ExpenseAmt)).ToList();
+
+                foreach (var item in AdvanceTotal)
+                {
+                    AdvanceGrossTotal += Convert.ToInt32(item);
+                }
+
+                foreach (var item in MiscTotal)
+                {
+                    MiscGrossTotal += Convert.ToInt32(item);
+                }
 
                 TempData["EmployeeCount"] = EmployeeCount;
                 TempData["PurchaseCount"] = PurchaseCount;
@@ -32,6 +47,8 @@ namespace Sales_Inventory.Controllers
                 TempData["PaymentReceiptCount"] = PaymentReceiptCount;
                 TempData["TotalStockCount"] = TotalStock;
                 TempData["TotalInHouseTransaction"] = InHouseTransaction;
+                TempData["AdvanceTotal"] = AdvanceGrossTotal;
+                TempData["MiscTotal"] = MiscGrossTotal;
             }
             catch(Exception ex)
             {

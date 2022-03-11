@@ -15,22 +15,24 @@ namespace Sales_Inventory.DAL
 using System;
     using System.Collections.Generic;
     
-public partial class Advance
+public partial class AddNewCredit
 {
 
     public int Id { get; set; }
 
-    public string Advance_To { get; set; }
+    public string Name { get; set; }
 
-    public Nullable<System.DateTime> Advance_Date { get; set; }
+    public Nullable<int> Amount { get; set; }
 
-    public Nullable<int> Advance_Amount { get; set; }
+    public Nullable<System.DateTime> Date { get; set; }
 
-    public string Advance_Against { get; set; }
+    public string Type { get; set; }
+
+    public string Remarks { get; set; }
 
     public Nullable<int> CreatedBy { get; set; }
 
-    public Nullable<System.DateTime> CreatedDate { get; set; }
+    public Nullable<System.DateTime> CreatedOn { get; set; }
 
 }
 

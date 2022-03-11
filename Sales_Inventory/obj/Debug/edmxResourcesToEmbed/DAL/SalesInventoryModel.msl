@@ -1,19 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Sales_InventoryModelStoreContainer" CdmEntityContainer="Sales_InventoryEntities">
-    <EntitySetMapping Name="Advances">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.Advance">
-        <MappingFragment StoreEntitySet="Advance">
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Advance_Against" ColumnName="Advance_Against" />
-          <ScalarProperty Name="Advance_Amount" ColumnName="Advance_Amount" />
-          <ScalarProperty Name="Advance_Date" ColumnName="Advance_Date" />
-          <ScalarProperty Name="Advance_To" ColumnName="Advance_To" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MiscExpenses">
       <EntityTypeMapping TypeName="Sales_InventoryModel.MiscExpens">
         <MappingFragment StoreEntitySet="MiscExpenses">
@@ -223,6 +210,33 @@
           <ScalarProperty Name="ReceivedFrom" ColumnName="ReceivedFrom" />
           <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
           <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Advances">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.Advance">
+        <MappingFragment StoreEntitySet="Advance">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Advance_Against" ColumnName="Advance_Against" />
+          <ScalarProperty Name="Advance_Amount" ColumnName="Advance_Amount" />
+          <ScalarProperty Name="Advance_Date" ColumnName="Advance_Date" />
+          <ScalarProperty Name="Advance_To" ColumnName="Advance_To" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AddNewCredits">
+      <EntityTypeMapping TypeName="Sales_InventoryModel.AddNewCredit">
+        <MappingFragment StoreEntitySet="AddNewCredit">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

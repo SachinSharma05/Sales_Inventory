@@ -67,7 +67,7 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    @Html.TextBoxFor(m => m.Contact_No, new { @class = "form-control required", @readonly = "readonly", placeholder = "Enter Payment To Name" })
+                                    @Html.TextBoxFor(m => m.Contact_No, new { @class = "form-control required", @readonly = "readonly", placeholder = "Enter Contact No" })
                                     @Html.ValidationMessageFor(m => m.Contact_No)
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" id="UPIPayment">
+                <div class="col-md-12" id="UPIPayment" style="@(Model.UPI_Id != "" ? "display:block" : "display:none")">
                     <div class="box box-primary">
                         <div class="box-body">
                             <div class="col-md-3 col-sm-6">
@@ -200,6 +200,25 @@
                 $("#ChequePayment").hide();
             }
         });
+
+        var PayMethod = $("#PaymentMethod").val();
+        if (PayMethod == "UPI Payment") {
+            $("#AccountPayment").hide();
+            $("#ChequePayment").hide();
+            $("#UPIPayment").show();
+        } else if (PayMethod == "Account Payment") {
+            $("#AccountPayment").show();
+            $("#UPIPayment").hide();
+            $("#ChequePayment").hide();
+        } else if (PayMethod == "Cheque Payment") {
+            $("#AccountPayment").hide();
+            $("#UPIPayment").hide();
+            $("#ChequePayment").show();
+        } else {
+            $("#AccountPayment").hide();
+            $("#UPIPayment").hide();
+            $("#ChequePayment").hide();
+        }
 
         $('#PaymentAmt').keyup(function () {
             var textone;

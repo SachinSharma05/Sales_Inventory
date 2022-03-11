@@ -32,8 +32,6 @@ public partial class Sales_InventoryEntities : DbContext
     }
 
 
-    public DbSet<Advance> Advances { get; set; }
-
     public DbSet<MiscExpens> MiscExpenses { get; set; }
 
     public DbSet<ProductType> ProductTypes { get; set; }
@@ -59,6 +57,10 @@ public partial class Sales_InventoryEntities : DbContext
     public DbSet<Payment> Payments { get; set; }
 
     public DbSet<PaymentReceipt> PaymentReceipts { get; set; }
+
+    public DbSet<Advance> Advances { get; set; }
+
+    public DbSet<AddNewCredit> AddNewCredits { get; set; }
 
 }
 

@@ -22,7 +22,6 @@ namespace Sales_Inventory.Controllers
             model.List = GetAdvanceList();
             return View(model);
         }
-
         public List<AdvanceViewModel> GetAdvanceList()
         {
             List<AdvanceViewModel> AdvanceList = new List<AdvanceViewModel>();
@@ -36,14 +35,13 @@ namespace Sales_Inventory.Controllers
                         Id = item.Id,
                         Advance_To = item.Advance_To,
                         Advance_Date = item.Advance_Date,
-                        Advance_Amount = item.Advance_Amount,
+                        Advance_Amount = (int)item.Advance_Amount,
                         Advance_Against = item.Advance_Against
                     });
                 }
             }
             return AdvanceList;
         }
-
         public List<SelectListItem> GetAdvanceToList()
         {
             var query = worker.AdvanceEntity.Get().ToList();
@@ -68,17 +66,17 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string AdvanceTo, string AdvanceAmt, string AdvanceDate, string AdvanceAgainst)
+        public ActionResult Create(AdvanceViewModel model)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
                     Advance advance = new Advance();
-                    advance.Advance_To = AdvanceTo;
-                    advance.Advance_Date = Convert.ToDateTime(AdvanceDate);
-                    advance.Advance_Amount = AdvanceAmt;
-                    advance.Advance_Against = AdvanceAgainst;
+                    advance.Advance_To = model.Advance_To;
+                    advance.Advance_Date = Convert.ToDateTime(model.Advance_Date);
+                    advance.Advance_Amount = Convert.ToInt32(model.Advance_Amount);
+                    advance.Advance_Against = model.Advance_Against;
                     advance.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     advance.CreatedDate = DateTime.Now.Date;
                     worker.AdvanceEntity.Insert(advance);
@@ -102,7 +100,7 @@ namespace Sales_Inventory.Controllers
                 var user = worker.AdvanceEntity.GetByID(Id);
                 model.Advance_To = user.Advance_To;
                 model.Advance_Date = user.Advance_Date;
-                model.Advance_Amount = user.Advance_Amount;
+                model.Advance_Amount = (int)user.Advance_Amount;
                 model.Advance_Against = user.Advance_Against;
                 return View(model);
             }
@@ -184,7 +182,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -199,7 +197,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -214,7 +212,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -229,7 +227,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -244,7 +242,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -259,7 +257,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }
@@ -274,7 +272,7 @@ namespace Sales_Inventory.Controllers
                             Id = item.Id,
                             Advance_To = item.Advance_To,
                             Advance_Date = item.Advance_Date,
-                            Advance_Amount = item.Advance_Amount,
+                            Advance_Amount = (int)item.Advance_Amount,
                             Advance_Against = item.Advance_Against
                         });
                     }

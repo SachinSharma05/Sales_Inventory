@@ -198,31 +198,46 @@
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (response) {
-                    $('#Id').val(response.Id);
-                    $('#paidBy').val(response.PaidBy);
-                    $('#paidTo').val(response.PaidTo);
-                    $('#paidDate').val(response.PaidDate);
-                    $('#totalAmount').val(response.TotalAmount);
-                    $('#paidAmount').val(response.PaidAmount);
-                    $('#returnAmtReceived').val(response.ReturnedAmtReceived);
-                    $('#balanceAmt').val(response.BalanceAmt);
+                    $('#IdModal').val(response.Id);
+                    $('#paidByModal').val(response.PaidBy);
+                    $('#paidToModal').val(response.PaidTo);
+                    $('#paidDateModal').val(new Date(parseInt(response.PaidDate.substr(6))));
+                    $('#totalAmountModal').val(response.TotalAmount);
+                    $('#paidAmountModal').val(response.PaidAmount);
+                    $('#returnAmtReceivedModal').val(response.ReturnedAmtReceived);
+                    $('#balanceAmtModal').val(response.BalanceAmt);
+                    $('#ModalEditInHouseTransaction').modal('show');
                 },
                 error: function (response) {
                     alert(response.responseText);
-                },
-                failure: function (response) {
-                    alert(response.responseText);
                 }
             });
+            return false;
         };
+
+        $('#returnAmtReceivedModal').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#totalAmountModal').val());
+            texttwo = parseFloat($('#returnAmtReceivedModal').val());
+            var result = textone - texttwo;
+            $('#balanceAmtModal').val(result);
+        });
 
         $('#returnAmtReceived').keyup(function () {
             var textone;
             var texttwo;
-            textone = parseFloat($('#paidAmount').val());
+            textone = parseFloat($('#totalAmount').val());
             texttwo = parseFloat($('#returnAmtReceived').val());
             var result = textone - texttwo;
             $('#balanceAmt').val(result);
+        });
+
+        $('#returnAmtReceived').blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).val("0");
+                $('#balanceAmt').val($("#totalAmount").val());
+            }
         });
 
         $("body").on("click", "#btnSearch", function () {
@@ -262,13 +277,13 @@
 }
 
 <div class="modal fade bd-example-modal-lg" id="ModalEditInHouseTransaction">
-    <div class="modal-dialog" style="position:absolute;left:30%;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">Edit In-House Transaction</h4>
             </div>
             <div class="modal-body">
                 @using (Html.BeginForm("Update", "InHouse", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -278,63 +293,63 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Transaction Id</label>
-                                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @readonly = "readonly", @id = "IdModal" })
                                 @Html.ValidationMessageFor(m => m.Id)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Paid By</label>
-                                @Html.TextBoxFor(m => m.PaidBy, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.PaidBy, new { @class = "form-control", @readonly = "readonly", @id = "paidByModal" })
                                 @Html.ValidationMessageFor(m => m.PaidBy)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Paid To</label>
-                                @Html.TextBoxFor(m => m.PaidTo, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.PaidTo, new { @class = "form-control", @readonly = "readonly", @id = "paidToModal" })
                                 @Html.ValidationMessageFor(m => m.PaidTo)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Paid Date</label>
-                                @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = "readonly", @id = "paidDateModal" })
                                 @Html.ValidationMessageFor(m => m.PaidDate)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Total Amount</label>
-                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", @readonly = "readonly", @id = "totalAmountModal" })
                                 @Html.ValidationMessageFor(m => m.TotalAmount)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Paid Amount</label>
-                                @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", @readonly = "readonly", @id = "paidAmountModal" })
                                 @Html.ValidationMessageFor(m => m.PaidAmount)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Return Amount</label>
-                                @Html.TextBoxFor(m => m.ReturnAmtReceived, new { @class = "form-control required", placeholder = "Enter Return Amount" })
+                                @Html.TextBoxFor(m => m.ReturnAmtReceived, new { @class = "form-control required", placeholder = "Enter Return Amount", @id = "returnAmtReceivedModal" })
                                 @Html.ValidationMessageFor(m => m.ReturnAmtReceived)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Balance Amount</label>
-                                @Html.TextBoxFor(m => m.BalanceAmt, new { @class = "form-control required", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.BalanceAmt, new { @class = "form-control required", @readonly = "readonly", @id = "balanceAmtModal" })
                                 @Html.ValidationMessageFor(m => m.BalanceAmt)
                             </div>
                         </div>
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="@Url.Action("List", "InHouse")" class="btn btn-default">Cancel</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 }
             </div>
