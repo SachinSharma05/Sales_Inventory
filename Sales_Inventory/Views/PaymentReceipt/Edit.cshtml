@@ -1,8 +1,6 @@
 ﻿@model Sales_Inventory.Models.PaymentReceiptViewModel
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -18,178 +16,197 @@
     <section class="content">
         @using (Html.BeginForm("Edit", "PaymentReceipt", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(m => m.Id, Model.Id)
-            <div class="col-md-12">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Payment Detail</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Sale No</label>
-                                @Html.TextBoxFor(m => m.ReceiptNo, new { @class = "form-control required", @readonly = "readonly" })
-                                @Html.ValidationMessageFor(m => m.ReceiptNo)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Payment Date</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.Id, Model.Id)
+                                <div class="col-md-12">
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Payment Detail</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Sale No</label>
+                                                    @Html.TextBoxFor(m => m.ReceiptNo, new { @class = "form-control required", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.ReceiptNo)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Payment Date</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                        @Html.TextBoxFor(m => m.ReceivedDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy" })
+                                                        @Html.ValidationMessageFor(m => m.ReceivedDate)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @{ List<SelectListItem> listItems = new List<SelectListItem>();
+                                                                listItems.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
+                                                                listItems.Add(new SelectListItem { Text = "UPI Payment", Value = "UPI Payment" });
+                                                                listItems.Add(new SelectListItem { Text = "Account Payment", Value = "Account Payment" });
+                                                                listItems.Add(new SelectListItem { Text = "Cheque Payment", Value = "Cheque Payment" }); }
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Received From</label>
+                                                    @Html.TextBoxFor(m => m.ReceivedFrom, new { @class = "form-control required", placeholder = "Received From", @readonly = "readonly" })
+                                                    @Html.ValidationMessageFor(m => m.ReceivedFrom)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Total Amount</label>
+                                                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control required", @readonly = "readonly", @id = "TotalAmt" })
+                                                    @Html.ValidationMessageFor(m => m.TotalAmount)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Pay Amount</label>
+                                                    @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", placeholder = "Enter Payment Amount", @id = "PaymentAmt" })
+                                                    @Html.ValidationMessageFor(m => m.PaidAmount)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Balance Amount</label>
+                                                    @Html.TextBoxFor(m => m.Balance, new { @class = "form-control required", @readonly = "readonly", @id = "BalanceAmt" })
+                                                    @Html.ValidationMessageFor(m => m.Balance)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Payment Method</label>
+                                                    @Html.DropDownListFor(m => m.PaymentMode, listItems, "-- Select Payment Method --", new { @class = "form-control required", @id = "PaymentMethod" })
+                                                    @Html.ValidationMessageFor(m => m.PaymentMode)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Payment Reason</label>
+                                                    @Html.TextBoxFor(m => m.PaymentAgainst, new { @class = "form-control required", placeholder = "Enter Payment Reason", @id = "PaymentReason" })
+                                                    @Html.ValidationMessageFor(m => m.PaymentAgainst)
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    @Html.TextBoxFor(m => m.ReceivedDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Date dd/mm/yyyy" })
-                                    @Html.ValidationMessageFor(m => m.ReceivedDate)
                                 </div>
-                            </div>
-                        </div>
-                        @{
-                            List<SelectListItem> listItems = new List<SelectListItem>();
-                            listItems.Add(new SelectListItem { Text = "Cash", Value = "Cash" });
-                            listItems.Add(new SelectListItem { Text = "UPI Payment", Value = "UPI Payment" });
-                            listItems.Add(new SelectListItem { Text = "Account Payment", Value = "Account Payment" });
-                            listItems.Add(new SelectListItem { Text = "Cheque Payment", Value = "Cheque Payment" });
-                        }
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Received From</label>
-                                @Html.TextBoxFor(m => m.ReceivedFrom, new { @class = "form-control required", placeholder = "Received From", @readonly = "readonly" })
-                                @Html.ValidationMessageFor(m => m.ReceivedFrom)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Total Amount</label>
-                                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control required", @readonly = "readonly", @id = "TotalAmt" })
-                                @Html.ValidationMessageFor(m => m.TotalAmount)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Pay Amount</label>
-                                @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", placeholder = "Enter Payment Amount", @id = "PaymentAmt" })
-                                @Html.ValidationMessageFor(m => m.PaidAmount)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Balance Amount</label>
-                                @Html.TextBoxFor(m => m.Balance, new { @class = "form-control required", @readonly = "readonly", @id = "BalanceAmt" })
-                                @Html.ValidationMessageFor(m => m.Balance)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Payment Method</label>
-                                @Html.DropDownListFor(m => m.PaymentMode, listItems, "-- Select Payment Method --", new { @class = "form-control required", @id = "PaymentMethod" })
-                                @Html.ValidationMessageFor(m => m.PaymentMode)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Payment Reason</label>
-                                @Html.TextBoxFor(m => m.PaymentAgainst, new { @class = "form-control required", placeholder = "Enter Payment Reason", @id = "PaymentReason" })
-                                @Html.ValidationMessageFor(m => m.PaymentAgainst)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12" id="AccountPayment">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Bank Name</label>
-                                @Html.TextBoxFor(m => m.BankName, new { @class = "form-control required", placeholder = "Enter Bank Name" })
-                                @Html.ValidationMessageFor(m => m.BankName)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Account No</label>
-                                @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control required", placeholder = "Enter Account No" })
-                                @Html.ValidationMessageFor(m => m.AccountNo)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Account Holder Name</label>
-                                @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control required", placeholder = "Enter Account Holder Name" })
-                                @Html.ValidationMessageFor(m => m.AccountHolderName)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12" id="UPIPayment">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>UPI ID</label>
-                                @Html.TextBoxFor(m => m.UPI_Id, new { @class = "form-control required", placeholder = "Enter UPI Id" })
-                                @Html.ValidationMessageFor(m => m.UPI_Id)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12" id="ChequePayment">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Cheque No</label>
-                                @Html.TextBoxFor(m => m.ChequeNo, new { @class = "form-control required", placeholder = "Enter Cheque No" })
-                                @Html.ValidationMessageFor(m => m.ChequeNo)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Cheque Date</label>
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                @Html.TextBoxFor(m => m.ChequeDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy" })
-                                @Html.ValidationMessageFor(m => m.ChequeDate)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Name on Cheque</label>
-                                @Html.TextBoxFor(m => m.NameOnCheque, new { @class = "form-control required", placeholder = "Enter Name on Cheque" })
-                                @Html.ValidationMessageFor(m => m.NameOnCheque)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="@Url.Action("List", "PaymentReceipt")" class="btn btn-default">Cancel</a>
-            </div>
-        }
+                                                <div class="col-md-12" id="AccountPayment">
+                                                    <div class="box box-primary">
+                                                        <div class="box-body">
+                                                            <div class="col-md-3 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Bank Name</label>
+                                                                    @Html.TextBoxFor(m => m.BankName, new { @class = "form-control required", placeholder = "Enter Bank Name" })
+                                                                    @Html.ValidationMessageFor(m => m.BankName)
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Account No</label>
+                                                                    @Html.TextBoxFor(m => m.AccountNo, new { @class = "form-control required", placeholder = "Enter Account No" })
+                                                                    @Html.ValidationMessageFor(m => m.AccountNo)
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Account Holder Name</label>
+                                                                    @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control required", placeholder = "Enter Account Holder Name" })
+                                                                    @Html.ValidationMessageFor(m => m.AccountHolderName)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                <div class="col-md-12" id="UPIPayment">
+                                                                    <div class="box box-primary">
+                                                                        <div class="box-body">
+                                                                            <div class="col-md-3 col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <label>UPI ID</label>
+                                                                                    @Html.TextBoxFor(m => m.UPI_Id, new { @class = "form-control required", placeholder = "Enter UPI Id" })
+                                                                                    @Html.ValidationMessageFor(m => m.UPI_Id)
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                                <div class="col-md-12" id="ChequePayment">
+                                                                                    <div class="box box-primary">
+                                                                                        <div class="box-body">
+                                                                                            <div class="col-md-3 col-sm-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Cheque No</label>
+                                                                                                    @Html.TextBoxFor(m => m.ChequeNo, new { @class = "form-control required", placeholder = "Enter Cheque No" })
+                                                                                                    @Html.ValidationMessageFor(m => m.ChequeNo)
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3 col-sm-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Cheque Date</label>
+                                                                                                    <div class="input-group-addon">
+                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                    </div>
+                                                                                                    @Html.TextBoxFor(m => m.ChequeDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Cheque Date dd/mm/yyyy" })
+                                                                                                    @Html.ValidationMessageFor(m => m.ChequeDate)
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3 col-sm-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label>Name on Cheque</label>
+                                                                                                    @Html.TextBoxFor(m => m.NameOnCheque, new { @class = "form-control required", placeholder = "Enter Name on Cheque" })
+                                                                                                    @Html.ValidationMessageFor(m => m.NameOnCheque)
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                                <div class="box-footer">
+                                                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                                                    <a href="@Url.Action("List", "PaymentReceipt")" class="btn btn-default">Cancel</a>
+                                                                                                </div>}
     </section>
 </div>
 
-<script>
-    $("#AccountPayment").hide();
-    $("#UPIPayment").hide();
-    $("#ChequePayment").hide();
+@section Scripts
+{
+    <script>
+        $("#AccountPayment").hide();
+        $("#UPIPayment").hide();
+        $("#ChequePayment").hide();
 
-    $("#PaymentMethod").change(function () {
-        if ($(this).val() === "Account Payment") {
-            $("#AccountPayment").show();
-            $("#UPIPayment").hide();
-            $("#ChequePayment").hide();
-        } else if ($(this).val() === "UPI Payment") {
+        $("#PaymentMethod").change(function () {
+            if ($(this).val() === "Account Payment") {
+                $("#AccountPayment").show();
+                $("#UPIPayment").hide();
+                $("#ChequePayment").hide();
+            } else if ($(this).val() === "UPI Payment") {
+                $("#AccountPayment").hide();
+                $("#ChequePayment").hide();
+                $("#UPIPayment").show();
+            } else if ($(this).val() === "Cheque Payment") {
+                $("#AccountPayment").hide();
+                $("#UPIPayment").hide();
+                $("#ChequePayment").show();
+            } else {
+                $("#AccountPayment").hide();
+                $("#UPIPayment").hide();
+                $("#ChequePayment").hide();
+            }
+        });
+
+        var PayMethod = $("#PaymentMethod").val();
+        if (PayMethod == "UPI Payment") {
             $("#AccountPayment").hide();
             $("#ChequePayment").hide();
             $("#UPIPayment").show();
-        } else if ($(this).val() === "Cheque Payment") {
+        } else if (PayMethod == "Account Payment") {
+            $("#AccountPayment").show();
+            $("#UPIPayment").hide();
+            $("#ChequePayment").hide();
+        } else if (PayMethod == "Cheque Payment") {
             $("#AccountPayment").hide();
             $("#UPIPayment").hide();
             $("#ChequePayment").show();
@@ -198,33 +215,14 @@
             $("#UPIPayment").hide();
             $("#ChequePayment").hide();
         }
-    });
 
-    var PayMethod = $("#PaymentMethod").val();
-    if (PayMethod == "UPI Payment") {
-        $("#AccountPayment").hide();
-        $("#ChequePayment").hide();
-        $("#UPIPayment").show();
-    } else if (PayMethod == "Account Payment") {
-        $("#AccountPayment").show();
-        $("#UPIPayment").hide();
-        $("#ChequePayment").hide();
-    } else if (PayMethod == "Cheque Payment") {
-        $("#AccountPayment").hide();
-        $("#UPIPayment").hide();
-        $("#ChequePayment").show();
-    } else {
-        $("#AccountPayment").hide();
-        $("#UPIPayment").hide();
-        $("#ChequePayment").hide();
-    }
-
-    $('#PaymentAmt').keyup(function () {
-        var textone;
-        var texttwo;
-        textone = parseFloat($('#TotalAmt').val());
-        texttwo = parseFloat($('#PaymentAmt').val());
-        var result = textone - texttwo;
-        $('#BalanceAmt').val(result);
-    });
-</script>
+        $('#PaymentAmt').keyup(function () {
+            var textone;
+            var texttwo;
+            textone = parseFloat($('#TotalAmt').val());
+            texttwo = parseFloat($('#PaymentAmt').val());
+            var result = textone - texttwo;
+            $('#BalanceAmt').val(result);
+        });
+    </script>
+}

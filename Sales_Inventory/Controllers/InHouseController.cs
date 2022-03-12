@@ -10,7 +10,9 @@ namespace Sales_Inventory.Controllers
 {
     public class InHouseController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
         #region InHouse Transaction List
         public ActionResult List()
@@ -116,6 +118,28 @@ namespace Sales_Inventory.Controllers
             {
                 throw ex;
             }
+        }
+        #endregion
+
+        #region Delete InHouse Transaction
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            DeleteInHouseTransaction(id);
+            return RedirectToAction("List");
+        }
+
+        public bool DeleteInHouseTransaction(int id)
+        {
+            var trans = worker.InHouseTransactionEntity.GetByID(id);
+            if (trans != null)
+            {
+                worker.InHouseTransactionEntity.Delete(trans);
+                worker.Save();
+                return true;
+            }
+            else
+                return false;
         }
         #endregion
 

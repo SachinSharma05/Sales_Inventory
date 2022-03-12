@@ -20,7 +20,6 @@ namespace Sales_Inventory.Controllers
                 int AdvanceGrossTotal = 0;
                 int MiscGrossTotal = 0;
 
-                var EmployeeCount = worker.EmployeeEntity.Get().Count();
                 var PurchaseCount = worker.PurchaseEntity.Get().Count();
                 var SalesCount = worker.SaleEntity.Get().Count();
                 var PaymentCount = worker.PaymentEntity.Get().Count();
@@ -40,7 +39,6 @@ namespace Sales_Inventory.Controllers
                     MiscGrossTotal += Convert.ToInt32(item);
                 }
 
-                TempData["EmployeeCount"] = EmployeeCount;
                 TempData["PurchaseCount"] = PurchaseCount;
                 TempData["SalesCount"] = SalesCount;
                 TempData["PaymentCount"] = PaymentCount;

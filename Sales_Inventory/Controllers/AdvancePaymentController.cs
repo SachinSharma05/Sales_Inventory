@@ -10,9 +10,9 @@ namespace Sales_Inventory.Controllers
 {
     public class AdvancePaymentController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
-
-        // GET: AdvancePayment
+        #endregion
 
         #region Advance List
         public ActionResult List()
@@ -66,17 +66,17 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AdvanceViewModel model)
+        public ActionResult Create(string AdvanceTo, string AdvanceAmt, string AdvanceDate, string AdvanceAgainst)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
                     Advance advance = new Advance();
-                    advance.Advance_To = model.Advance_To;
-                    advance.Advance_Date = Convert.ToDateTime(model.Advance_Date);
-                    advance.Advance_Amount = Convert.ToInt32(model.Advance_Amount);
-                    advance.Advance_Against = model.Advance_Against;
+                    advance.Advance_To = AdvanceTo;
+                    advance.Advance_Date = Convert.ToDateTime(AdvanceDate);
+                    advance.Advance_Amount = Convert.ToInt32(AdvanceAmt);
+                    advance.Advance_Against = AdvanceAgainst;
                     advance.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
                     advance.CreatedDate = DateTime.Now.Date;
                     worker.AdvanceEntity.Insert(advance);
@@ -92,17 +92,18 @@ namespace Sales_Inventory.Controllers
         #endregion
 
         #region Edit Advance
-        public ActionResult Edit(int Id)
+        public JsonResult Edit(int Id)
         {
             try
             {
                 AdvanceViewModel model = new AdvanceViewModel();
                 var user = worker.AdvanceEntity.GetByID(Id);
+                model.Id = user.Id;
                 model.Advance_To = user.Advance_To;
                 model.Advance_Date = user.Advance_Date;
                 model.Advance_Amount = (int)user.Advance_Amount;
                 model.Advance_Against = user.Advance_Against;
-                return View(model);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

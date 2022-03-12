@@ -144,16 +144,7 @@ namespace Sales_Inventory.Controllers
                             stockItem.CreatedDate = DateTime.Now.Date;
                             worker.StockEntity.Update(stockItem);
                             worker.Save();
-                        }
-                        else
-                        {
-                            Stock stock = new Stock();
-                            stock.Product = item.Item;
-                            stock.TotalQuantity = Convert.ToInt32(item.Quantity);
-                            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                            stock.CreatedDate = DateTime.Now.Date;
-                            worker.StockEntity.Insert(stock);
-                            worker.Save();
+                            continue;
                         }
                     }
                 }
@@ -510,6 +501,26 @@ namespace Sales_Inventory.Controllers
                 return View(model);
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Get Product Quantity
+        public JsonResult GetProductQuantity(string itemName)
+        {
+            try
+            {
+                decimal GrossTotal = 0;
+                var TotalStock = worker.StockEntity.Get(x => x.Product == itemName).ToList();
+                foreach (var item in TotalStock)
+                {
+                    GrossTotal += Convert.ToDecimal(item.TotalQuantity);
+                }
+                return Json(GrossTotal, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
             {
                 throw ex;
             }

@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
-                                <label>Payment Date</label>
+                                <label>Received Date</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
-                                <label>Pay Amount</label>
+                                <label>Received Amount</label>
                                 @Html.TextBoxFor(m => m.PaidAmount, new { @class = "form-control required", placeholder = "Enter Payment Amount", @id = "PaymentAmt" })
                                 @Html.ValidationMessageFor(m => m.PaidAmount)
                             </div>
@@ -83,14 +83,14 @@
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
-                                <label>Payment Method</label>
+                                <label>Payment Received Method</label>
                                 @Html.DropDownListFor(m => m.PaymentMode, listItems, "-- Select Payment Method --", new { @class = "form-control required", @id = "PaymentMethod" })
                                 @Html.ValidationMessageFor(m => m.PaymentMode)
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
-                                <label>Payment Reason</label>
+                                <label>Receipt Remarks</label>
                                 @Html.TextBoxFor(m => m.PaymentAgainst, new { @class = "form-control required", placeholder = "Enter Payment Reason" , @id = "BalanceAmt" })
                                 @Html.ValidationMessageFor(m => m.PaymentAgainst)
                             </div>
