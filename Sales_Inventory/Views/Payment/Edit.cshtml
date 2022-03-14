@@ -228,5 +228,15 @@
             var result = textone - texttwo;
             $('#BalanceAmt').val(result);
         });
+
+        $('#PaymentDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $('#ChequeDate').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
     </script>
 }

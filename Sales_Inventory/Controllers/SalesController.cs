@@ -123,8 +123,10 @@ namespace Sales_Inventory.Controllers
                     {
                         Sale_Product sale_Product = new Sale_Product();
                         sale_Product.Sale_No = sale.Sale_No;
-                        sale_Product.Item = item.Item;
+                        sale_Product.ItemName = item.ItemName;
                         sale_Product.Quantity = item.Quantity;
+                        sale_Product.Damaged = item.Damaged;
+                        sale_Product.FinalQty = item.FinalQty;
                         sale_Product.Price = item.Price;
                         sale_Product.Total = item.Total;
                         sale_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
@@ -135,7 +137,7 @@ namespace Sales_Inventory.Controllers
 
                     foreach (var item in sale_Products)
                     {
-                        var stockList = worker.StockEntity.Get(x => x.Product == item.Item).ToList();
+                        var stockList = worker.StockEntity.Get(x => x.Product == item.ItemName).ToList();
                         if(stockList.Count > 0)
                         {
                             Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
@@ -178,8 +180,10 @@ namespace Sales_Inventory.Controllers
                 {
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
-                    sale_Product.Item = item.Item;
+                    sale_Product.ItemName = item.ItemName;
                     sale_Product.Quantity = (decimal)item.Quantity;
+                    sale_Product.Damaged = (decimal)item.Damaged;
+                    sale_Product.FinalQty = (decimal)item.FinalQty;
                     sale_Product.Price = (decimal)item.Price;
                     sale_Product.Total = (decimal)item.Total;
                     sale_Products.Add(sale_Product);
@@ -218,10 +222,10 @@ namespace Sales_Inventory.Controllers
 
                         foreach (var item in sale_products)
                         {
-                            var itemName = sale_Products.Any(x => x.Item == item.Item);
+                            var itemName = sale_Products.Any(x => x.ItemName == item.ItemName);
                             if (!itemName)
                             {
-                                var deleteRecord = worker.PurchaseProductEntity.Get(x => x.Purchase_No == sale.Sale_No && x.ItemName == item.Item).FirstOrDefault();
+                                var deleteRecord = worker.PurchaseProductEntity.Get(x => x.Purchase_No == sale.Sale_No && x.ItemName == item.ItemName).FirstOrDefault();
                                 if (deleteRecord != null)
                                 {
                                     worker.SaleProductEntity.Delete(deleteRecord.Id);
@@ -232,14 +236,16 @@ namespace Sales_Inventory.Controllers
 
                         foreach (var item in sale_Products)
                         {
-                            var itmName = sale_products.Any(x => x.Item == item.Item);
+                            var itmName = sale_products.Any(x => x.ItemName == item.ItemName);
                             if (itmName)
                             {
                                 var SaleNo = worker.SaleEntity.GetByID(Convert.ToInt32(saleId)).Sale_No;
-                                var data = worker.SaleProductEntity.Get(x => x.Sale_No == SaleNo && x.Item == item.Item).FirstOrDefault();
+                                var data = worker.SaleProductEntity.Get(x => x.Sale_No == SaleNo && x.ItemName == item.ItemName).FirstOrDefault();
                                 Sale_Product sale_Product = worker.SaleProductEntity.GetByID(data.Id);
-                                sale_Product.Item = item.Item;
+                                sale_Product.ItemName = item.ItemName;
                                 sale_Product.Quantity = item.Quantity;
+                                sale_Product.Damaged = item.Damaged;
+                                sale_Product.FinalQty = item.FinalQty;
                                 sale_Product.Price = item.Price;
                                 sale_Product.Total = item.Total;
                                 worker.SaleProductEntity.Update(sale_Product);
@@ -250,8 +256,10 @@ namespace Sales_Inventory.Controllers
                             {
                                 Sale_Product sale_Product = new Sale_Product();
                                 sale_Product.Sale_No = sale.Sale_No;
-                                sale_Product.Item = item.Item;
+                                sale_Product.ItemName = item.ItemName;
                                 sale_Product.Quantity = item.Quantity;
+                                sale_Product.Damaged = item.Damaged;
+                                sale_Product.FinalQty = item.FinalQty;
                                 sale_Product.Price = item.Price;
                                 sale_Product.Total = item.Total;
                                 sale_Product.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
@@ -488,8 +496,10 @@ namespace Sales_Inventory.Controllers
                 {
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
-                    sale_Product.Item = item.Item;
+                    sale_Product.ItemName = item.ItemName;
                     sale_Product.Quantity = (decimal)item.Quantity;
+                    sale_Product.Damaged = (decimal)item.Damaged;
+                    sale_Product.FinalQty = (decimal)item.FinalQty;
                     sale_Product.Price = (decimal)item.Price;
                     sale_Product.Total = (decimal)item.Total;
                     TotalAmount += Convert.ToInt32(item.Total);

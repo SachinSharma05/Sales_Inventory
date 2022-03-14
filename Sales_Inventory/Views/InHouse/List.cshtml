@@ -165,6 +165,11 @@
             dateFormat: "dd/mm/yy"
         });
 
+        $('#paidDateModal').datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy"
+        });
+
         $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
             var data = new FormData();

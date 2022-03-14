@@ -99,21 +99,6 @@ namespace Sales_Inventory.DAL
         }
         #endregion
 
-        #region [Employee]
-        private GenericRepository<Employee> employeeEntity;
-        public GenericRepository<Employee> EmployeeEntity
-        {
-            get
-            {
-                if (this.employeeEntity == null)
-                {
-                    this.employeeEntity = new GenericRepository<Employee>(context);
-                }
-                return employeeEntity;
-            }
-        }
-        #endregion
-
         #region [Purchase]
         private GenericRepository<Purchase> purchaseEntity;
         public GenericRepository<Purchase> PurchaseEntity

@@ -44,6 +44,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <label>Total Stock(KG's)</label>
+                            <a class="btn btn-app" id="test" style="font-size: 30px; font-weight: 800; color: white; background-color: red; padding: 7px 5px;"></a>
+                        </div>
                         <table id="tblProducts" class="table" cellpadding="0" cellspacing="0">
                             <thead>
                                 <tr>
@@ -133,6 +137,7 @@
         txtQuantity.val("");
         txtPrice.val("");
         txtTotal.val("");
+        $('#test').text(0);
     });
 
     function Remove(button) {
@@ -183,6 +188,28 @@
             }
         });
     });
+
+    $("body").on("change", function () {
+        var data = new FormData();
+        data.append('itemName', $("#txtItem").val());
+
+        $.ajax({
+            type: "POST",
+            url: "/Sales/GetProductQuantity",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response) {
+                    $('#ProductGrossTotal').val(response);
+                    $('#test').text(response);
+                }
+                else {
+                    $('#test').text(0);
+                }
+            }
+        });
+    })
 
     $('#saleDate').datepicker({
         autoclose: true,

@@ -25,32 +25,6 @@
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
-  <EntityType Name="Employee">
-    <Key>
-      <PropertyRef Name="EmployeeId" />
-    </Key>
-    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-    <Property Name="FullName" Type="nvarchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DOB" Type="date" Nullable="false" />
-    <Property Name="BloodGroup" Type="nvarchar" MaxLength="10" />
-    <Property Name="PermanentAddress" Type="nvarchar" MaxLength="150" />
-    <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="AlternateNumber" Type="nvarchar" MaxLength="50" />
-    <Property Name="AadharNumber" Type="nvarchar" MaxLength="50" />
-    <Property Name="DateofJoining" Type="date" />
-    <Property Name="AccountNo" Type="nvarchar" MaxLength="50" />
-    <Property Name="Salary" Type="int" />
-    <Property Name="Remarks" Type="nvarchar" MaxLength="1000" />
-    <Property Name="CreatedBy" Type="int" />
-    <Property Name="UpdatedBy" Type="int" />
-    <Property Name="CreatedDate" Type="date" />
-    <Property Name="UpdatedDate" Type="date" />
-  </EntityType>
   <EntityType Name="InHouse">
     <Key>
       <PropertyRef Name="Id" />
@@ -175,8 +149,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
-    <Property Name="Item" Type="nvarchar" MaxLength="150" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
     <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Damaged" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FinalQty" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="int" />
@@ -228,7 +204,6 @@
   <EntityContainer Name="Sales_InventoryModelStoreContainer">
     <EntitySet Name="AddNewCredit" EntityType="Self.AddNewCredit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InHouse" EntityType="Self.InHouse" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />

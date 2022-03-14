@@ -17,18 +17,6 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="small-box bg-olive-active">
-                    <div class="inner">
-                        <h3>@TempData["EmployeeCount"]</h3>
-                        <p>Employees</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-ios-people-outline"></i>
-                    </div>
-                    <a href="@Url.Action("List","Employee")" class="small-box-footer">List All Employees <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-light-blue-active">
                     <div class="inner">
                         <h3>@TempData["PurchaseCount"]</h3>
@@ -110,7 +98,7 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="@Url.Action("TotalStockList","Home")" class="small-box-footer">List All Current Stock <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="@Url.Action("TotalStockList","Common")" class="small-box-footer">List All Current Stock <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">

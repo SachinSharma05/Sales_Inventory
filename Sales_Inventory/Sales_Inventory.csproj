@@ -148,9 +148,6 @@
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\DBWorker.cs" />
-    <Compile Include="DAL\Employee.cs">
-      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\InHouse.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>

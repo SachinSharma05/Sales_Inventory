@@ -145,7 +145,7 @@
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                    toastr.success('Record(s) Inserted Successfully')
+                    alert('Record(s) Inserted Successfully')
                     if (result) {
                         window.location.href = '@Url.Action("List","AdvancePayment")';
                     }
@@ -187,6 +187,6 @@
                     }
                 }
             });
-        })
+        });
     </script>
 }
