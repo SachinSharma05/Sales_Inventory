@@ -152,6 +152,9 @@
     <Compile Include="DAL\InHouse.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\InHouseVoucher.cs">
+      <DependentUpon>SalesInventoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\MiscExpens.cs">
       <DependentUpon>SalesInventoryModel.tt</DependentUpon>
     </Compile>
@@ -214,6 +217,7 @@
     <Compile Include="Models\DayCashModel.cs" />
     <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\InHouseViewModel.cs" />
+    <Compile Include="Models\InHouseVoucherModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MiscExpensesViewModel.cs" />
     <Compile Include="Models\PaymentReceiptViewModel.cs" />
@@ -4226,6 +4230,7 @@
     <Content Include="BAL\KeepSessionAlive.ashx" />
     <Content Include="Views\PaymentReceipt\Edit.cshtml" />
     <Content Include="Views\Common\CreditList.cshtml" />
+    <Content Include="Views\InHouse\_InHouseDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -30,13 +30,28 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaidFor" Type="nvarchar" MaxLength="50" />
     <Property Name="PaidBy" Type="nvarchar" MaxLength="50" />
-    <Property Name="PaidTo" Type="nvarchar" MaxLength="50" />
     <Property Name="PaidDate" Type="date" />
-    <Property Name="TotalAmount" Type="int" />
-    <Property Name="PaidAmount" Type="int" />
-    <Property Name="ReturnAmtReceived" Type="int" />
-    <Property Name="BalanceAmt" Type="int" />
+    <Property Name="PaidAmt" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CarryForward" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="InHouseVoucher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransactionNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentFrom" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentDate" Type="date" />
+    <Property Name="PaymentAmt" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionType" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentGivenTo" Type="nvarchar" MaxLength="50" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
@@ -205,6 +220,7 @@
     <EntitySet Name="AddNewCredit" EntityType="Self.AddNewCredit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Advance" EntityType="Self.Advance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InHouse" EntityType="Self.InHouse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InHouseVoucher" EntityType="Self.InHouseVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MiscExpenses" EntityType="Self.MiscExpenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />

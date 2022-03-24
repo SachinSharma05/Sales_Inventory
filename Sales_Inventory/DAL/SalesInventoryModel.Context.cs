@@ -32,11 +32,27 @@ public partial class Sales_InventoryEntities : DbContext
     }
 
 
+    public DbSet<AddNewCredit> AddNewCredits { get; set; }
+
+    public DbSet<Advance> Advances { get; set; }
+
     public DbSet<MiscExpens> MiscExpenses { get; set; }
+
+    public DbSet<Payment> Payments { get; set; }
+
+    public DbSet<PaymentReceipt> PaymentReceipts { get; set; }
 
     public DbSet<ProductType> ProductTypes { get; set; }
 
+    public DbSet<Purchase> Purchases { get; set; }
+
+    public DbSet<Purchase_Product> Purchase_Product { get; set; }
+
     public DbSet<Role> Roles { get; set; }
+
+    public DbSet<Sale_Product> Sale_Product { get; set; }
+
+    public DbSet<Sale> Sales { get; set; }
 
     public DbSet<Stock> Stocks { get; set; }
 
@@ -44,21 +60,7 @@ public partial class Sales_InventoryEntities : DbContext
 
     public DbSet<InHouse> InHouses { get; set; }
 
-    public DbSet<Purchase_Product> Purchase_Product { get; set; }
-
-    public DbSet<Purchase> Purchases { get; set; }
-
-    public DbSet<Sale> Sales { get; set; }
-
-    public DbSet<Payment> Payments { get; set; }
-
-    public DbSet<PaymentReceipt> PaymentReceipts { get; set; }
-
-    public DbSet<Advance> Advances { get; set; }
-
-    public DbSet<AddNewCredit> AddNewCredits { get; set; }
-
-    public DbSet<Sale_Product> Sale_Product { get; set; }
+    public DbSet<InHouseVoucher> InHouseVouchers { get; set; }
 
 }
 

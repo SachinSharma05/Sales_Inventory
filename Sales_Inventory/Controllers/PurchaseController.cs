@@ -489,7 +489,8 @@ namespace Sales_Inventory.Controllers
         #region Print Invoice
         public ActionResult InvoicePrint(int Id)
         {
-            int TotalAmount = 0;
+            decimal TotalAmount = 0;
+            decimal ProductTotalQuantity = 0;
             try
             {
                 PurchaseViewModel model = new PurchaseViewModel();
@@ -510,12 +511,14 @@ namespace Sales_Inventory.Controllers
                     purchase_Product.Quantity = (decimal)item.Quantity;
                     purchase_Product.Price = (decimal)item.Price;
                     purchase_Product.Total = (decimal)item.Total;
-                    TotalAmount += Convert.ToInt32(item.Total);
+                    TotalAmount += (decimal)item.Total;
+                    ProductTotalQuantity += (decimal)item.Quantity;
                     purchase_Products.Add(purchase_Product);
                 }
                 model.purchase_Products = purchase_Products;
                 model.ProductList = GetProductTypeList();
                 ViewBag.TotalAmount = TotalAmount;
+                ViewBag.ProductTotalQuantity = ProductTotalQuantity;
                 return View(model);
             }
             catch(Exception ex)

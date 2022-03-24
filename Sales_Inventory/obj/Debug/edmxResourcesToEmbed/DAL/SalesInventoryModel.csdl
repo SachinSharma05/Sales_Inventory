@@ -1,21 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Sales_InventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="Sales_InventoryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AddNewCredits" EntityType="Sales_InventoryModel.AddNewCredit" />
+    <EntitySet Name="Advances" EntityType="Sales_InventoryModel.Advance" />
     <EntitySet Name="MiscExpenses" EntityType="Sales_InventoryModel.MiscExpens" />
+    <EntitySet Name="Payments" EntityType="Sales_InventoryModel.Payment" />
+    <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
     <EntitySet Name="ProductTypes" EntityType="Sales_InventoryModel.ProductType" />
+    <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
+    <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
     <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
+    <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
+    <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
     <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
     <EntitySet Name="InHouses" EntityType="Sales_InventoryModel.InHouse" />
-    <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
-    <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
-    <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
-    <EntitySet Name="Payments" EntityType="Sales_InventoryModel.Payment" />
-    <EntitySet Name="PaymentReceipts" EntityType="Sales_InventoryModel.PaymentReceipt" />
-    <EntitySet Name="Advances" EntityType="Sales_InventoryModel.Advance" />
-    <EntitySet Name="AddNewCredits" EntityType="Sales_InventoryModel.AddNewCredit" />
-    <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
+    <EntitySet Name="InHouseVouchers" EntityType="Sales_InventoryModel.InHouseVoucher" />
   </EntityContainer>
+  <EntityType Name="AddNewCredit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Advance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Advance_To" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Advance_Date" Type="DateTime" Precision="0" />
+    <Property Name="Advance_Amount" Type="Int32" />
+    <Property Name="Advance_Against" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
   <EntityType Name="MiscExpens">
     <Key>
       <PropertyRef Name="Id" />
@@ -25,109 +51,6 @@
     <Property Name="ExpenseAmt" Type="Int32" />
     <Property Name="ExpenseDate" Type="DateTime" Precision="0" />
     <Property Name="ExpenseReason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="ProductType">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="Role">
-    <Key>
-      <PropertyRef Name="RoleId" />
-    </Key>
-    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Stock">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="TotalQuantity" Type="Int32" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoleId" Type="Int32" Nullable="false" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-    <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
-    <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="UpdatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="InHouse">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PaidBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PaidTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PaidDate" Type="DateTime" Precision="0" />
-    <Property Name="TotalAmount" Type="Int32" />
-    <Property Name="PaidAmount" Type="Int32" />
-    <Property Name="ReturnAmtReceived" Type="Int32" />
-    <Property Name="BalanceAmt" Type="Int32" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="Purchase_Product">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Damaged" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="Purchase">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Purchase_From" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Purchase_From_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Purchase_Date" Type="DateTime" Precision="0" />
-    <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="Sale">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Sale_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Sale_To" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Sale_To_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Sale_Date" Type="DateTime" Precision="0" />
-    <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
@@ -177,30 +100,50 @@
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
-  <EntityType Name="Advance">
+  <EntityType Name="ProductType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Advance_To" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Advance_Date" Type="DateTime" Precision="0" />
-    <Property Name="Advance_Amount" Type="Int32" />
-    <Property Name="Advance_Against" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>
-  <EntityType Name="AddNewCredit">
+  <EntityType Name="Purchase">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Amount" Type="Int32" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Purchase_From" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Purchase_From_Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Purchase_Date" Type="DateTime" Precision="0" />
+    <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="0" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Purchase_Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Purchase_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Damaged" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Sale_Product">
     <Key>
@@ -214,6 +157,79 @@
     <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sale_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sale_To" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sale_To_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sale_Date" Type="DateTime" Precision="0" />
+    <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="TotalQuantity" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="IsAvtive" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordResetToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordResetTokenExpiry" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="InHouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TransactionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaidFor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaidBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaidDate" Type="DateTime" Precision="0" />
+    <Property Name="PaidAmt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="InHouseVoucher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TransactionNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+    <Property Name="PaymentAmt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentGivenTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>

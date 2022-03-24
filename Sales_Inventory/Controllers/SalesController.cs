@@ -477,13 +477,14 @@ namespace Sales_Inventory.Controllers
         #region Print Invoice
         public ActionResult InvoicePrint(int Id)
         {
-            int TotalAmount = 0;
+            decimal TotalAmount = 0;
+            decimal ProductTotalQuantity = 0;
             try
             {
                 SalesViewModel model = new SalesViewModel();
                 List<Sale_Products> sale_Products = new List<Sale_Products>();
                 var sale = worker.SaleEntity.GetByID(Id);
-                model.Id = sale.Id;
+                //model.Id = sale.Id;
                 model.Sale_No = sale.Sale_No;
                 model.Sale_To = sale.Sale_To;
                 model.Sale_To_Phone = sale.Sale_To_Phone;
@@ -502,12 +503,14 @@ namespace Sales_Inventory.Controllers
                     sale_Product.FinalQty = (decimal)item.FinalQty;
                     sale_Product.Price = (decimal)item.Price;
                     sale_Product.Total = (decimal)item.Total;
-                    TotalAmount += Convert.ToInt32(item.Total);
+                    TotalAmount += (decimal)item.Total;
+                    ProductTotalQuantity += (decimal)item.Quantity;
                     sale_Products.Add(sale_Product);
                 }
                 model.sale_Products = sale_Products;
                 model.ProductList = GetProductTypeList();
                 ViewBag.TotalAmount = TotalAmount;
+                ViewBag.ProductTotalQuantity = ProductTotalQuantity;
                 return View(model);
             }
             catch (Exception ex)

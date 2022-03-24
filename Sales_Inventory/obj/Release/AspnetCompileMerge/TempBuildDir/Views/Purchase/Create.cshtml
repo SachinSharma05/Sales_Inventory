@@ -171,52 +171,52 @@
 
     $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
-            var purchase_Products = new Array();
-            $("#tblProducts TBODY TR").each(function () {
-                var row = $(this);
-                var product = {};
-                product.ItemName = row.find("TD").eq(0).html();
-                product.Quantity = row.find("TD").eq(1).html();
-                product.Damaged = row.find("TD").eq(2).html();
-                product.FinalQty = row.find("TD").eq(3).html();
-                product.Price = row.find("TD").eq(4).html();
-                product.Total = row.find("TD").eq(5).html();
-                purchase_Products.push(product);
-            });
-
-            var data = new FormData();
-            data.append('purchaseFrom', $("#purchaseFrom").val());
-            data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
-            data.append('purchaseDate', $("#purchaseDate").val());
-            data.append('purchase_Prod', JSON.stringify(purchase_Products));
-
-            //Send the JSON array to Controller using AJAX.
-            $.ajax({
-                type: "POST",
-                url: "/Purchase/Create",
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    if (result) {
-                        alert("Record(s) Saved.");
-                        window.location.href = '@Url.Action("List","Purchase")';
-                    }
-                },
-                failure: function (result) {
-                    alert(result.responseText);
-                },
-                error: function (result) {
-                    alert(result.responseText);
-                }
-            });
+        var purchase_Products = new Array();
+        $("#tblProducts TBODY TR").each(function () {
+            var row = $(this);
+            var product = {};
+            product.ItemName = row.find("TD").eq(0).html();
+            product.Quantity = row.find("TD").eq(1).html();
+            product.Damaged = row.find("TD").eq(2).html();
+            product.FinalQty = row.find("TD").eq(3).html();
+            product.Price = row.find("TD").eq(4).html();
+            product.Total = row.find("TD").eq(5).html();
+            purchase_Products.push(product);
         });
+
+        var data = new FormData();
+        data.append('purchaseFrom', $("#purchaseFrom").val());
+        data.append('sellerPhoneNo', $("#sellerPhoneNo").val());
+        data.append('purchaseDate', $("#purchaseDate").val());
+        data.append('purchase_Prod', JSON.stringify(purchase_Products));
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/Purchase/Create",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result) {
+                    alert("Record(s) Saved.");
+                    window.location.href = '@Url.Action("List","Purchase")';
+                }
+            },
+            failure: function (result) {
+                alert(result.responseText);
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    });
 
         //Date picker
         $('#purchaseDate').datepicker({
             autoclose: true,
-            dateFormat: "mm/dd/yy"
-        });
+            dateFormat: "dd-mm-yy"
+        }).val();
 
         $('#txtPrice').keyup(function () {
             var textone;

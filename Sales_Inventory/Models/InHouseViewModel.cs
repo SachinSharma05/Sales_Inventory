@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
     public class InHouseViewModel
     {
         public int Id { get; set; }
+        public string TransactionNo { get; set; }
+        public string PaidFor { get; set; }
         public string PaidBy { get; set; }
-        public string PaidTo { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
-        public Nullable<int> TotalAmount { get; set; }
-        public Nullable<int> PaidAmount { get; set; }
-        public Nullable<int> ReturnAmtReceived { get; set; }
-        public Nullable<int> BalanceAmt { get; set; }
+        public Nullable<decimal> PaidAmt { get; set; }
+        public Nullable<decimal> Balance { get; set; }
+        public Nullable<decimal> CarryForward { get; set; }
+        public string TransactionType { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<InHouseViewModel> List { get; set; }
+        public InHouseVoucherModel model { get; set; }
+        public InHouseViewModel ViewModel { get; set; }
+        public List<InHouseVoucherModel> VoucherModel { get; set; }
+        public List<SelectListItem> PaidByList { get; set; }
     }
 }

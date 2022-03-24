@@ -279,6 +279,21 @@ namespace Sales_Inventory.DAL
         }
         #endregion
 
+        #region [In-House Transaction Voucher]
+        private GenericRepository<InHouseVoucher> inHouseVoucherEntity;
+        public GenericRepository<InHouseVoucher> InHouseVoucherEntity
+        {
+            get
+            {
+                if (this.inHouseVoucherEntity == null)
+                {
+                    this.inHouseVoucherEntity = new GenericRepository<InHouseVoucher>(context);
+                }
+                return inHouseVoucherEntity;
+            }
+        }
+        #endregion
+
         #region [Credit Transaction]
         private GenericRepository<AddNewCredit> addNewCreditEntity;
         public GenericRepository<AddNewCredit> AddNewCreditEntity
