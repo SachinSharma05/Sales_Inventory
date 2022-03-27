@@ -11,26 +11,27 @@ namespace Sales_Inventory.Controllers
 {
     public class SalesController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
-        // GET: Sales
         #region Sale List
         public ActionResult List()
         {
-            SalesViewModel model = new SalesViewModel();
+            SalesModel model = new SalesModel();
             model.SaleTo = GetSaleTo();
             model.List = GetSaleList();
             return View(model);
         }
-        public List<SalesViewModel> GetSaleList()
+        public List<SalesModel> GetSaleList()
         {
-            List<SalesViewModel> SaleList = new List<SalesViewModel>();
+            List<SalesModel> SaleList = new List<SalesModel>();
             var list = worker.SaleEntity.Get().ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    SaleList.Add(new SalesViewModel
+                    SaleList.Add(new SalesModel
                     {
                         Id = item.Id,
                         Sale_No = item.Sale_No,
@@ -77,7 +78,7 @@ namespace Sales_Inventory.Controllers
         }
         public ActionResult Create()
         {
-            SalesViewModel viewModel = new SalesViewModel();
+            SalesModel viewModel = new SalesModel();
             viewModel.sale_Products = new List<Sale_Products>();
             viewModel.ProductList = GetProductTypeList();
             return View(viewModel);
@@ -123,7 +124,7 @@ namespace Sales_Inventory.Controllers
                     {
                         Sale_Product sale_Product = new Sale_Product();
                         sale_Product.Sale_No = sale.Sale_No;
-                        sale_Product.ItemName = item.ItemName;
+                        sale_Product.Item = item.Item;
                         sale_Product.Quantity = item.Quantity;
                         sale_Product.Damaged = item.Damaged;
                         sale_Product.FinalQty = item.FinalQty;
@@ -137,7 +138,7 @@ namespace Sales_Inventory.Controllers
 
                     foreach (var item in sale_Products)
                     {
-                        var stockList = worker.StockEntity.Get(x => x.Product == item.ItemName).ToList();
+                        var stockList = worker.StockEntity.Get(x => x.Product == item.Item).ToList();
                         if(stockList.Count > 0)
                         {
                             Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
@@ -164,7 +165,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                SalesViewModel model = new SalesViewModel();
+                SalesModel model = new SalesModel();
                 List<Sale_Products> sale_Products = new List<Sale_Products>();
                 var sale = worker.SaleEntity.GetByID(Id);
                 model.Id = sale.Id;
@@ -180,10 +181,10 @@ namespace Sales_Inventory.Controllers
                 {
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
-                    sale_Product.ItemName = item.ItemName;
+                    sale_Product.Item = item.Item;
                     sale_Product.Quantity = (decimal)item.Quantity;
-                    sale_Product.Damaged = (decimal)item.Damaged;
-                    sale_Product.FinalQty = (decimal)item.FinalQty;
+                    sale_Product.Damaged = item.Damaged != null ? (decimal)item.Damaged : 0;
+                    sale_Product.FinalQty = item.FinalQty != null ? (decimal)item.FinalQty : 0;
                     sale_Product.Price = (decimal)item.Price;
                     sale_Product.Total = (decimal)item.Total;
                     sale_Products.Add(sale_Product);
@@ -222,10 +223,10 @@ namespace Sales_Inventory.Controllers
 
                         foreach (var item in sale_products)
                         {
-                            var itemName = sale_Products.Any(x => x.ItemName == item.ItemName);
+                            var itemName = sale_Products.Any(x => x.Item == item.Item);
                             if (!itemName)
                             {
-                                var deleteRecord = worker.PurchaseProductEntity.Get(x => x.Purchase_No == sale.Sale_No && x.ItemName == item.ItemName).FirstOrDefault();
+                                var deleteRecord = worker.PurchaseProductEntity.Get(x => x.Purchase_No == sale.Sale_No && x.ItemName == item.Item).FirstOrDefault();
                                 if (deleteRecord != null)
                                 {
                                     worker.SaleProductEntity.Delete(deleteRecord.Id);
@@ -236,13 +237,13 @@ namespace Sales_Inventory.Controllers
 
                         foreach (var item in sale_Products)
                         {
-                            var itmName = sale_products.Any(x => x.ItemName == item.ItemName);
+                            var itmName = sale_products.Any(x => x.Item == item.Item);
                             if (itmName)
                             {
                                 var SaleNo = worker.SaleEntity.GetByID(Convert.ToInt32(saleId)).Sale_No;
-                                var data = worker.SaleProductEntity.Get(x => x.Sale_No == SaleNo && x.ItemName == item.ItemName).FirstOrDefault();
+                                var data = worker.SaleProductEntity.Get(x => x.Sale_No == SaleNo && x.Item == item.Item).FirstOrDefault();
                                 Sale_Product sale_Product = worker.SaleProductEntity.GetByID(data.Id);
-                                sale_Product.ItemName = item.ItemName;
+                                sale_Product.Item = item.Item;
                                 sale_Product.Quantity = item.Quantity;
                                 sale_Product.Damaged = item.Damaged;
                                 sale_Product.FinalQty = item.FinalQty;
@@ -256,7 +257,7 @@ namespace Sales_Inventory.Controllers
                             {
                                 Sale_Product sale_Product = new Sale_Product();
                                 sale_Product.Sale_No = sale.Sale_No;
-                                sale_Product.ItemName = item.ItemName;
+                                sale_Product.Item = item.Item;
                                 sale_Product.Quantity = item.Quantity;
                                 sale_Product.Damaged = item.Damaged;
                                 sale_Product.FinalQty = item.FinalQty;
@@ -341,7 +342,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<SalesViewModel> model = new List<SalesViewModel>();
+                List<SalesModel> model = new List<SalesModel>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
@@ -350,7 +351,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_To == PurchaseName && x.Sale_Date >= SDate && x.Sale_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -367,7 +368,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_To == PurchaseName && x.Sale_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -384,7 +385,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_To == PurchaseName && x.Sale_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -401,7 +402,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_Date == SDate && x.Sale_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -418,7 +419,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_To == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -435,7 +436,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -452,7 +453,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.SaleEntity.Get(x => x.Sale_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new SalesViewModel
+                        model.Add(new SalesModel
                         {
                             Id = item.Id,
                             Sale_No = item.Sale_No,
@@ -481,10 +482,10 @@ namespace Sales_Inventory.Controllers
             decimal ProductTotalQuantity = 0;
             try
             {
-                SalesViewModel model = new SalesViewModel();
+                SalesModel model = new SalesModel();
                 List<Sale_Products> sale_Products = new List<Sale_Products>();
                 var sale = worker.SaleEntity.GetByID(Id);
-                //model.Id = sale.Id;
+                model.Id = sale.Id;
                 model.Sale_No = sale.Sale_No;
                 model.Sale_To = sale.Sale_To;
                 model.Sale_To_Phone = sale.Sale_To_Phone;
@@ -497,10 +498,10 @@ namespace Sales_Inventory.Controllers
                 {
                     Sale_Products sale_Product = new Sale_Products();
                     sale_Product.Sale_No = sale.Sale_No;
-                    sale_Product.ItemName = item.ItemName;
+                    sale_Product.Item = item.Item;
                     sale_Product.Quantity = (decimal)item.Quantity;
-                    sale_Product.Damaged = (decimal)item.Damaged;
-                    sale_Product.FinalQty = (decimal)item.FinalQty;
+                    sale_Product.Damaged = item.Damaged != null ? (decimal)item.Damaged : 0;
+                    sale_Product.FinalQty = item.FinalQty != null ? (decimal)item.FinalQty : 0;
                     sale_Product.Price = (decimal)item.Price;
                     sale_Product.Total = (decimal)item.Total;
                     TotalAmount += (decimal)item.Total;

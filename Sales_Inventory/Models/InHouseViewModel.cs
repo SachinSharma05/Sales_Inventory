@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
-    public class InHouseViewModel
+    public class InHouseModel
     {
         public int Id { get; set; }
         public string TransactionNo { get; set; }
@@ -19,10 +19,23 @@ namespace Sales_Inventory.Models
         public string TransactionType { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public List<InHouseViewModel> List { get; set; }
+        public List<InHouseModel> List { get; set; }
         public InHouseVoucherModel model { get; set; }
-        public InHouseViewModel ViewModel { get; set; }
+        public InHouseModel ViewModel { get; set; }
         public List<InHouseVoucherModel> VoucherModel { get; set; }
         public List<SelectListItem> PaidByList { get; set; }
+    }
+
+    public class InHouseVoucherModel
+    {
+        public int Id { get; set; }
+        public string TransactionNo { get; set; }
+        public string PaymentFrom { get; set; }
+        public Nullable<System.DateTime> PaymentDate { get; set; }
+        public Nullable<decimal> PaymentAmt { get; set; }
+        public string TransactionType { get; set; }
+        public string PaymentGivenTo { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     }
 }

@@ -17,16 +17,29 @@ using System;
     
 public partial class InHouse
 {
+
     public int Id { get; set; }
+
     public string TransactionNo { get; set; }
+
     public string PaidFor { get; set; }
+
     public string PaidBy { get; set; }
+
     public Nullable<System.DateTime> PaidDate { get; set; }
+
     public Nullable<decimal> PaidAmt { get; set; }
+
     public Nullable<decimal> Balance { get; set; }
+
     public Nullable<decimal> CarryForward { get; set; }
+
     public string TransactionType { get; set; }
+
     public Nullable<int> CreatedBy { get; set; }
+
     public Nullable<System.DateTime> CreatedDate { get; set; }
+
 }
+
 }

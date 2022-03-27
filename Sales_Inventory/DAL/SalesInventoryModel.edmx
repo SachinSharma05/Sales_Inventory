@@ -169,7 +169,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
-          <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Item" Type="nvarchar" MaxLength="150" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Damaged" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FinalQty" Type="decimal" Precision="18" Scale="2" />
@@ -252,12 +252,12 @@
           <EntitySet Name="Purchases" EntityType="Sales_InventoryModel.Purchase" />
           <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
           <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
-          <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
           <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
           <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
           <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
           <EntitySet Name="InHouses" EntityType="Sales_InventoryModel.InHouse" />
           <EntitySet Name="InHouseVouchers" EntityType="Sales_InventoryModel.InHouseVoucher" />
+          <EntitySet Name="Sale_Product" EntityType="Sales_InventoryModel.Sale_Product" />
         </EntityContainer>
         <EntityType Name="AddNewCredit">
           <Key>
@@ -387,21 +387,6 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Sale_Product">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Damaged" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="Sale">
           <Key>
             <PropertyRef Name="Id" />
@@ -472,6 +457,21 @@
           <Property Name="PaymentAmt" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentGivenTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Sale_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sale_No" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Damaged" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
@@ -618,22 +618,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sale_Product">
-            <EntityTypeMapping TypeName="Sales_InventoryModel.Sale_Product">
-              <MappingFragment StoreEntitySet="Sale_Product">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="FinalQty" ColumnName="FinalQty" />
-                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sales">
             <EntityTypeMapping TypeName="Sales_InventoryModel.Sale">
               <MappingFragment StoreEntitySet="Sales">
@@ -708,6 +692,22 @@
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="PaymentFrom" ColumnName="PaymentFrom" />
                 <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Product">
+            <EntityTypeMapping TypeName="Sales_InventoryModel.Sale_Product">
+              <MappingFragment StoreEntitySet="Sale_Product">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FinalQty" ColumnName="FinalQty" />
+                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Sale_No" ColumnName="Sale_No" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

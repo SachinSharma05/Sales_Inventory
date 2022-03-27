@@ -77,6 +77,8 @@ namespace Sales_Inventory.Controllers
             filterContext.ExceptionHandled = true;
             ViewData["cMsg"] = "Error: " + ex.Message;
             ViewData["cstracktrack"] = ex.StackTrace;
+            ViewData["cData"] = ex.Data;
+            ViewData["cInnerException"] = ex.InnerException;
             ViewData["cAction"] = "Action: " + actionName;
             ViewData["cController"] = "Controller: " + controllerName;
             //ViewBag.URL = path;

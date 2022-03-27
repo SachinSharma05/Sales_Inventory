@@ -17,14 +17,14 @@ namespace Sales_Inventory.Controllers
         #region InHouse Transaction List
         public ActionResult List()
         {
-            InHouseViewModel model = new InHouseViewModel();
+            InHouseModel model = new InHouseModel();
             model.List = GetInHouseList();
             model.PaidByList = GetPaidBy();
             return View(model);
         }
-        public List<InHouseViewModel> GetInHouseList()
+        public List<InHouseModel> GetInHouseList()
         {
-            List<InHouseViewModel> InHouseList = new List<InHouseViewModel>();
+            List<InHouseModel> InHouseList = new List<InHouseModel>();
             var list = worker.InHouseTransactionEntity.Get().ToList();
             if (list.Count > 0)
             {
@@ -38,7 +38,7 @@ namespace Sales_Inventory.Controllers
                         worker.Save();
                     }
 
-                    InHouseList.Add(new InHouseViewModel
+                    InHouseList.Add(new InHouseModel
                     {
                         Id = item.Id,
                         TransactionNo = item.TransactionNo,
@@ -115,7 +115,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                InHouseViewModel model = new InHouseViewModel();
+                InHouseModel model = new InHouseModel();
                 var list = worker.InHouseTransactionEntity.GetByID(Id);
                 model.Id = list.Id;
                 model.TransactionNo = list.TransactionNo;
@@ -160,15 +160,15 @@ namespace Sales_Inventory.Controllers
 
         public ActionResult InHouseDetails(int Id)
         {
-            InHouseViewModel model = new InHouseViewModel();
+            InHouseModel model = new InHouseModel();
             model.ViewModel = GetTransactionDetail(Id);
             model.VoucherModel = GetVoucherDetails(Id);
             return PartialView("_InHouseDetails", model);
         }
 
-        public InHouseViewModel GetTransactionDetail(int Id)
+        public InHouseModel GetTransactionDetail(int Id)
         {
-            InHouseViewModel inHouses = new InHouseViewModel();
+            InHouseModel inHouses = new InHouseModel();
             var list = worker.InHouseTransactionEntity.GetByID(Id);
             if (list != null)
             {
@@ -238,7 +238,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<InHouseViewModel> model = new List<InHouseViewModel>();
+                List<InHouseModel> model = new List<InHouseModel>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
@@ -247,7 +247,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidBy == PurchaseName && x.PaidDate >= SDate && x.PaidDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -264,7 +264,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidBy == PurchaseName && x.PaidDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -281,7 +281,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidBy == PurchaseName && x.PaidDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -298,7 +298,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate >= SDate && x.PaidDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -315,7 +315,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidBy == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -332,7 +332,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,
@@ -349,7 +349,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.InHouseTransactionEntity.Get(x => x.PaidDate == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new InHouseViewModel
+                        model.Add(new InHouseModel
                         {
                             Id = item.Id,
                             PaidFor = item.PaidFor,

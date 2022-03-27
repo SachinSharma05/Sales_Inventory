@@ -164,7 +164,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sale_No" Type="nvarchar" MaxLength="150" />
-    <Property Name="ItemName" Type="nvarchar" MaxLength="150" />
+    <Property Name="Item" Type="nvarchar" MaxLength="150" />
     <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Damaged" Type="decimal" Precision="18" Scale="2" />
     <Property Name="FinalQty" Type="decimal" Precision="18" Scale="2" />

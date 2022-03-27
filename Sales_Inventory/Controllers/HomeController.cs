@@ -24,7 +24,7 @@ namespace Sales_Inventory.Controllers
                 var SalesCount = worker.SaleEntity.Get().Count();
                 var PaymentCount = worker.PaymentEntity.Get().Count();
                 var PaymentReceiptCount = worker.PaymentReceiptEntity.Get().Count();
-                var TotalStock = worker.PurchaseProductEntity.Get().Count();
+                var TotalStock = worker.StockEntity.Get().Count();
                 var InHouseTransaction = worker.InHouseTransactionEntity.Get().Count();
                 var AdvanceTotal = worker.AdvanceEntity.Get().GroupBy(x => x.Advance_Amount).Select(n => n.Sum(m => m.Advance_Amount)).ToList();
                 var MiscTotal = worker.MiscExpensesEntity.Get().GroupBy(x => x.ExpenseAmt).Select(n => n.Sum(m => m.ExpenseAmt)).ToList();

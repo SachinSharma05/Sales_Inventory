@@ -93,7 +93,7 @@ namespace Sales_Inventory.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ForgotPassword(ForgotViewModel model)
+        public ActionResult ForgotPassword(ForgotEmailModel model)
         {
             if (ModelState.IsValid)
             {

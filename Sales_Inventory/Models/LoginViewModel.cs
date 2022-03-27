@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Sales_Inventory.Models
 {
-    public class LoginViewModel
+    public class LoginModel
     {
         [Required]
         [Display(Name = "Email")]
@@ -20,5 +20,33 @@ namespace Sales_Inventory.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+    }
+
+    public class ForgotEmailModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class ForgotPasswordModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordModel
+    {
+        [Required(ErrorMessage = "New Password is required")]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = "Confirm New Password is required")]
+        [DataType(DataType.Password)]
+        [Compare("NewPassword")]
+        public string ConfirmNewPassword { get; set; }
+        public string PasswordResetToken { get; set; }
     }
 }

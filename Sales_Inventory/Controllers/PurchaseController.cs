@@ -13,24 +13,23 @@ namespace Sales_Inventory.Controllers
     {
         DBWorker worker = new DBWorker();
 
-        // GET: Purchase
         #region Purchase List
         public ActionResult List()
         {
-            PurchaseViewModel model = new PurchaseViewModel();
+            PurchaseModel model = new PurchaseModel();
             model.PurchaseName = GetPurchaseName();
             model.List = GetPurchaseList();
             return View(model);
         }
-        public List<PurchaseViewModel> GetPurchaseList()
+        public List<PurchaseModel> GetPurchaseList()
         {
-            List<PurchaseViewModel> PurchaseList = new List<PurchaseViewModel>();
+            List<PurchaseModel> PurchaseList = new List<PurchaseModel>();
             var list = worker.PurchaseEntity.Get().ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    PurchaseList.Add(new PurchaseViewModel
+                    PurchaseList.Add(new PurchaseModel
                     {
                         Id = item.Id,
                         Purchase_No = item.Purchase_No,
@@ -76,10 +75,9 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
-
         public ActionResult Create()
         {
-            PurchaseViewModel viewModel = new PurchaseViewModel();
+            PurchaseModel viewModel = new PurchaseModel();
             viewModel.purchase_Products = new List<Purchase_Products>();
             viewModel.ProductList = GetProductTypeList();
             return View(viewModel);
@@ -175,7 +173,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                PurchaseViewModel model = new PurchaseViewModel();
+                PurchaseModel model = new PurchaseModel();
                 List<Purchase_Products> purchase_Products = new List<Purchase_Products>();
                 var pur = worker.PurchaseEntity.GetByID(Id);
                 model.Id = pur.Id;
@@ -353,7 +351,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<PurchaseViewModel> model = new List<PurchaseViewModel>();
+                List<PurchaseModel> model = new List<PurchaseModel>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
@@ -362,7 +360,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date >= SDate && x.Purchase_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -379,7 +377,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -396,7 +394,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName && x.Purchase_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -413,7 +411,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_Date == SDate && x.Purchase_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -430,7 +428,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_From == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -447,7 +445,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -464,7 +462,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PurchaseEntity.Get(x => x.Purchase_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PurchaseViewModel
+                        model.Add(new PurchaseModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -493,7 +491,7 @@ namespace Sales_Inventory.Controllers
             decimal ProductTotalQuantity = 0;
             try
             {
-                PurchaseViewModel model = new PurchaseViewModel();
+                PurchaseModel model = new PurchaseModel();
                 List<Purchase_Products> purchase_Products = new List<Purchase_Products>();
                 var pur = worker.PurchaseEntity.GetByID(Id);
                 model.Id = pur.Id;

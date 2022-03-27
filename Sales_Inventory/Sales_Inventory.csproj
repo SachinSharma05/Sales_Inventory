@@ -211,23 +211,17 @@
     <Compile Include="BAL\KeepSessionAlive.ashx.cs">
       <DependentUpon>KeepSessionAlive.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddNewCredits.cs" />
     <Compile Include="Models\AdvanceViewModel.cs" />
     <Compile Include="Models\CommonViewModel.cs" />
     <Compile Include="Models\DayCashModel.cs" />
-    <Compile Include="Models\ForgotViewModel.cs" />
     <Compile Include="Models\InHouseViewModel.cs" />
-    <Compile Include="Models\InHouseVoucherModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MiscExpensesViewModel.cs" />
     <Compile Include="Models\PaymentReceiptViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\ProductTypeSelectListModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
-    <Compile Include="Models\Purchase_Products.cs" />
-    <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SalesViewModel.cs" />
-    <Compile Include="Models\Sale_Products.cs" />
     <Compile Include="Models\StockViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4211,7 +4205,6 @@
     <Content Include="Views\InHouse\_SearchList.cshtml" />
     <Content Include="Views\Purchase\InvoicePrint.cshtml" />
     <Content Include="Views\Sales\InvoicePrint.cshtml" />
-    <Content Include="Views\Common\_AddNewProduct.cshtml" />
     <Content Include="Views\AdvancePayment\List.cshtml" />
     <Content Include="Views\Common\DayCashBook.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -4241,7 +4234,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

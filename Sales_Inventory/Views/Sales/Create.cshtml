@@ -1,4 +1,4 @@
-﻿@model Sales_Inventory.Models.SalesViewModel
+﻿@model Sales_Inventory.Models.SalesModel
 
 @{ ViewBag.Title = "Create Sale";
                 Layout = "~/Views/Shared/_Layout.cshtml"; }
@@ -64,7 +64,7 @@
                                 @foreach (var item in Model.sale_Products)
                                 {
                                 <tr>
-                                    <td>@item.ItemName</td>
+                                    <td>@item.Item</td>
                                     <td>@item.Quantity</td>
                                     <td>@item.Damaged</td>
                                     <td>@item.FinalQty</td>
@@ -177,7 +177,7 @@
         $("#tblProducts TBODY TR").each(function () {
             var row = $(this);
             var product = {};
-            product.ItemName = row.find("TD").eq(0).html();
+            product.Item = row.find("TD").eq(0).html();
             product.Quantity = row.find("TD").eq(1).html();
             product.Damaged = row.find("TD").eq(2).html();
             product.FinalQty = row.find("TD").eq(3).html();
@@ -209,7 +209,7 @@
         });
     });
 
-    $("body").on("change", function () {
+    $("#txtItem").on("change", function () {
         var data = new FormData();
         data.append('itemName', $("#txtItem").val());
 

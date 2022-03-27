@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
-    public class SalesViewModel
+    public class SalesModel
     {
         public int Id { get; set; }
         public string Sale_No { get; set; }
@@ -20,6 +20,20 @@ namespace Sales_Inventory.Models
         public List<Sale_Products> sale_Products { get; set; }
         public List<SelectListItem> ProductList { get; set; }
         public List<SelectListItem> SaleTo { get; set; }
-        public List<SalesViewModel> List { get; set; }
+        public List<SalesModel> List { get; set; }
+    }
+
+    public class Sale_Products
+    {
+        public int Id { get; set; }
+        public string Sale_No { get; set; }
+        public string Item { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal Damaged { get; set; }
+        public decimal FinalQty { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     }
 }

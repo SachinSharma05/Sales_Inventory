@@ -9,7 +9,7 @@ namespace Sales_Inventory.Models
     {
         public int Id { get; set; }
         public string Sale_No { get; set; }
-        public string ItemName { get; set; }
+        public string Item { get; set; }
         public decimal Quantity { get; set; }
         public decimal Damaged { get; set; }
         public decimal FinalQty { get; set; }

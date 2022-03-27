@@ -1,4 +1,4 @@
-﻿@model Sales_Inventory.Models.SalesViewModel
+﻿@model Sales_Inventory.Models.SalesModel
 
 @{ ViewBag.Title = "Invoice Print";
     Layout = ""; }
@@ -80,7 +80,7 @@
                             {
                                 <tr>
                                     <td></td>
-                                    <td>@item.ItemName</td>
+                                    <td>@item.Item</td>
                                     <td>@item.Quantity</td>
                                     <td>@item.Price</td>
                                     <td>@item.Total</td>

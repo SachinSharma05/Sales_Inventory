@@ -22,7 +22,7 @@ public partial class Sale_Product
 
     public string Sale_No { get; set; }
 
-    public string ItemName { get; set; }
+    public string Item { get; set; }
 
     public Nullable<decimal> Quantity { get; set; }
 

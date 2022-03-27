@@ -1,4 +1,4 @@
-﻿@model Sales_Inventory.Models.SalesViewModel
+﻿@model Sales_Inventory.Models.SalesModel
 
 @{ ViewBag.Title = "Edit Sale";
                 Layout = "~/Views/Shared/_Layout.cshtml"; }
@@ -70,7 +70,7 @@
                                 {
                                     index = index + 1;
                                     <tr>
-                                        <td><input type="text" id="txtItemName_@index" class="form-control" value="@item.ItemName" /></td>
+                                        <td><input type="text" id="txtItemName_@index" class="form-control" value="@item.Item" /></td>
                                         <td><input type="text" id="txtQuantity_@index" class="form-control" value="@item.Quantity" /></td>
                                         <td><input type="text" id="txtDamaged_@index" onkeyup="finalQty(@index)" class="form-control" value="@item.Damaged" /></td>
                                         <td><input type="text" id="txtFinalQty_@index" class="form-control" value="@item.FinalQty" readonly /></td>
@@ -124,7 +124,7 @@
             var row = tBody.insertRow(-1);
 
             var cell = $(row.insertCell(-1));
-            cell.append(CreateTextBox('txtItemName', id, ddlProductName.val(), false, null));
+            cell.append(CreateTextBox('txtItem', id, ddlProductName.val(), false, null));
 
             //Add Quantity cell.
             var cell = $(row.insertCell(-1));
@@ -162,6 +162,7 @@
             txtFinalQty.val("");
             txtPrice.val("");
             txtTotal.val("");
+            $('#test').text(0);
         });
 
         function CreateTextBox(name, id, value, isreadonly, eventname) {
@@ -199,7 +200,7 @@
             $("#tblProducts TBODY TR").each(function () {
                 var row = $(this);
                 var product = {};
-                product.ItemName = $(this).find("td:eq(0) input[type='text']").val();
+                product.Item = $(this).find("td:eq(0) input[type='text']").val();
                 product.Quantity = $(this).find("td:eq(1) input[type='text']").val();
                 product.Damaged = $(this).find("td:eq(2) input[type='text']").val();
                 product.FinalQty = $(this).find("td:eq(3) input[type='text']").val();
@@ -236,7 +237,7 @@
             });
         });
 
-        $("body").on("change", function () {
+        $("#ddlProductName").on("change", function () {
             debugger;
             var data = new FormData();
             data.append('itemName', $("#ddlProductName").val());
