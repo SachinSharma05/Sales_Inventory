@@ -233,7 +233,9 @@
 
     $('#saleDate').datepicker({
         autoclose: true,
-        dateFormat: "dd/mm/yy"
+        dateFormat: "dd/mm/yy",
+        orientation: "down",
+        endDate: "today"
     });
 
     $('#txtPrice').keyup(function () {

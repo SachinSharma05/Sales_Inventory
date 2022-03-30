@@ -1,4 +1,4 @@
-﻿@model Sales_Inventory.Models.PurchaseViewModel
+﻿@model Sales_Inventory.Models.PurchaseModel
 
 @{
     ViewBag.Title = "Create Purchase";
@@ -74,7 +74,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control required", @id = "txtItemName", type = "option" })</td>
+                                    <td>@Html.DropDownList("MyProducts", new SelectList(Model.ProductList, "Text", "Text"), new { @class = "form-control", @id = "txtItemName", type = "option" })</td>
                                     <td><input type="text" id="txtQuantity" class="form-control" /></td>
                                     <td><input type="text" id="txtDamaged" class="form-control" /></td>
                                     <td><input type="text" id="txtFinalQty" class="form-control" readonly /></td>
@@ -100,7 +100,6 @@
     <script type="text/javascript">
 
         $("body").on("click", "#btnAdd", function () {
-        //Reference the Name and Country TextBoxes.
         var txtItemName = $("#txtItemName");
         var txtQuantity = $("#txtQuantity");
         var txtDamaged = $("#txtDamaged");

@@ -4,7 +4,30 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="active"><a href="/Home/Index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li><a href="/Purchase/List"><i class="fa fa-shopping-cart"></i> <span>Purchase</span></a></li>
-            <li><a href="/Sales/List"><i class="fa fa-briefcase"></i> <span>Sales</span></a></li>
+            @*<li class="treeview">
+                <a href="#">
+                    <i class="fa fa-shopping-cart"></i> <span>Purchase</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Purchase/List"><i class="fa fa-shopping-cart"></i> <span>Purchase List</span></a></li>
+                    <li><a href="/Purchase/List?Type=2"><i class="fa fa-circle-o"></i> <span>Closed Purchase List</span></a></li>
+                </ul>
+            </li>*@
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-briefcase"></i> <span>Sales</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Sales/List"><i class="fa fa-circle-o"></i> <span>Open Sales List</span></a></li>
+                    <li><a href="/Sales/List"><i class="fa fa-circle-o"></i> <span>Closed Sales List</span></a></li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dollar"></i> <span>Payment</span>
@@ -27,7 +50,7 @@
                 <ul class="treeview-menu">
                     <li><a href="/AdvancePayment/List"><i class="fa fa-circle-o"></i> <span>Advance Payment</span></a></li>
                     <li><a href="/MiscExpenses/List"><i class="fa fa-circle-o"></i> <span>Miscellaneous Expenses</span></a></li>
-                    <li><a href="/Common/CreditList"><i class="fa fa-dollar"></i> <span>Credit Transactions</span></a></li>
+                    <li><a href="/Common/CreditList"><i class="fa fa-circle-o"></i> <span>Credit Transactions</span></a></li>
                 </ul>
             </li>
             <li><a href="/Common/DayCashBook"><i class="fa fa-th"></i> <span>Day Cash Book</span></a></li>

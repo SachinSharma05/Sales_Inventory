@@ -214,7 +214,9 @@
         //Date picker
         $('#purchaseDate').datepicker({
             autoclose: true,
-            dateFormat: "dd-mm-yy"
+            dateFormat: "dd-mm-yy",
+            orientation: "down",
+            endDate: "today"
         }).val();
 
         $('#txtPrice').keyup(function () {

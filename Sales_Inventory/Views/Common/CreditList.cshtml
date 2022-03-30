@@ -121,7 +121,9 @@
 
         $('#creditDate').datepicker({
             autoclose: true,
-            dateFormat: "dd/mm/yy"
+            dateFormat: "dd/mm/yy",
+            orientation: "down",
+            endDate: "today"
         });
 
         $("body").on("click", "#btnSave", function () {

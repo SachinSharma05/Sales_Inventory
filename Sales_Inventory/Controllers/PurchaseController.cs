@@ -24,7 +24,7 @@ namespace Sales_Inventory.Controllers
         public List<PurchaseModel> GetPurchaseList()
         {
             List<PurchaseModel> PurchaseList = new List<PurchaseModel>();
-            var list = worker.PurchaseEntity.Get().ToList();
+            var list = worker.PurchaseEntity.Get(x => x.Balance > 0).ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
@@ -43,7 +43,6 @@ namespace Sales_Inventory.Controllers
             }
             return PurchaseList;
         }
-
         public List<SelectListItem> GetPurchaseName()
         {
             var query = worker.PurchaseEntity.Get().Distinct().ToList();
