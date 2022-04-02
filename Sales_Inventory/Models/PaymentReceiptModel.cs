@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
-    public class PaymentReceiptViewModel
+    public class PaymentReceiptModel
     {
         public int Id { get; set; }
         public string ReceiptNo { get; set; }
@@ -27,6 +27,6 @@ namespace Sales_Inventory.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> PaymentReceiptName { get; set; }
-        public List<PaymentReceiptViewModel> List { get; set; }
+        public List<PaymentReceiptModel> List { get; set; }
     }
 }

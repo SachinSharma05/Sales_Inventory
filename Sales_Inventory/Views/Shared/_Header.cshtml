@@ -1,6 +1,95 @@
 ﻿<header class="main-header">
-    <!-- Logo -->
-    <a href="/Home/Index" class="logo">
+    <nav class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand"><b>Jaiswal </b>Scrap</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home/Index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/Purchase/List"><i class="fa fa-shopping-cart"></i> <span>Purchase</span></a></li>
+                    <li><a href="/Sales/List"><i class="fa fa-briefcase"></i> <span>Sales</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Payment <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Payment/List"><i class="fa fa-circle-o"></i> <span>Payment Voucher</span></a></li>
+                            <li><a href="/PaymentReceipt/List"><i class="fa fa-circle-o"></i> <span>Payment Receipt</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">General Transactions <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/AdvancePayment/List"><i class="fa fa-circle-o"></i> <span>Advance Payment</span></a></li>
+                            <li><a href="/MiscExpenses/List"><i class="fa fa-circle-o"></i> <span>Miscellaneous Expenses</span></a></li>
+                            <li><a href="/Common/CreditList"><i class="fa fa-circle-o"></i> <span>Credit Transactions</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stock Details <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="" data-toggle="modal" data-target="#AddNewProduct"><i class="fa fa-plus"></i> <span>Add New Product</span></a></li>
+                            <li><a href="/Common/TotalStockList"><i class="fa fa-laptop"></i> <span>Total Current Stock</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Common/DayCashBook"><i class="fa fa-th"></i> <span>Day Cash Book</span></a></li>
+                    <li><a href="/InHouse/List"><i class="fa fa-edit"></i> <span>In-House Transaction</span></a></li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs"><strong>@Session["Fullname"]</strong></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="/Employee/Edit" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+@using (Html.BeginForm("AddNewProduct", "Common", FormMethod.Post))
+{
+    <div class="modal fade bd-example-modal-lg" id="AddNewProduct">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Create New Product</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6">
+                                <label>Product Name</label>
+                                <input type="text" id="Product" name="Product" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button type="submit" id="btnSaveProduct" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!--<header class="main-header">-->
+<!-- Logo -->
+<!--<a href="/Home/Index" class="logo">
         <span class="logo-mini"><b>JS</b></span>
         <span class="logo-lg"><b>Sales </b>Inventory</span>
     </a>
@@ -29,4 +118,4 @@
             </ul>
         </div>
     </nav>
-</header>
+</header>-->

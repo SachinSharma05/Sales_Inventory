@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
-    public class PaymentViewModel
+    public class PaymentModel
     {
         public int Id { get; set; }
         public string Purchase_No { get; set; }
@@ -27,6 +27,6 @@ namespace Sales_Inventory.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> PaymentName { get; set; }
-        public List<PaymentViewModel> List { get; set; }
+        public List<PaymentModel> List { get; set; }
     }
 }

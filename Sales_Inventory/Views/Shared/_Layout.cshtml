@@ -17,17 +17,17 @@
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple-light layout-top-nav">
 
     <div class="wrapper">
 
         @Html.Partial("_Header")
 
-        @Html.Partial("_Sidebar")
+        @*@Html.Partial("_Sidebar")*@
 
         @RenderBody()
 
-        @Html.Partial("_Footer")
+        @*@Html.Partial("_Footer")*@
 
     </div>
 

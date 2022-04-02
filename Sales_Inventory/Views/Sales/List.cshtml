@@ -12,13 +12,13 @@
 </style>
 
 <div class="content-wrapper">
-    <section class="content-header">
+    @*<section class="content-header">
         <h1>Sales List</h1>
         <ol class="breadcrumb">
             <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">List</li>
         </ol>
-    </section>
+    </section>*@
 
     <section class="content">
         <div class="row">
@@ -38,7 +38,7 @@
                                     @Html.DropDownList("SaleTo", new SelectList(Model.SaleTo, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Start Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -56,10 +56,11 @@
                                     <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label>Action:</label><br />
                                 <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
                                 <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                                <input type="submit" class="btn btn-success" value="Show Paid List" id="btnPaid" />
                             </div>
                         </div>
                     </div>
@@ -84,7 +85,7 @@
                 'info': true,
                 'autoWidth': false
             })
-        })
+        });
 
         $('#startdatepicker').datepicker({
             autoclose: true,
@@ -110,6 +111,20 @@
                 type: "POST",
                 url: "/Sales/SearchList",
                 data: data,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    if (result) {
+                        $('#SearchList').html(result);
+                    }
+                }
+            });
+        });
+
+        $("body").on("click", "#btnPaid", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Sales/GetPaidSaleList",
                 processData: false,
                 contentType: false,
                 success: function (result) {

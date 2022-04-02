@@ -7,7 +7,7 @@ namespace Sales_Inventory.Models
 {
     public class CommonModel
     {
-        public List<StockViewModel> stockViewModels { get; set; }
+        public List<StockModel> stockViewModels { get; set; }
         public List<PurchaseModel> purchaseViewModels { get; set; }
     }
 

@@ -1,17 +1,17 @@
-﻿@model Sales_Inventory.Models.PaymentReceiptViewModel
+﻿@model Sales_Inventory.Models.PaymentReceiptModel
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    @*<section class="content-header">
         <h1>Edit Payment Receipt</h1>
         <ol class="breadcrumb">
             <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="@Url.Action("List", "PaymentReceipt")"><i class="fa fa-calendar"></i> Payment Receipt List</a></li>
             <li class="active">Create</li>
         </ol>
-    </section>
+    </section>*@
 
     <section class="content">
         @using (Html.BeginForm("Edit", "PaymentReceipt", FormMethod.Post, new { enctype = "multipart/form-data" }))

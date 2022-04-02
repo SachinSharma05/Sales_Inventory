@@ -216,18 +216,17 @@
     <Compile Include="Models\DayCashModel.cs" />
     <Compile Include="Models\InHouseViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\MiscExpensesViewModel.cs" />
-    <Compile Include="Models\PaymentReceiptViewModel.cs" />
-    <Compile Include="Models\PaymentViewModel.cs" />
+    <Compile Include="Models\MiscExpensesModel.cs" />
+    <Compile Include="Models\PaymentReceiptModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ProductTypeSelectListModel.cs" />
-    <Compile Include="Models\PurchaseViewModel.cs" />
-    <Compile Include="Models\SalesViewModel.cs" />
-    <Compile Include="Models\StockViewModel.cs" />
+    <Compile Include="Models\PurchaseModel.cs" />
+    <Compile Include="Models\SalesModel.cs" />
+    <Compile Include="Models\StockModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\adminltemvc.png" />
     <Content Include="Content\adminlte\css\AdminLTE.css" />
     <Content Include="Content\adminlte\css\adminlte.css.map" />
     <Content Include="Content\adminlte\css\AdminLTE.min.css" />
@@ -266,34 +265,6 @@
     <Content Include="Content\adminlte\css\skins\skin-yellow.min.css" />
     <Content Include="Content\adminlte\css\skins\_all-skins.css" />
     <Content Include="Content\adminlte\css\skins\_all-skins.min.css" />
-    <Content Include="Content\adminlte\img\avatar.png" />
-    <Content Include="Content\adminlte\img\avatar04.png" />
-    <Content Include="Content\adminlte\img\avatar2.png" />
-    <Content Include="Content\adminlte\img\avatar3.png" />
-    <Content Include="Content\adminlte\img\avatar5.png" />
-    <Content Include="Content\adminlte\img\boxed-bg.jpg" />
-    <Content Include="Content\adminlte\img\boxed-bg.png" />
-    <Content Include="Content\adminlte\img\credit\american-express.png" />
-    <Content Include="Content\adminlte\img\credit\cirrus.png" />
-    <Content Include="Content\adminlte\img\credit\mastercard.png" />
-    <Content Include="Content\adminlte\img\credit\mestro.png" />
-    <Content Include="Content\adminlte\img\credit\paypal.png" />
-    <Content Include="Content\adminlte\img\credit\paypal2.png" />
-    <Content Include="Content\adminlte\img\credit\visa.png" />
-    <Content Include="Content\adminlte\img\default-50x50.gif" />
-    <Content Include="Content\adminlte\img\icons.png" />
-    <Content Include="Content\adminlte\img\photo1.png" />
-    <Content Include="Content\adminlte\img\photo2.png" />
-    <Content Include="Content\adminlte\img\photo3.jpg" />
-    <Content Include="Content\adminlte\img\photo4.jpg" />
-    <Content Include="Content\adminlte\img\user1-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user2-160x160.jpg" />
-    <Content Include="Content\adminlte\img\user3-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user4-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user5-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user6-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user7-128x128.jpg" />
-    <Content Include="Content\adminlte\img\user8-128x128.jpg" />
     <Content Include="DAL\SalesInventoryModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SalesInventoryModel.Context.cs</LastGenOutput>

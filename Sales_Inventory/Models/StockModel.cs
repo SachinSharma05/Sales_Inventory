@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sales_Inventory.Models
 {
-    public class StockViewModel
+    public class StockModel
     {
         public int Id { get; set; }
         public string Product { get; set; }
@@ -14,6 +14,6 @@ namespace Sales_Inventory.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<SelectListItem> ProductName { get; set; }
-        public List<StockViewModel> List { get; set; }
+        public List<StockModel> List { get; set; }
     }
 }

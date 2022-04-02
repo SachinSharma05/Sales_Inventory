@@ -15,20 +15,20 @@ namespace Sales_Inventory.Controllers
         #region Payment Receipt List
         public ActionResult List()
         {
-            PaymentReceiptViewModel model = new PaymentReceiptViewModel();
+            PaymentReceiptModel model = new PaymentReceiptModel();
             model.PaymentReceiptName = GetPaymentReceiptName();
             model.List = GetPaymentReceiptList();
             return View(model);
         }
-        public List<PaymentReceiptViewModel> GetPaymentReceiptList()
+        public List<PaymentReceiptModel> GetPaymentReceiptList()
         {
-            List<PaymentReceiptViewModel> PaymentReceiptList = new List<PaymentReceiptViewModel>();
+            List<PaymentReceiptModel> PaymentReceiptList = new List<PaymentReceiptModel>();
             var list = worker.PaymentReceiptEntity.Get().ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    PaymentReceiptList.Add(new PaymentReceiptViewModel
+                    PaymentReceiptList.Add(new PaymentReceiptModel
                     {
                         Id = item.Id,
                         ReceiptNo = item.ReceiptNo,
@@ -62,7 +62,7 @@ namespace Sales_Inventory.Controllers
         #region Create Payment Receipt
         public ActionResult Create(int Id)
         {
-            PaymentReceiptViewModel model = new PaymentReceiptViewModel();
+            PaymentReceiptModel model = new PaymentReceiptModel();
             model.Id = Id;
             var data = worker.SaleEntity.GetByID(model.Id);
             model.ReceivedFrom = data.Sale_To;
@@ -72,7 +72,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PaymentReceiptViewModel model)
+        public ActionResult Create(PaymentReceiptModel model)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                PaymentReceiptViewModel model = new PaymentReceiptViewModel();
+                PaymentReceiptModel model = new PaymentReceiptModel();
                 var paymentReceipt = worker.PaymentReceiptEntity.GetByID(Id);
                 model.ReceiptNo = paymentReceipt.ReceiptNo;
                 model.ReceivedDate = paymentReceipt.ReceivedDate;
@@ -137,7 +137,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(PaymentReceiptViewModel model)
+        public ActionResult Edit(PaymentReceiptModel model)
         {
             if (ModelState.IsValid)
             {
@@ -198,7 +198,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<PaymentReceiptViewModel> model = new List<PaymentReceiptViewModel>();
+                List<PaymentReceiptModel> model = new List<PaymentReceiptModel>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
@@ -207,7 +207,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate >= SDate && x.ReceivedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -225,7 +225,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -243,7 +243,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName && x.ReceivedDate == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -261,7 +261,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate >= SDate && x.ReceivedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -279,7 +279,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedFrom == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -297,7 +297,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,
@@ -315,7 +315,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentReceiptEntity.Get(x => x.ReceivedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentReceiptViewModel
+                        model.Add(new PaymentReceiptModel
                         {
                             Id = item.Id,
                             ReceiptNo = item.ReceiptNo,

@@ -16,20 +16,20 @@ namespace Sales_Inventory.Controllers
         #region Payment List
         public ActionResult List()
         {
-            PaymentViewModel model = new PaymentViewModel();
+            PaymentModel model = new PaymentModel();
             model.PaymentName = GetPaymentName();
             model.List = GetPaymentList();
             return View(model);
         }
-        public List<PaymentViewModel> GetPaymentList()
+        public List<PaymentModel> GetPaymentList()
         {
-            List<PaymentViewModel> PaymentList = new List<PaymentViewModel>();
+            List<PaymentModel> PaymentList = new List<PaymentModel>();
             var list = worker.PaymentEntity.Get().ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    PaymentList.Add(new PaymentViewModel
+                    PaymentList.Add(new PaymentModel
                     {
                         Id = item.Id,
                         Purchase_No = item.Purchase_No,
@@ -62,7 +62,7 @@ namespace Sales_Inventory.Controllers
         #region Create Payment
         public ActionResult Create(int Id)
         {
-            PaymentViewModel model = new PaymentViewModel();
+            PaymentModel model = new PaymentModel();
             model.Id = Id;
             var data = worker.PurchaseEntity.GetByID(model.Id);
             model.Total_Payment_Amount = (decimal)(data.Balance != null ? data.Balance : data.GrossTotal);
@@ -72,7 +72,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PaymentViewModel model)
+        public ActionResult Create(PaymentModel model)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                PaymentViewModel model = new PaymentViewModel();
+                PaymentModel model = new PaymentModel();
                 var payment = worker.PaymentEntity.GetByID(Id);
                 model.Purchase_No = payment.Purchase_No;
                 model.Payment_To = payment.Payment_To;
@@ -144,7 +144,7 @@ namespace Sales_Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(PaymentViewModel model)
+        public ActionResult Edit(PaymentModel model)
         {
             if (ModelState.IsValid)
             {
@@ -210,7 +210,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<PaymentViewModel> model = new List<PaymentViewModel>();
+                List<PaymentModel> model = new List<PaymentModel>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
@@ -219,7 +219,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date >= SDate && x.Payment_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -236,7 +236,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -253,7 +253,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName && x.Payment_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -270,7 +270,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_Date == SDate && x.Payment_Date == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -287,7 +287,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_To == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -304,7 +304,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_Date == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,
@@ -321,7 +321,7 @@ namespace Sales_Inventory.Controllers
                     var list = worker.PaymentEntity.Get(x => x.Payment_Date <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new PaymentViewModel
+                        model.Add(new PaymentModel
                         {
                             Id = item.Id,
                             Purchase_No = item.Purchase_No,

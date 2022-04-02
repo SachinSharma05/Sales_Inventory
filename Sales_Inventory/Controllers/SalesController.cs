@@ -26,7 +26,7 @@ namespace Sales_Inventory.Controllers
         public List<SalesModel> GetSaleList()
         {
             List<SalesModel> SaleList = new List<SalesModel>();
-            var list = worker.SaleEntity.Get().ToList();
+            var list = worker.SaleEntity.Get(x => x.Balance > 0).ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
@@ -57,6 +57,29 @@ namespace Sales_Inventory.Controllers
             }));
 
             return list;
+        }
+
+        public ActionResult GetPaidSaleList()
+        {
+            List<SalesModel> SaleList = new List<SalesModel>();
+            var list = worker.SaleEntity.Get(x => x.Balance <= 0).ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    SaleList.Add(new SalesModel
+                    {
+                        Id = item.Id,
+                        Sale_No = item.Sale_No,
+                        Sale_To = item.Sale_To,
+                        Sale_To_Phone = item.Sale_To_Phone,
+                        Sale_Date = item.Sale_Date,
+                        GrossTotal = (decimal)item.GrossTotal,
+                        Balance = (decimal)item.Balance
+                    });
+                }
+            }
+            return PartialView("_SearchList", SaleList);
         }
         #endregion
 

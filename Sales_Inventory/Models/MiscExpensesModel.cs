@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Sales_Inventory.Models
 {
-    public class MiscExpensesViewModel
+    public class MiscExpensesModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,6 @@ namespace Sales_Inventory.Models
         public string ExpenseReason { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public List<MiscExpensesViewModel> ExpensesList { get; set; }
+        public List<MiscExpensesModel> ExpensesList { get; set; }
     }
 }

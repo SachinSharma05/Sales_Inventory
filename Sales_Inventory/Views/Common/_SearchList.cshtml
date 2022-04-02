@@ -1,4 +1,4 @@
-﻿@model List<Sales_Inventory.Models.StockViewModel>
+﻿@model List<Sales_Inventory.Models.Purchase_Products>
 
 <style type="text/css">
     body {
@@ -30,8 +30,8 @@
             {
                 <tr>
                     <td></td>
-                    <td>@item.Product</td>
-                    <td>@item.TotalQuantity</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
                     <td>@String.Format(@"{0:dd\/MM\/yyyy}", item.CreatedDate)</td>
                 </tr>
             }

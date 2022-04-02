@@ -56,6 +56,29 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
+
+        public ActionResult GetPaidPurchaseList()
+        {
+            List<PurchaseModel> PurchaseList = new List<PurchaseModel>();
+            var list = worker.PurchaseEntity.Get(x => x.Balance <= 0).ToList();
+            if (list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    PurchaseList.Add(new PurchaseModel
+                    {
+                        Id = item.Id,
+                        Purchase_No = item.Purchase_No,
+                        Purchase_From = item.Purchase_From,
+                        Purchase_From_Phone = item.Purchase_From_Phone,
+                        Purchase_Date = item.Purchase_Date,
+                        GrossTotal = (decimal)item.GrossTotal,
+                        Balance = (decimal)item.Balance
+                    });
+                }
+            }
+            return PartialView("_SearchList", PurchaseList);
+        }
         #endregion
 
         #region Create Purchase

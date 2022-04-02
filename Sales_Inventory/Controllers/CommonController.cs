@@ -89,7 +89,7 @@ namespace Sales_Inventory.Controllers
         #region Total Stock
         public ActionResult TotalStockList()
         {
-            StockViewModel model = new StockViewModel();
+            Purchase_Products model = new Purchase_Products();
             model.ProductName = GetProductTypeList();
             model.List = GetStockList();
             return View(model);
@@ -109,19 +109,19 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
-        public List<StockViewModel> GetStockList()
+        public List<Purchase_Products> GetStockList()
         {
-            List<StockViewModel> StockList = new List<StockViewModel>();
-            var list = worker.StockEntity.Get().ToList();
+            List<Purchase_Products> StockList = new List<Purchase_Products>();
+            var list = worker.PurchaseProductEntity.Get().ToList();
             if (list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    StockList.Add(new StockViewModel
+                    StockList.Add(new Purchase_Products
                     {
                         Id = item.Id,
-                        Product = item.Product,
-                        TotalQuantity = item.TotalQuantity,
+                        ItemName = item.ItemName,
+                        Quantity = (decimal)item.Quantity,
                         CreatedDate = item.CreatedDate
                     });
                 }
@@ -132,104 +132,104 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
-                List<StockViewModel> model = new List<StockViewModel>();
+                List<Purchase_Products> model = new List<Purchase_Products>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
 
                 if (PurchaseName != "" && StartDate != "" && EndDate != "")
                 {
-                    var list = worker.StockEntity.Get(x => x.Product == PurchaseName && x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (PurchaseName != "" && StartDate != "" && EndDate == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.Product == PurchaseName && x.CreatedDate == SDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (PurchaseName != "" && EndDate != "" && StartDate == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.Product == PurchaseName && x.CreatedDate == EDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName && x.CreatedDate == EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (StartDate != "" && EndDate != "" && PurchaseName == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate >= SDate && x.CreatedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (PurchaseName != null && StartDate == "" && EndDate == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.Product == PurchaseName).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.ItemName == PurchaseName).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (StartDate != "" && PurchaseName == "" && EndDate == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.CreatedDate == SDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate == SDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
                 }
                 else if (EndDate != "" && StartDate == "" && PurchaseName == "")
                 {
-                    var list = worker.StockEntity.Get(x => x.CreatedDate <= EDate).ToList();
+                    var list = worker.PurchaseProductEntity.Get(x => x.CreatedDate <= EDate).ToList();
                     foreach (var item in list)
                     {
-                        model.Add(new StockViewModel
+                        model.Add(new Purchase_Products
                         {
                             Id = item.Id,
-                            Product = item.Product,
-                            TotalQuantity = item.TotalQuantity,
+                            ItemName = item.ItemName,
+                            Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
                     }
