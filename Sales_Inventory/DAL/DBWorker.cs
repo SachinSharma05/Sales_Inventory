@@ -204,21 +204,6 @@ namespace Sales_Inventory.DAL
         }
         #endregion
 
-        #region [Stock]
-        private GenericRepository<Stock> stockEntity;
-        public GenericRepository<Stock> StockEntity
-        {
-            get
-            {
-                if (this.stockEntity == null)
-                {
-                    this.stockEntity = new GenericRepository<Stock>(context);
-                }
-                return stockEntity;
-            }
-        }
-        #endregion
-
         #region [Product Type]
         private GenericRepository<ProductType> productTypeEntity;
         public GenericRepository<ProductType> ProductTypeEntity

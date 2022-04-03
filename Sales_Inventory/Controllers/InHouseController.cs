@@ -56,10 +56,10 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetPaidBy()
         {
-            var query = worker.InHouseTransactionEntity.Get().ToList();
-
+            var query = worker.InHouseTransactionEntity.Get().GroupBy(x => x.PaidBy).Select(g => g.First());
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.PaidBy

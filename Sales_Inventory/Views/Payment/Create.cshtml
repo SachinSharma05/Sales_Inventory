@@ -16,8 +16,7 @@
     </section>*@
 
     <section class="content">
-        <div class="row">
-            @using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(m => m.Id, Model.Id)
@@ -171,7 +170,6 @@
                     <a href="@Url.Action("List", "Payment")" class="btn btn-default">Cancel</a>
                 </div>
             }
-        </div>
     </section>
 </div>
 

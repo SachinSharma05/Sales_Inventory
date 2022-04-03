@@ -26,8 +26,8 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-default">
-                    <div class="box-header with-border">
+                <div class="box box-primary">
+                    <div class="box-header">
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Payment By:</label>
@@ -82,7 +82,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "paidDate" })
+                                    @Html.TextBoxFor(m => m.PaidDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter paid Date", @id = "paidDate" })
                                     @Html.ValidationMessageFor(m => m.PaidDate)
                                 </div>
                             </div>
@@ -100,7 +100,6 @@
                                 <input type="submit" class="btn btn-primary" value="Create" id="btnSave" />
                             </div>
                         </div>
-                        
                     </div>
                     <div id="SearchList">
                         @Html.Partial("_SearchList", Model.List)
@@ -139,9 +138,19 @@
             endDate: "today"
         });
 
-        $("#paidDate").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
+        $("#paidDate").datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy",
+            orientation: "down",
+            endDate: "today"
+        });
 
-        $("#voucherDate").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
+        $("#voucherDate").datepicker({
+            autoclose: true,
+            dateFormat: "dd/mm/yy",
+            orientation: "down",
+            endDate: "today"
+        });
 
         $("body").on("click", "#btnSave", function () {
         //Loop through the Table rows and build a JSON array.
@@ -260,7 +269,7 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="form-group">
                                 <label>Payment Date</label>
-                                @Html.TextBoxFor(m => m.model.PaymentDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = "readonly", @id = "voucherDate" })
+                                @Html.TextBoxFor(m => m.model.PaymentDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "voucherDate" })
                                 @Html.ValidationMessageFor(m => m.model.PaymentDate)
                             </div>
                         </div>

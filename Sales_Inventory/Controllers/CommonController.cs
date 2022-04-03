@@ -10,7 +10,9 @@ namespace Sales_Inventory.Controllers
 {
     public class CommonController : BaseController
     {
+        #region
         DBWorker worker = new DBWorker();
+        #endregion
 
         #region Day Cash Book
         public ActionResult DayCashBook()
@@ -96,10 +98,10 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetProductTypeList()
         {
-            var query = worker.ProductTypeEntity.Get().ToList().OrderBy(x => x.Product);
-
+            var query = worker.ProductTypeEntity.Get().GroupBy(x => x.Product).Select(g => g.First()).OrderBy(x => x.Product);
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.Product
@@ -132,6 +134,7 @@ namespace Sales_Inventory.Controllers
         {
             try
             {
+                decimal TotalStock = 0;
                 List<Purchase_Products> model = new List<Purchase_Products>();
                 var SDate = StartDate != "" ? Convert.ToDateTime(StartDate).Date : DateTime.Now;
                 var EDate = EndDate != "" ? Convert.ToDateTime(EndDate).Date : DateTime.Now;
@@ -148,6 +151,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (PurchaseName != "" && StartDate != "" && EndDate == "")
@@ -162,6 +166,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (PurchaseName != "" && EndDate != "" && StartDate == "")
@@ -176,6 +181,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (StartDate != "" && EndDate != "" && PurchaseName == "")
@@ -190,6 +196,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (PurchaseName != null && StartDate == "" && EndDate == "")
@@ -204,6 +211,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (StartDate != "" && PurchaseName == "" && EndDate == "")
@@ -218,6 +226,7 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
                 else if (EndDate != "" && StartDate == "" && PurchaseName == "")
@@ -232,9 +241,10 @@ namespace Sales_Inventory.Controllers
                             Quantity = (decimal)item.Quantity,
                             CreatedDate = item.CreatedDate
                         });
+                        TotalStock += (decimal)item.Quantity;
                     }
                 }
-
+                ViewBag.TotalStock = TotalStock;
                 return PartialView("_SearchList", model);
             }
             catch (Exception ex)

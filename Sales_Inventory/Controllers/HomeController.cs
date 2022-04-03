@@ -10,7 +10,9 @@ namespace Sales_Inventory.Controllers
 {
     public class HomeController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
         #region Dashboard
         public ActionResult Index()

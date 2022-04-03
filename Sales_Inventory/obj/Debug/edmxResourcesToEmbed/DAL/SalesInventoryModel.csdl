@@ -11,7 +11,6 @@
     <EntitySet Name="Purchase_Product" EntityType="Sales_InventoryModel.Purchase_Product" />
     <EntitySet Name="Roles" EntityType="Sales_InventoryModel.Role" />
     <EntitySet Name="Sales" EntityType="Sales_InventoryModel.Sale" />
-    <EntitySet Name="Stocks" EntityType="Sales_InventoryModel.Stock" />
     <EntitySet Name="Users" EntityType="Sales_InventoryModel.User" />
     <EntitySet Name="InHouses" EntityType="Sales_InventoryModel.InHouse" />
     <EntitySet Name="InHouseVouchers" EntityType="Sales_InventoryModel.InHouseVoucher" />
@@ -156,16 +155,6 @@
     <Property Name="Sale_Date" Type="DateTime" Precision="0" />
     <Property Name="GrossTotal" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="Stock">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="TotalQuantity" Type="Int32" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
   </EntityType>

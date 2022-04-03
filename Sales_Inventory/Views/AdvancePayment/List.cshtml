@@ -23,76 +23,82 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box">
+                <div class="box box-primary">
                     <div class="box-body">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Advance To</label>
-                                @Html.TextBoxFor(m => m.Advance_To, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "AdvanceTo" })
-                                @Html.ValidationMessageFor(m => m.Advance_To)
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6">
+                                <div class="form-group">
+                                    <label>Advance To</label>
+                                    @Html.TextBoxFor(m => m.Advance_To, new { @class = "form-control required", placeholder = "Enter Expense Name", @id = "AdvanceTo" })
+                                    @Html.ValidationMessageFor(m => m.Advance_To)
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <div class="form-group">
+                                    <label>Advance Amount</label>
+                                    @Html.TextBoxFor(m => m.Advance_Amount, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "AdvanceAmt" })
+                                    @Html.ValidationMessageFor(m => m.Advance_Amount)
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>Advance Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(m => m.Advance_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "AdvanceDate" })
+                                        @Html.ValidationMessageFor(m => m.Advance_Date)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label>Advance Reason</label>
+                                    @Html.TextBoxFor(m => m.Advance_Against, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "AdvanceAgainst" })
+                                    @Html.ValidationMessageFor(m => m.Advance_Against)
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <div class="form-group">
+                                    <label>Action</label><br />
+                                    <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
+                                    <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Advance Amount</label>
-                                @Html.TextBoxFor(m => m.Advance_Amount, new { @class = "form-control required", placeholder = "Enter Expense Amount", @id = "AdvanceAmt" })
-                                @Html.ValidationMessageFor(m => m.Advance_Amount)
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Advance Date</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Advance To:</label>
                                 <div class="input-group">
+                                    @Html.DropDownList("AdvanceToList", new SelectList(Model.AdvanceTo, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Start Date:</label>
+                                <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.TextBoxFor(m => m.Advance_Date, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Enter Expense Date dd/mm/yyyy", @id = "AdvanceDate" })
-                                    @Html.ValidationMessageFor(m => m.Advance_Date)
+                                    <input type="text" class="form-control pull-right" id="startdatepicker" placeholder="Select Start Date">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-group">
-                                <label>Advance Reason</label>
-                                @Html.TextBoxFor(m => m.Advance_Against, new { @class = "form-control required", placeholder = "Enter Expense Reason", @id = "AdvanceAgainst" })
-                                @Html.ValidationMessageFor(m => m.Advance_Against)
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <input type="reset" class="btn btn-primary" value="Submit" id="btnSave" />
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="col-md-3">
-                            <label>Advance To:</label>
-                            <div class="input-group">
-                                @Html.DropDownList("AdvanceToList", new SelectList(Model.AdvanceTo, "Text", "Text"), new { @class = "form-control required", @id = "PurchaseName", type = "option" })
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Start Date:</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                            <div class="col-md-3">
+                                <label>End Date:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select End Date">
                                 </div>
-                                <input type="text" class="form-control pull-right" id="startdatepicker" placeholder="Select Start Date">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Action:</label><br />
+                                <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
+                                <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <label>End Date:</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="enddatepicker" placeholder="Select End Date">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Action:</label><br />
-                            <input type="submit" class="btn btn-primary" value="Filter" id="btnSearch" />
-                            <input type="reset" class="btn btn-warning" value="Reset" id="btnReset" />
-                        </div>
-                    </div>
+                    </div>                        
                     <div id="SearchList">
                         @Html.Partial("_SearchList", Model.List)
                     </div>

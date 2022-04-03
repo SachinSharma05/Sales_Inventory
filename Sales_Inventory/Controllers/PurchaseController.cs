@@ -11,7 +11,9 @@ namespace Sales_Inventory.Controllers
 {
     public class PurchaseController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
         #region Purchase List
         public ActionResult List()
@@ -45,10 +47,10 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetPurchaseName()
         {
-            var query = worker.PurchaseEntity.Get().Distinct().ToList();
-
+            var query = worker.PurchaseEntity.Get().GroupBy(x => x.Purchase_From).Select(g => g.First());
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.Purchase_From
@@ -56,7 +58,6 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
-
         public ActionResult GetPaidPurchaseList()
         {
             List<PurchaseModel> PurchaseList = new List<PurchaseModel>();
@@ -155,30 +156,6 @@ namespace Sales_Inventory.Controllers
                         purchase_Product.CreatedDate = DateTime.Now.Date;
                         worker.PurchaseProductEntity.Insert(purchase_Product);
                         worker.Save();
-                    }
-
-                    foreach (var item in purchase_Products)
-                    {
-                        var stockList = worker.StockEntity.Get(x => x.Product == item.ItemName).ToList();                      
-                        if(stockList.Count > 0)
-                        {
-                            Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
-                            stockItem.TotalQuantity = stockItem.TotalQuantity + Convert.ToInt32(Math.Floor(Convert.ToDouble(item.Quantity)));
-                            stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                            stockItem.CreatedDate = DateTime.Now.Date;
-                            worker.StockEntity.Update(stockItem);
-                            worker.Save();
-                        }
-                        else
-                        {
-                            Stock stock = new Stock();
-                            stock.Product = item.ItemName;
-                            stock.TotalQuantity = Convert.ToInt32(Math.Floor(Convert.ToDouble(item.Quantity)));
-                            stock.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                            stock.CreatedDate = DateTime.Now.Date;
-                            worker.StockEntity.Insert(stock);
-                            worker.Save();
-                        }
                     }
                 }
                 return RedirectToAction("List");

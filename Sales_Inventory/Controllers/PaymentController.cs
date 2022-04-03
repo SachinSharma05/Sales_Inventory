@@ -10,9 +10,10 @@ namespace Sales_Inventory.Controllers
 {
     public class PaymentController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
-        // GET: Payment
         #region Payment List
         public ActionResult List()
         {
@@ -46,10 +47,10 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetPaymentName()
         {
-            var query = worker.PaymentEntity.Get().ToList();
-
+            var query = worker.PaymentEntity.Get().GroupBy(x => x.Payment_To).Select(g => g.First());
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.Payment_To

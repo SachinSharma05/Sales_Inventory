@@ -44,14 +44,14 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetAdvanceToList()
         {
-            var query = worker.AdvanceEntity.Get().ToList();
-
+            var query = worker.AdvanceEntity.Get().GroupBy(x => x.Advance_To).Select(g => g.First());
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.Advance_To
-            }).Distinct());
+            }));
 
             ViewBag.ProductList = list;
 

@@ -1,4 +1,12 @@
-﻿<header class="main-header">
+﻿<style>
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #605ca8;
+        color: white;
+    }
+</style>
+
+<header class="main-header">
     <nav class="navbar navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -63,22 +71,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">Create New Product</h4>
+                    <h3 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Create New Product</h3>
                 </div>
                 <div class="modal-body">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-6 col-sm-6">
-                                <label>Product Name</label>
-                                <input type="text" id="Product" name="Product" class="form-control" />
-                            </div>
+                            <label>Product Name</label>
+                            <input type="text" id="Product" name="Product" class="form-control" />
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer bg-dark">
                     <button type="submit" id="btnSaveProduct" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>

@@ -5,20 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    #PurchaseName {
-        width: 150px;
-    }
-</style>
+@section Styles
+{
+    <style>
+        #PurchaseName {
+            width: 150px;
+        }
+        .modal-body {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #605ca8;
+            color: white;
+        }
+    </style>
+}
 
 <div class="content-wrapper">
     @*<section class="content-header">
-        <h1>Payment Receipt List</h1>
-        <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">List</li>
-        </ol>
-    </section>*@
+            <h1>Payment Receipt List</h1>
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active">List</li>
+            </ol>
+        </section>*@
 
     <section class="content">
         <div class="row">
@@ -28,7 +40,7 @@
                         <div class="col-md-2">
                             <label>Create:</label>
                             <div class="input-group">
-                                <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToReceived"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i>Add Payment</a>
+                                <a class="btn btn-primary pull-left" href="" data-toggle="modal" data-target="#ModalSelectPaymentToReceived"><i data-toggle="tooltip" data-original-title="Add Type" title="Add Type" class="fa fa-plus"></i> Add Payment Received</a>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -139,39 +151,34 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Balance Payment List</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
-                <div class="row">
-                    <table id="Paymentlist" class="table table-bordered table-striped">
-                        <thead>
+                <table id="Paymentlist" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sale No</th>
+                            <th>Sale To</th>
+                            <th>Sale Date</th>
+                            <th>Total Sale Amount</th>
+                            <th>Balance</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.SalesListModel)
+                        {
                             <tr>
-                                <th>Sale No</th>
-                                <th>Sale To</th>
-                                <th>Sale Date</th>
-                                <th>Total Sale Amount</th>
-                                <th>Balance</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in ViewBag.SalesListModel)
-                            {
-                                <tr>
 
-                                    <td>@item.Sale_No</td>
-                                    <td>@item.Sale_To</td>
-                                    <td>@item.Sale_Date</td>
-                                    <td>@item.GrossTotal</td>
-                                    <td>@item.Balance</td>
-                                    <td><a href="/PaymentReceipt/Create/@item.Id"><span class="label label-success">Receive Payment</span></a></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                                <td>@item.Sale_No</td>
+                                <td>@item.Sale_To</td>
+                                <td>@item.Sale_Date</td>
+                                <td>@item.GrossTotal</td>
+                                <td>@item.Balance</td>
+                                <td><a href="/PaymentReceipt/Create/@item.Id"><span class="label label-success">Receive Payment</span></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

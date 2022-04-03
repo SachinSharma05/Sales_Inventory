@@ -10,9 +10,10 @@ namespace Sales_Inventory.Controllers
 {
     public class MiscExpensesController : BaseController
     {
+        #region Variable
         DBWorker worker = new DBWorker();
+        #endregion
 
-        // GET: MiscExpenses
         #region Expenses List
         public ActionResult List()
         {

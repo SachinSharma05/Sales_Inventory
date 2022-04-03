@@ -47,10 +47,10 @@ namespace Sales_Inventory.Controllers
         }
         public List<SelectListItem> GetSaleTo()
         {
-            var query = worker.SaleEntity.Get().ToList();
-
+            var query = worker.SaleEntity.Get().GroupBy(x => x.Sale_To).Select(g => g.First());
+            var newList = query.ToList();
             var list = new List<SelectListItem> { new SelectListItem { Value = null, Text = "" } };
-            list.AddRange(query.ToList().Select(C => new SelectListItem
+            list.AddRange(newList.ToList().Select(C => new SelectListItem
             {
                 Value = C.Id.ToString(),
                 Text = C.Sale_To
@@ -58,7 +58,6 @@ namespace Sales_Inventory.Controllers
 
             return list;
         }
-
         public ActionResult GetPaidSaleList()
         {
             List<SalesModel> SaleList = new List<SalesModel>();
@@ -157,21 +156,6 @@ namespace Sales_Inventory.Controllers
                         sale_Product.CreatedDate = DateTime.Now.Date;
                         worker.SaleProductEntity.Insert(sale_Product);
                         worker.Save();
-                    }
-
-                    foreach (var item in sale_Products)
-                    {
-                        var stockList = worker.StockEntity.Get(x => x.Product == item.Item).ToList();
-                        if(stockList.Count > 0)
-                        {
-                            Stock stockItem = worker.StockEntity.GetByID(stockList[0].Id);
-                            stockItem.TotalQuantity = stockItem.TotalQuantity - Convert.ToInt32(item.Quantity);
-                            stockItem.CreatedBy = (int)System.Web.HttpContext.Current.Session["UserId"];
-                            stockItem.CreatedDate = DateTime.Now.Date;
-                            worker.StockEntity.Update(stockItem);
-                            worker.Save();
-                            continue;
-                        }
                     }
                 }
                 return RedirectToAction("List");
@@ -550,10 +534,10 @@ namespace Sales_Inventory.Controllers
             try
             {
                 decimal GrossTotal = 0;
-                var TotalStock = worker.StockEntity.Get(x => x.Product == itemName).ToList();
+                var TotalStock = worker.PurchaseProductEntity.Get(x => x.ItemName == itemName).ToList();
                 foreach (var item in TotalStock)
                 {
-                    GrossTotal += Convert.ToDecimal(item.TotalQuantity);
+                    GrossTotal += Convert.ToDecimal(item.Quantity);
                 }
                 return Json(GrossTotal, JsonRequestBehavior.AllowGet);
             }

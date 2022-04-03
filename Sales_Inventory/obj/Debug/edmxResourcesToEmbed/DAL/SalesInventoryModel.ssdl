@@ -187,16 +187,6 @@
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="date" />
   </EntityType>
-  <EntityType Name="Stock">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Product" Type="nvarchar" MaxLength="150" />
-    <Property Name="TotalQuantity" Type="int" />
-    <Property Name="CreatedBy" Type="int" />
-    <Property Name="CreatedDate" Type="date" />
-  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -230,7 +220,6 @@
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sale_Product" EntityType="Self.Sale_Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

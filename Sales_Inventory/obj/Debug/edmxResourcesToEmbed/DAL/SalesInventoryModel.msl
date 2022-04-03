@@ -153,17 +153,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Stocks">
-      <EntityTypeMapping TypeName="Sales_InventoryModel.Stock">
-        <MappingFragment StoreEntitySet="Stock">
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
-          <ScalarProperty Name="Product" ColumnName="Product" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Sales_InventoryModel.User">
         <MappingFragment StoreEntitySet="Users">
